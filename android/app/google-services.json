@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "845674230800",
+    "firebase_url": "https://handlay100mints-default-rtdb.firebaseio.com",
+    "project_id": "handlay100mints",
+    "storage_bucket": "handlay100mints.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845674230800:android:a40fbbd65fa16ff1e0c695",
+        "android_client_info": {
+          "package_name": "com.khybercoded.hundredmints.resturent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845674230800-5g8rjdh228mu8ruu7lklsft5f8dcb7lj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeKYrAf6UJPQjidYdMqWzf3XBVsQU1J3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845674230800-5g8rjdh228mu8ruu7lklsft5f8dcb7lj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845674230800:android:e9e4ad344e148167e0c695",
+        "android_client_info": {
+          "package_name": "com.khybercoded.hundredminute_seller.seller_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845674230800-5g8rjdh228mu8ruu7lklsft5f8dcb7lj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeKYrAf6UJPQjidYdMqWzf3XBVsQU1J3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845674230800-5g8rjdh228mu8ruu7lklsft5f8dcb7lj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845674230800:android:aa9ba2fb8161d7c7e0c695",
+        "android_client_info": {
+          "package_name": "com.kybercoded.handlaytayyaz_storeApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845674230800-5g8rjdh228mu8ruu7lklsft5f8dcb7lj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeKYrAf6UJPQjidYdMqWzf3XBVsQU1J3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845674230800-5g8rjdh228mu8ruu7lklsft5f8dcb7lj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
