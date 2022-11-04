@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
@@ -6,10 +7,9 @@ import 'package:provider/provider.dart';
 import 'dart:convert';
 
 class CategoryProvider extends ChangeNotifier {
-  String name1;
-  apirequest() async {
+  apirequest(String cat_id, String parent_id) async {
     var url = Uri.parse(
-        'https://bionicspharma.com/offer-barry/api/v2/seller/products/get-category-attrs?cat_id=12&parent_id=13');
+        'https://bionicspharma.com/offer-barry/api/v2/seller/products/get-category-attrs?cat_id=$cat_id&parent_id=$parent_id');
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final responsebody = json.decode(response.body);

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/images.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
+
+import '../../localization/language_constrants.dart';
+import '../../utill/dimensions.dart';
+import '../../utill/images.dart';
+import '../../utill/styles.dart';
 
 class NoDataScreen extends StatelessWidget {
 

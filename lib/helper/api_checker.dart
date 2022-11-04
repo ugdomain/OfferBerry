@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/data/model/response/base/api_response.dart';
-import 'package:hundredminute_seller/provider/auth_provider.dart';
-import 'package:hundredminute_seller/view/screens/auth/auth_screen.dart';
+
+import '../data/model/response/base/api_response.dart';
+import '../provider/auth_provider.dart';
+import '../view/screens/auth/auth_screen.dart';
 
 class ApiChecker {
   static void checkApi(BuildContext context, ApiResponse apiResponse) {

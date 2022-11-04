@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:hundredminute_seller/data/datasource/remote/exception/api_error_handler.dart';
-import 'package:hundredminute_seller/data/model/response/base/api_response.dart';
-import 'package:hundredminute_seller/data/model/response/business_model.dart';
+
+import '../datasource/remote/exception/api_error_handler.dart';
+import '../model/response/base/api_response.dart';
+import '../model/response/business_model.dart';
 
 class BusinessRepo {
   Future<ApiResponse> getBusinessList() async {

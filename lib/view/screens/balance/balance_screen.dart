@@ -1,17 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/order_provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/base/custom_app_bar.dart';
-import 'package:hundredminute_seller/view/base/custom_button.dart';
-import 'package:hundredminute_seller/view/base/custom_divider.dart';
 import 'package:hundredminute_seller/view/screens/balance/widget/complete_withdraw_dialog.dart';
-
+import 'package:provider/provider.dart';
+import '../../../localization/language_constrants.dart';
+import '../../../provider/order_provider.dart';
+import '../../../provider/theme_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/styles.dart';
+import '../../base/custom_app_bar.dart';
+import '../../base/custom_button.dart';
+import '../../base/custom_divider.dart';
 
 class BalanceScreen extends StatefulWidget {
   @override
@@ -21,7 +20,7 @@ class BalanceScreen extends StatefulWidget {
 class _BalanceScreenState extends State<BalanceScreen> {
 
   FocusNode _amountFocus = FocusNode();
-  TextEditingController _amountController;
+  TextEditingController? _amountController;
 
   @override
   void initState() {
@@ -32,7 +31,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
 
   @override
   void dispose() {
-    _amountController.dispose();
+    _amountController!.dispose();
     super.dispose();
   }
 
@@ -57,7 +56,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                 decoration: BoxDecoration(
                   color: ColorResources.getBottomSheetColor(context),
                   borderRadius: BorderRadius.circular(12),
-                  boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200], spreadRadius: 0.5, blurRadius: 0.3)],
+                  boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]as Color, spreadRadius: 0.5, blurRadius: 0.3)],
                 ),
                 child: Column( mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -75,7 +74,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                 decoration: BoxDecoration(
                   color: ColorResources.getBottomSheetColor(context),
                   borderRadius: BorderRadius.circular(12),
-                  boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200], spreadRadius: 0.5, blurRadius: 0.3)],
+                  boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]as Color, spreadRadius: 0.5, blurRadius: 0.3)],
                 ),
                 child: Column( mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -108,12 +107,12 @@ class _BalanceScreenState extends State<BalanceScreen> {
                                     color: ColorResources.getHomeBg(context),
                                     borderRadius: BorderRadius.circular(10),
                                     boxShadow: [BoxShadow(
-                                        color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200],
+                                        color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200]as Color,
                                         spreadRadius: 0.5,
                                         blurRadius: .3, offset: Offset(0,2))]
                                   ) : BoxDecoration(
                                     color: ColorResources.getHomeBg(context),
-                                    border: Border.all(width: 1, color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 300]),
+                                    border: Border.all(width: 1, color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 300]!),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
 

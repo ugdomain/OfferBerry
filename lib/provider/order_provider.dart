@@ -1,40 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:hundredminute_seller/data/model/response/base/api_response.dart';
-import 'package:hundredminute_seller/data/model/response/base/error_response.dart';
-import 'package:hundredminute_seller/data/model/response/order_details_model.dart';
-import 'package:hundredminute_seller/data/model/response/order_model.dart';
-import 'package:hundredminute_seller/data/model/response/response_model.dart';
-import 'package:hundredminute_seller/data/repository/order_repo.dart';
-import 'package:hundredminute_seller/helper/api_checker.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
+
+import '../data/model/response/base/api_response.dart';
+import '../data/model/response/base/error_response.dart';
+import '../data/model/response/order_details_model.dart';
+import '../data/model/response/order_model.dart';
+import '../data/model/response/response_model.dart';
+import '../data/repository/order_repo.dart';
+import '../helper/api_checker.dart';
+import '../utill/app_constants.dart';
 
 class OrderProvider extends ChangeNotifier {
-  final OrderListRepo orderListRepo;
+  final OrderListRepo? orderListRepo;
   OrderProvider({@required this.orderListRepo});
 
-  List<OrderModel> _orderList;
-  List<OrderModel> get orderList =>
-      _orderList != null ? _orderList.reversed.toList() : _orderList;
+  List<OrderModel>? _orderList;
+  List<OrderModel>? get orderList =>
+      _orderList != null ? _orderList!.reversed.toList() : _orderList;
 
-  List<OrderModel> _pendingList;
-  List<OrderModel> _processing;
-  List<OrderModel> _deliveredList;
-  List<OrderModel> _returnList;
-  List<OrderModel> _canceledList;
-  List<OrderModel> get pendingList =>
-      _pendingList != null ? _pendingList.reversed.toList() : _pendingList;
-  List<OrderModel> get processing =>
-      _processing != null ? _processing.reversed.toList() : _processing;
-  List<OrderModel> get deliveredList => _deliveredList != null
-      ? _deliveredList.reversed.toList()
+  List<OrderModel>? _pendingList;
+  List<OrderModel>? _processing;
+  List<OrderModel>? _deliveredList;
+  List<OrderModel>? _returnList;
+  List<OrderModel>? _canceledList;
+  List<OrderModel>? get pendingList =>
+      _pendingList != null ? _pendingList!.reversed.toList() : _pendingList;
+  List<OrderModel>? get processing =>
+      _processing != null ? _processing!.reversed.toList() : _processing;
+  List<OrderModel>? get deliveredList => _deliveredList != null
+      ? _deliveredList!.reversed.toList()
       : _deliveredList;
-  List<OrderModel> get returnList =>
-      _returnList != null ? _returnList.reversed.toList() : _returnList;
-  List<OrderModel> get canceledList =>
-      _canceledList != null ? _canceledList.reversed.toList() : _canceledList;
+  List<OrderModel>? get returnList =>
+      _returnList != null ? _returnList!.reversed.toList() : _returnList;
+  List<OrderModel>? get canceledList =>
+      _canceledList != null ? _canceledList!.reversed.toList() : _canceledList;
 
-  List<OrderDetailsModel> _orderDetails;
-  List<OrderDetailsModel> get orderDetails => _orderDetails;
+  List<OrderDetailsModel>? _orderDetails;
+  List<OrderDetailsModel>? get orderDetails => _orderDetails;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
@@ -46,11 +47,11 @@ class OrderProvider extends ChangeNotifier {
   List<String> get orderStatusList => _orderStatusList;
   String get orderStatusType => _orderStatusType;
 
-  String _addOrderStatusErrorText;
-  String get addOrderStatusErrorText => _addOrderStatusErrorText;
+  String? _addOrderStatusErrorText;
+  String get addOrderStatusErrorText => _addOrderStatusErrorText!;
 
-  List<String> _paymentImageList;
-  List<String> get paymentImageList => _paymentImageList;
+  List<String>? _paymentImageList;
+  List<String> get paymentImageList => _paymentImageList!;
 
   int _paymentMethodIndex = 0;
   int get paymentMethodIndex => _paymentMethodIndex;
@@ -66,18 +67,18 @@ class OrderProvider extends ChangeNotifier {
     notifyListeners();
 
     ResponseModel responseModel;
-    ApiResponse apiResponse;
+    ApiResponse? apiResponse;
     for (int id in orderIDs) {
-      apiResponse = await orderListRepo.orderStatus(id, status);
+      apiResponse = await orderListRepo!.orderStatus(id, status);
     }
     _isLoading = false;
 
-    if (apiResponse.response != null &&
-        apiResponse.response.statusCode == 200) {
-      String message = apiResponse.response.data.toString();
+    if (apiResponse!.response != null &&
+        apiResponse.response!.statusCode == 200) {
+      String message = apiResponse.response!.data.toString();
       responseModel = ResponseModel(true, message);
       _addOrderStatusErrorText = message;
-      _orderDetails[0].deliveryStatus = status;
+      _orderDetails![0].deliveryStatus = status;
     } else {
       String errorMessage = apiResponse.error.toString();
       if (apiResponse.error is String) {
@@ -96,31 +97,31 @@ class OrderProvider extends ChangeNotifier {
   }
 
   Future<void> getOrderList(BuildContext context) async {
-    ApiResponse apiResponse = await orderListRepo.getOrderList();
+    ApiResponse apiResponse = await orderListRepo!.getOrderList();
     if (apiResponse.response != null &&
-        apiResponse.response.statusCode == 200) {
+        apiResponse.response!.statusCode == 200) {
       _orderList = [];
       _pendingList = [];
       _processing = [];
       _deliveredList = [];
       _returnList = [];
       _canceledList = [];
-      apiResponse.response.data.forEach((order) {
+      apiResponse.response!.data.forEach((order) {
         OrderModel orderModel = OrderModel.fromJson(order);
-        _orderList.add(orderModel);
+        _orderList!.add(orderModel);
         if (orderModel.orderStatus == AppConstants.PENDING ||
             orderModel.orderStatus == AppConstants.CONFIRMED) {
-          _pendingList.add(orderModel);
+          _pendingList!.add(orderModel);
         } else if (orderModel.orderStatus == AppConstants.PROCESSING ||
             orderModel.orderStatus == AppConstants.PROCESSED) {
-          _processing.add(orderModel);
+          _processing!.add(orderModel);
         } else if (orderModel.orderStatus == AppConstants.DELIVERED) {
-          _deliveredList.add(orderModel);
+          _deliveredList!.add(orderModel);
         } else if (orderModel.orderStatus == AppConstants.RETURNED) {
-          _returnList.add(orderModel);
+          _returnList!.add(orderModel);
         } else if (orderModel.orderStatus == AppConstants.CANCELLED ||
             orderModel.orderStatus == AppConstants.FAILED) {
-          _canceledList.add(orderModel);
+          _canceledList!.add(orderModel);
         }
       });
     } else {
@@ -138,26 +139,26 @@ class OrderProvider extends ChangeNotifier {
       String orderID, BuildContext context) async {
     _orderDetails = null;
     _addOrderStatusErrorText = '';
-    ApiResponse apiResponse = await orderListRepo.getOrderDetails(orderID);
+    ApiResponse apiResponse = await orderListRepo!.getOrderDetails(orderID);
     if (apiResponse.response != null &&
-        apiResponse.response.statusCode == 200) {
+        apiResponse.response!.statusCode == 200) {
       _orderDetails = [];
       // apiResponse.response.data.forEach((order) => _orderDetails.add(OrderDetailsModel.fromJson(order)));
-      _orderDetails.add(OrderDetailsModel.fromJson(apiResponse.response.data));
+      _orderDetails!.add(OrderDetailsModel.fromJson(apiResponse.response!.data));
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
-    return _orderDetails;
+    return _orderDetails!;
   }
 
   void initOrderStatusList(BuildContext context) async {
-    ApiResponse apiResponse = await orderListRepo.getOrderStatusList();
+    ApiResponse apiResponse = await orderListRepo!.getOrderStatusList();
     if (apiResponse.response != null &&
-        apiResponse.response.statusCode == 200) {
+        apiResponse.response!.statusCode == 200) {
       _orderStatusList.clear();
-      _orderStatusList.addAll(apiResponse.response.data);
-      _orderStatusType = apiResponse.response.data[0];
+      _orderStatusList.addAll(apiResponse.response!.data);
+      _orderStatusType = apiResponse.response!.data[0];
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hundredminute_seller/view/screens/chat/widget/message_bubble.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:hundredminute_seller/data/model/body/MessageBody.dart';
-import 'package:hundredminute_seller/data/model/response/chat_model.dart';
-import 'package:hundredminute_seller/provider/chat_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/base/custom_app_bar.dart';
-import 'package:hundredminute_seller/view/screens/chat/widget/message_bubble.dart';
+import '../../../data/model/body/MessageBody.dart';
+import '../../../data/model/response/chat_model.dart';
+import '../../../provider/chat_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/styles.dart';
+import '../../base/custom_app_bar.dart';
 
 class ChatScreen extends StatelessWidget {
-  final Customer customer;
-  final int customerIndex;
-  final List<MessageModel> messages;
+  final Customer? customer;
+  final int? customerIndex;
+  final List<MessageModel>? messages;
   ChatScreen({@required this.customer, @required this.customerIndex, @required this.messages});
 
   final ImagePicker picker = ImagePicker();
@@ -28,19 +28,19 @@ class ChatScreen extends StatelessWidget {
       body: Consumer<ChatProvider>(builder: (context, chat, child) {
         return Column(children: [
 
-          CustomAppBar(title: customer.fName+' '+customer.lName),
+          CustomAppBar(title: '${customer!.fName} ${customer!.lName}'),
 
           // Chats
-          Expanded(child: chat.chatList != null ? messages.length != 0 ? ListView.builder(
-            physics: BouncingScrollPhysics(),
-            padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-            itemCount: messages.length,
+          Expanded(child: chat.chatList != null ? messages!.isNotEmpty ? ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+            itemCount: messages!.length,
             reverse: true,
             itemBuilder: (context, index) {
-              List<MessageModel> chats = messages.reversed.toList();
-              return MessageBubble(chat: chats[index], customerImage: customer.image);
+              List<MessageModel> chats = messages!.reversed.toList();
+              return MessageBubble(chat: chats[index], customerImage: customer!.image);
             },
-          ) : SizedBox.shrink() : ChatShimmer()),
+          ) : const SizedBox.shrink() : ChatShimmer()),
 
           // Bottom TextField
           Column(
@@ -53,10 +53,10 @@ class ChatScreen extends StatelessWidget {
                   color: Theme.of(context).accentColor,
                   shadowColor: Colors.grey[200],
                   elevation: 2,
-                  margin: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                  margin: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
+                    padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
                     child: Row(children: [
                       Expanded(
                         child: TextField(
@@ -83,8 +83,8 @@ class ChatScreen extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           if(Provider.of<ChatProvider>(context, listen: false).isSendButtonActive){
-                            MessageBody messageBody = MessageBody(sellerId: customer.id.toString(), message: _controller.text);
-                            Provider.of<ChatProvider>(context, listen: false).sendMessage(messageBody, customerIndex, context);
+                            MessageBody messageBody = MessageBody(sellerId: customer!.id.toString(), message: _controller.text);
+                            Provider.of<ChatProvider>(context, listen: false).sendMessage(messageBody, customerIndex!, context);
                             _controller.text = '';
                           }
                         },
@@ -118,23 +118,23 @@ class ChatShimmer extends StatelessWidget {
 
         bool isMe = index%2 == 0;
         return Shimmer.fromColors(
-          baseColor: isMe ? Colors.grey[300] : ColorResources.IMAGE_BG,
-          highlightColor: isMe ? Colors.grey[100] : ColorResources.IMAGE_BG.withOpacity(0.9),
+          baseColor: isMe ? Colors.grey[300]! : ColorResources.IMAGE_BG,
+          highlightColor: isMe ? Colors.grey[100]! : ColorResources.IMAGE_BG.withOpacity(0.9),
           enabled: Provider.of<ChatProvider>(context).chatList == null,
           child: Row(
             mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
             children: [
-              isMe ? SizedBox.shrink() : InkWell(child: CircleAvatar(child: Icon(Icons.person))),
+              isMe ? const SizedBox.shrink() : const InkWell(child: CircleAvatar(child: Icon(Icons.person))),
               Expanded(
                 child: Container(
-                  margin: isMe ?  EdgeInsets.fromLTRB(50, 5, 10, 5) : EdgeInsets.fromLTRB(10, 5, 50, 5),
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  margin: isMe ?  const EdgeInsets.fromLTRB(50, 5, 10, 5) : const EdgeInsets.fromLTRB(10, 5, 50, 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: isMe ? Radius.circular(10) : Radius.circular(0),
-                        bottomRight: isMe ? Radius.circular(0) : Radius.circular(10),
-                        topRight: Radius.circular(10),
+                        topLeft: const Radius.circular(10),
+                        bottomLeft: isMe ? const Radius.circular(10) : const Radius.circular(0),
+                        bottomRight: isMe ? const Radius.circular(0) : const Radius.circular(10),
+                        topRight: const Radius.circular(10),
                       ),
                       color: isMe ? ColorResources.IMAGE_BG : ColorResources.WHITE
                   ),

@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hundredminute_seller/data/model/response/language_model.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
+
+import '../data/model/response/language_model.dart';
+import '../utill/app_constants.dart';
 
 class LanguageProvider with ChangeNotifier {
   int _selectIndex = 0;
@@ -20,13 +21,13 @@ class LanguageProvider with ChangeNotifier {
   void searchLanguage(String query, BuildContext context) {
     if (query.isEmpty) {
       _languages.clear();
-      _languages = AppConstants.languages;
+      _languages = AppConstants.languages as List<LanguageModel>;
       notifyListeners();
     } else {
       _selectIndex = -1;
       _languages = [];
       AppConstants.languages.forEach((product) async {
-        if (product.languageName.toLowerCase().contains(query.toLowerCase())) {
+        if (product.languageName!.toLowerCase().contains(query.toLowerCase())) {
           _languages.add(product);
         }
       });
@@ -37,7 +38,7 @@ class LanguageProvider with ChangeNotifier {
   void initializeAllLanguages(BuildContext context) {
     if (_languages.length == 0) {
       _languages.clear();
-      _languages = AppConstants.languages;
+      _languages = AppConstants.languages as List<LanguageModel>;
     }
   }
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
+
+import '../../../utill/styles.dart';
 
 class CustomPasswordTextField extends StatefulWidget {
-  final TextEditingController controller;
-  final String hintTxt;
-  final FocusNode focusNode;
-  final FocusNode nextNode;
-  final TextInputAction textInputAction;
+  final TextEditingController? controller;
+  final String? hintTxt;
+  final FocusNode? focusNode;
+  final FocusNode? nextNode;
+  final TextInputAction? textInputAction;
 
   CustomPasswordTextField({this.controller, this.hintTxt, this.focusNode, this.nextNode, this.textInputAction});
 
@@ -29,7 +30,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(6),
         boxShadow: [
           BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
@@ -57,7 +58,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
             contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
             isDense: true,
             filled: true,
-            fillColor: Theme.of(context).accentColor,
+            fillColor: Theme.of(context).colorScheme.secondary,
             focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
             hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
             border: InputBorder.none),

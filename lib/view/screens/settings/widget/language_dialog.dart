@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/localization_provider.dart';
-import 'package:hundredminute_seller/provider/splash_provider.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
+
+import '../../../../localization/language_constrants.dart';
+import '../../../../provider/localization_provider.dart';
+import '../../../../provider/splash_provider.dart';
+import '../../../../utill/app_constants.dart';
+import '../../../../utill/color_resources.dart';
+import '../../../../utill/dimensions.dart';
+import '../../../../utill/styles.dart';
 
 class LanguageDialog extends StatelessWidget {
   final bool isCurrency;
@@ -23,7 +24,7 @@ class LanguageDialog extends StatelessWidget {
     }
 
     return Dialog(
-      backgroundColor: Theme.of(context).accentColor,
+      backgroundColor: Theme.of(context).colorScheme.secondary,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
 
@@ -38,7 +39,7 @@ class LanguageDialog extends StatelessWidget {
             if(isCurrency) {
               splash.configModel.currencyList.forEach((currency) => _valueList.add(currency.name));
             }else {
-              AppConstants.languages.forEach((language) => _valueList.add(language.languageName));
+              AppConstants.languages.forEach((language) => _valueList.add(language.languageName!));
             }
             return CupertinoPicker(
               itemExtent: 40,
@@ -49,7 +50,7 @@ class LanguageDialog extends StatelessWidget {
                 index = i;
               },
               children: _valueList.map((value) {
-                return Center(child: Text(value, style: TextStyle(color: Theme.of(context).textTheme.bodyText1.color)));
+                return Center(child: Text(value, style: TextStyle(color: Theme.of(context).textTheme.bodyText1!.color)));
               }).toList(),
             );
           },
@@ -72,7 +73,7 @@ class LanguageDialog extends StatelessWidget {
                 Provider.of<SplashProvider>(context, listen: false).setCurrency(index);
               }else {
                 Provider.of<LocalizationProvider>(context, listen: false).setLanguage(Locale(
-                  AppConstants.languages[index].languageCode,
+                  AppConstants.languages[index].languageCode!,
                   AppConstants.languages[index].countryCode,
                 ), index);
               }

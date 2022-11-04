@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
+
+import '../provider/theme_provider.dart';
 
 class ColorResources {
   static Color getBlue(BuildContext context) {

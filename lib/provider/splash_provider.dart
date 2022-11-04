@@ -1,43 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:hundredminute_seller/data/model/response/base/api_response.dart';
-import 'package:hundredminute_seller/data/model/response/config_model.dart';
-import 'package:hundredminute_seller/data/repository/splash_repo.dart';
-import 'package:hundredminute_seller/helper/api_checker.dart';
+
+import '../data/model/response/base/api_response.dart';
+import '../data/model/response/config_model.dart';
+import '../data/repository/splash_repo.dart';
+import '../helper/api_checker.dart';
 
 class SplashProvider extends ChangeNotifier {
-  final SplashRepo splashRepo;
+  final SplashRepo? splashRepo;
   SplashProvider({@required this.splashRepo});
 
-  ConfigModel _configModel;
-  BaseUrls _baseUrls;
-  CurrencyList _myCurrency;
-  CurrencyList _defaultCurrency;
-  CurrencyList _usdCurrency;
-  int _currencyIndex;
+  ConfigModel? _configModel;
+  BaseUrls? _baseUrls;
+  CurrencyList? _myCurrency;
+  CurrencyList? _defaultCurrency;
+  CurrencyList? _usdCurrency;
+  int? _currencyIndex;
   bool _hasConnection = true;
   bool _fromSetting = false;
   bool _firstTimeConnectionCheck = true;
 
-  ConfigModel get configModel => _configModel;
-  BaseUrls get baseUrls => _baseUrls;
-  CurrencyList get myCurrency => _myCurrency;
-  CurrencyList get defaultCurrency => _defaultCurrency;
-  CurrencyList get usdCurrency => _usdCurrency;
-  int get currencyIndex => _currencyIndex;
+  ConfigModel get configModel => _configModel!;
+  BaseUrls get baseUrls => _baseUrls!;
+  CurrencyList get myCurrency => _myCurrency!;
+  CurrencyList get defaultCurrency => _defaultCurrency!;
+  CurrencyList get usdCurrency => _usdCurrency!;
+  int get currencyIndex => _currencyIndex!;
   bool get hasConnection => _hasConnection;
   bool get fromSetting => _fromSetting;
   bool get firstTimeConnectionCheck => _firstTimeConnectionCheck;
 
   Future<bool> initConfig(BuildContext context) async {
     _hasConnection = true;
-    ApiResponse apiResponse = await splashRepo.getConfig();
+    ApiResponse apiResponse = await splashRepo!.getConfig();
     bool isSuccess;
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _configModel = ConfigModel.fromJson(apiResponse.response.data);
-      _baseUrls = ConfigModel.fromJson(apiResponse.response.data).baseUrls;
-      String _currencyCode = splashRepo.getCurrency();
-      for(CurrencyList currencyList in _configModel.currencyList) {
-        if(currencyList.id == _configModel.systemDefaultCurrency) {
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _configModel = ConfigModel.fromJson(apiResponse.response!.data);
+      _baseUrls = ConfigModel.fromJson(apiResponse.response!.data).baseUrls;
+      String _currencyCode = splashRepo!.getCurrency();
+      for(CurrencyList currencyList in _configModel!.currencyList) {
+        if(currencyList.id == _configModel!.systemDefaultCurrency) {
           if(_currencyCode == null || _currencyCode.isEmpty) {
             _currencyCode = currencyList.code;
           }
@@ -65,23 +66,23 @@ class SplashProvider extends ChangeNotifier {
   }
 
   void getCurrencyData(String currencyCode) {
-    _configModel.currencyList.forEach((currency) {
+    _configModel!.currencyList.forEach((currency) {
       if(currencyCode == currency.code) {
         _myCurrency = currency;
-        _currencyIndex = _configModel.currencyList.indexOf(currency);
+        _currencyIndex = _configModel!.currencyList.indexOf(currency);
         return;
       }
     });
   }
 
   void setCurrency(int index) {
-    splashRepo.setCurrency(_configModel.currencyList[index].code);
-    getCurrencyData(_configModel.currencyList[index].code);
+    splashRepo!.setCurrency(_configModel!.currencyList[index].code);
+    getCurrencyData(_configModel!.currencyList[index].code);
     notifyListeners();
   }
 
   void initSharedPrefData() {
-    splashRepo.initSharedData();
+    splashRepo!.initSharedData();
   }
 
   void setFromSetting(bool isSetting) {

@@ -3,22 +3,23 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hundredminute_seller/data/datasource/remote/dio/dio_client.dart';
-import 'package:hundredminute_seller/data/datasource/remote/exception/api_error_handler.dart';
-import 'package:hundredminute_seller/data/model/response/base/api_response.dart';
-import 'package:hundredminute_seller/data/model/response/shop_info_model.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
 import 'package:http/http.dart' as http;
 
+import '../../utill/app_constants.dart';
+import '../datasource/remote/dio/dio_client.dart';
+import '../datasource/remote/exception/api_error_handler.dart';
+import '../model/response/base/api_response.dart';
+import '../model/response/shop_info_model.dart';
+
 class ShopRepo {
-  final DioClient dioClient;
-  final SharedPreferences sharedPreferences;
+  final DioClient? dioClient;
+  final SharedPreferences? sharedPreferences;
   ShopRepo({@required this.dioClient, @required this.sharedPreferences});
 
 
   Future<ApiResponse> getShop() async {
     try {
-      final response = await dioClient.get(AppConstants.SHOP_URI);
+      final response = await dioClient!.get(AppConstants.SHOP_URI);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -35,7 +36,7 @@ class ShopRepo {
     }
     Map<String, String> _fields = Map();
     _fields.addAll(<String, String>{
-      '_method': 'put', 'name': userInfoModel.name, 'address': userInfoModel.address, 'contact': userInfoModel.contact
+      '_method': 'put', 'name': userInfoModel.name!, 'address': userInfoModel.address!, 'contact': userInfoModel.contact!
     });
     request.fields.addAll(_fields);
     http.StreamedResponse response = await request.send();
@@ -43,6 +44,6 @@ class ShopRepo {
   }
 
   String getShopToken() {
-    return sharedPreferences.getString(AppConstants.TOKEN) ?? "";
+    return sharedPreferences!.getString(AppConstants.TOKEN) ?? "";
   }
 }

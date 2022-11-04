@@ -1,24 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/profile_provider.dart';
-import 'package:hundredminute_seller/provider/splash_provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/images.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/base/custom_bottom_sheet.dart';
-import 'package:hundredminute_seller/view/screens/bank_info/bank_info_screen.dart';
-import 'package:hundredminute_seller/view/screens/chat/inbox_screen.dart';
-import 'package:hundredminute_seller/view/screens/home/home_screen.dart';
 import 'package:hundredminute_seller/view/screens/menu/widget/sign_out_confirmation_dialog.dart';
-import 'package:hundredminute_seller/view/screens/profile/profile_screen.dart';
-import 'package:hundredminute_seller/view/screens/restaurant/shop_screen.dart';
-import 'package:hundredminute_seller/view/screens/settings/setting_screen.dart';
-import 'package:hundredminute_seller/view/screens/subscription/subscription_screen.dart';
 import 'package:provider/provider.dart';
+import '../../../localization/language_constrants.dart';
+import '../../../provider/profile_provider.dart';
+import '../../../provider/splash_provider.dart';
+import '../../../provider/theme_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/images.dart';
+import '../../../utill/styles.dart';
+import '../../base/custom_bottom_sheet.dart';
+import '../bank_info/bank_info_screen.dart';
+import '../chat/inbox_screen.dart';
+import '../profile/profile_screen.dart';
+import '../restaurant/shop_screen.dart';
+import '../settings/setting_screen.dart';
+import '../subscription/subscription_screen.dart';
 
 Future<void> _loadData(BuildContext context, bool reload) async {
   await Provider.of<SplashProvider>(context, listen: false).initConfig(context);
@@ -37,7 +36,7 @@ class MenuBottomSheet extends StatelessWidget {
       height: 320,
       decoration: BoxDecoration(
         color: ColorResources.getHomeBg(context),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(25), topRight: Radius.circular(25)),
       ),
       child: Column(
@@ -98,7 +97,7 @@ class MenuBottomSheet extends StatelessWidget {
                               color: Colors.grey[
                                   Provider.of<ThemeProvider>(context).darkTheme
                                       ? 800
-                                      : 200],
+                                      : 200]!,
                               spreadRadius: 0.5,
                               blurRadius: 0.3)
                         ],
@@ -120,7 +119,7 @@ class MenuBottomSheet extends StatelessWidget {
                                   image:
                                       // 'https://alhafizcloth.com/100min/storage/app/public/seller/'
                                       '${Provider.of<SplashProvider>(context, listen: false).baseUrls.sellerImageUrl}'
-                                      '/${profileProvider.userInfoModel.image}',
+                                      '/${profileProvider.userInfoModel?.image ?? ""}',
                                   height: 50,
                                   width: 50,
                                   fit: BoxFit.cover,
@@ -176,14 +175,14 @@ class MenuBottomSheet extends StatelessWidget {
                               color: Colors.grey[
                                   Provider.of<ThemeProvider>(context).darkTheme
                                       ? 800
-                                      : 200],
+                                      : 200]!,
                               spreadRadius: 0.5,
                               blurRadius: 0.3)
                         ],
                       ),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.download_outlined,
                               size: 30,
@@ -211,7 +210,7 @@ class MenuBottomSheet extends StatelessWidget {
                     child: Container(
                       height: 120,
                       width: 120,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: ColorResources.getBottomSheetColor(context),
                         borderRadius: BorderRadius.circular(12),
@@ -220,7 +219,7 @@ class MenuBottomSheet extends StatelessWidget {
                               color: Colors.grey[
                                   Provider.of<ThemeProvider>(context).darkTheme
                                       ? 800
-                                      : 200],
+                                      : 200]!,
                               spreadRadius: 0.5,
                               blurRadius: 0.3)
                         ],
@@ -238,7 +237,7 @@ class MenuBottomSheet extends StatelessWidget {
                                 textAlign: TextAlign.center,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 12, fontWeight: FontWeight.bold),
                               ),
                             ),

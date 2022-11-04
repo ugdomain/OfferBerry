@@ -3,29 +3,30 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:hundredminute_seller/data/model/response/base/api_response.dart';
-import 'package:hundredminute_seller/data/model/response/response_model.dart';
-import 'package:hundredminute_seller/data/model/response/shop_info_model.dart';
-import 'package:hundredminute_seller/data/repository/shop_info_repo.dart';
-import 'package:hundredminute_seller/helper/api_checker.dart';
 import 'package:http/http.dart' as http;
 
+import '../data/model/response/base/api_response.dart';
+import '../data/model/response/response_model.dart';
+import '../data/model/response/shop_info_model.dart';
+import '../data/repository/shop_info_repo.dart';
+import '../helper/api_checker.dart';
+
 class ShopProvider extends ChangeNotifier {
-  final ShopRepo shopRepo;
+  final ShopRepo? shopRepo;
 
   ShopProvider({@required this.shopRepo});
 
 
-  ShopModel _shopModel;
-  ShopModel get shopModel => _shopModel;
+  ShopModel? _shopModel;
+  ShopModel? get shopModel => _shopModel!;
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
 
-  File _file;
+  File? _file;
 
-  File get file => _file;
+  File? get file => _file!;
   final picker = ImagePicker();
 
   void choosePhoto() async {
@@ -40,9 +41,9 @@ class ShopProvider extends ChangeNotifier {
 
   Future<ResponseModel> getShopInfo(BuildContext context) async {
     ResponseModel _responseModel;
-    ApiResponse apiResponse = await shopRepo.getShop();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _shopModel = ShopModel.fromJson(apiResponse.response.data);
+    ApiResponse apiResponse = await shopRepo!.getShop();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _shopModel = ShopModel.fromJson(apiResponse.response!.data);
       _responseModel = ResponseModel(true, 'successful');
     } else {
       String _errorMessage;
@@ -64,7 +65,7 @@ class ShopProvider extends ChangeNotifier {
     notifyListeners();
 
     ResponseModel responseModel;
-    http.StreamedResponse response = await shopRepo.updateShop(updateUserModel, file, token);
+    http.StreamedResponse response = await shopRepo!.updateShop(updateUserModel, file, token);
     _isLoading = false;
     if (response.statusCode == 200) {
       String message = 'Success';
@@ -81,7 +82,7 @@ class ShopProvider extends ChangeNotifier {
 
 
   String getShopToken() {
-    return shopRepo.getShopToken();
+    return shopRepo!.getShopToken();
   }
 }
 

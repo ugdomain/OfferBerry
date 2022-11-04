@@ -2,17 +2,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/order_provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/base/custom_app_bar.dart';
-import 'package:hundredminute_seller/view/base/custom_button.dart';
-import 'package:hundredminute_seller/view/base/textfeild/custom_pass_textfeild.dart';
-import 'package:hundredminute_seller/view/base/textfeild/custom_text_feild.dart';
-import 'package:hundredminute_seller/view/screens/dashboard/dashboard_screen.dart';
+
+import '../../../localization/language_constrants.dart';
+import '../../../provider/order_provider.dart';
+import '../../../provider/theme_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/styles.dart';
+import '../../base/custom_app_bar.dart';
+import '../../base/custom_button.dart';
+import '../../base/textfeild/custom_pass_textfeild.dart';
+import '../../base/textfeild/custom_text_feild.dart';
+import '../dashboard/dashboard_screen.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
   @override
@@ -21,14 +22,14 @@ class PaymentMethodScreen extends StatefulWidget {
 
 class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
 
-  FocusNode _cardNumber;
-  FocusNode _passwordFocus;
-  FocusNode _cvvFocus;
-  FocusNode _expiredFocus;
-  TextEditingController _cardController;
-  TextEditingController _passwordController;
-  TextEditingController _cvvController;
-  TextEditingController _expiredController;
+  FocusNode? _cardNumber;
+  FocusNode? _passwordFocus;
+  FocusNode? _cvvFocus;
+  FocusNode? _expiredFocus;
+  TextEditingController? _cardController;
+  TextEditingController? _passwordController;
+  TextEditingController? _cvvController;
+  TextEditingController? _expiredController;
 
   @override
   void initState() {
@@ -42,10 +43,10 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
 
   @override
   void dispose() {
-    _cardController.dispose();
-    _passwordController.dispose();
-    _cvvController.dispose();
-    _expiredController.dispose();
+    _cardController!.dispose();
+    _passwordController!.dispose();
+    _cvvController!.dispose();
+    _expiredController!.dispose();
     super.dispose();
   }
 
@@ -87,12 +88,12 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 color: ColorResources.getHomeBg(context),
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: [BoxShadow(
-                                    color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200],
+                                    color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200]!,
                                     spreadRadius: 0.5,
                                     blurRadius: .3, offset: Offset(0,2))]
                             ) : BoxDecoration(
                               color: ColorResources.getHomeBg(context),
-                              border: Border.all(width: 1, color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 300]),
+                              border: Border.all(width: 1, color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 300]!),
                               borderRadius: BorderRadius.circular(10),
                             ),
 
@@ -100,8 +101,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                                 height: 30,width: 30,),
                           ),
                           Provider.of<OrderProvider>(context).paymentMethodIndex==index ?
-                          Positioned( top: 5,left: 5,
-                              child: Icon(Icons.check_circle, color: Colors.green)) : SizedBox(),
+                          const Positioned( top: 5,left: 5,
+                              child: Icon(Icons.check_circle, color: Colors.green)) : const SizedBox(),
                         ],
                       ),
                     ),
@@ -111,12 +112,12 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
 
 
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 getTranslated('card_number', context),
                 style:  titilliumRegular.copyWith(fontSize: Dimensions.PADDING_SIZE_DEFAULT, color: ColorResources.getHintColor(context),
                 )),
-              SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+              const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
               CustomTextField(
                 hintText: getTranslated('card_hint', context),
                 controller: _cardController,
@@ -127,12 +128,12 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               ),
 
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 getTranslated('password', context),
                 style: titilliumRegular.copyWith(fontSize: Dimensions.PADDING_SIZE_DEFAULT, color: ColorResources.getHintColor(context),
                 )),
-              SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+              const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
               CustomPasswordTextField(
                 hintTxt: getTranslated('password_hint', context),
@@ -142,14 +143,14 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 controller: _passwordController,
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(children: [
                 Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
                     getTranslated('cvv', context),
                     style: titilliumRegular.copyWith(fontSize: Dimensions.PADDING_SIZE_DEFAULT, color: ColorResources.getHintColor(context),
                     )),
-                  SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                  const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                   CustomTextField(
                     hintText: getTranslated('password_hint', context),
                     controller: _cvvController,
@@ -161,13 +162,13 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
 
                 ],)),
 
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Expanded(child: Column( crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
                     getTranslated('expired_date', context),
                     style: titilliumRegular.copyWith(fontSize: Dimensions.PADDING_SIZE_DEFAULT, color: ColorResources.getHintColor(context),
                     )),
-                  SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                  const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                   CustomTextField(
                     hintText: '04/21',
                     controller: _expiredController,
@@ -180,7 +181,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
               ],),
 
 
-              SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),
+              const SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),
 
               Padding(
                 padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
@@ -188,7 +189,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                   backgroundColor: ColorResources.WHITE,
                   onTap: (){
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) =>DashboardScreen()));
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Successfully Added'), backgroundColor: Colors.green,));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Successfully Added'), backgroundColor: Colors.green,));
                 },),
               )
             ],

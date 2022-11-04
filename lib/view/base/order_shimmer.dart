@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
+
+import '../../localization/language_constrants.dart';
+import '../../utill/color_resources.dart';
+import '../../utill/dimensions.dart';
+import '../../utill/styles.dart';
 
 class OrderShimmer extends StatelessWidget {
-  final bool isEnabled;
+  final bool? isEnabled;
   OrderShimmer({@required this.isEnabled});
 
   @override
@@ -15,14 +16,14 @@ class OrderShimmer extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL, horizontal: Dimensions.PADDING_SIZE_SMALL),
       margin: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_DEFAULT),
       decoration: BoxDecoration(
-        color: Theme.of(context).accentColor,
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [BoxShadow(color: Colors.grey[200], blurRadius: 10, spreadRadius: 1)],
+        boxShadow: [BoxShadow(color: Colors.grey[200]as Color, blurRadius: 10, spreadRadius: 1)],
       ),
       child: Shimmer.fromColors(
-        baseColor: Colors.grey[300],
-        highlightColor: Colors.grey[100],
-        enabled: isEnabled,
+        baseColor: Colors.grey[300]as Color,
+        highlightColor: Colors.grey[100]as Color,
+        enabled: isEnabled!,
         child: Column(
           children: [
             Row(

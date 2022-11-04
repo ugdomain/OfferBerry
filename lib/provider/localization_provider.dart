@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
+
+import '../utill/app_constants.dart';
 
 class LocalizationProvider extends ChangeNotifier {
-  final SharedPreferences sharedPreferences;
+  final SharedPreferences? sharedPreferences;
 
   LocalizationProvider({@required this.sharedPreferences}) {
     _loadCurrentLanguage();
   }
 
-  int _languageIndex;
-  Locale _locale = Locale(AppConstants.languages[0].languageCode, AppConstants.languages[0].countryCode);
+  int? _languageIndex;
+  Locale _locale = Locale(AppConstants.languages[0].languageCode!, AppConstants.languages[0].countryCode);
   bool _isLtr = true;
   Locale get locale => _locale;
   bool get isLtr => _isLtr;
-  int get languageIndex => _languageIndex;
+  int get languageIndex => _languageIndex!;
 
 
   void setLanguage(Locale locale, int index) {
@@ -30,8 +31,8 @@ class LocalizationProvider extends ChangeNotifier {
   }
 
   _loadCurrentLanguage() async {
-    _locale = Locale(sharedPreferences.getString(AppConstants.LANGUAGE_CODE) ?? AppConstants.languages[0].languageCode,
-        sharedPreferences.getString(AppConstants.COUNTRY_CODE) ?? AppConstants.languages[0].countryCode);
+    _locale = Locale(sharedPreferences!.getString(AppConstants.LANGUAGE_CODE) ?? AppConstants.languages[0].languageCode!,
+        sharedPreferences!.getString(AppConstants.COUNTRY_CODE) ?? AppConstants.languages[0].countryCode);
     for(int index=0; index<AppConstants.languages.length; index++) {
       if(AppConstants.languages[index].languageCode == _locale.languageCode) {
         _languageIndex = index;
@@ -43,7 +44,7 @@ class LocalizationProvider extends ChangeNotifier {
   }
 
   _saveLanguage(Locale locale) async {
-    sharedPreferences.setString(AppConstants.LANGUAGE_CODE, locale.languageCode);
-    sharedPreferences.setString(AppConstants.COUNTRY_CODE, locale.countryCode);
+    sharedPreferences!.setString(AppConstants.LANGUAGE_CODE, locale.languageCode);
+    sharedPreferences!.setString(AppConstants.COUNTRY_CODE, locale.countryCode!);
   }
 }

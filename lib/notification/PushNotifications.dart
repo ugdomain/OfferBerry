@@ -1,7 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hundredminute_seller/data/datasource/remote/dio/dio_client.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
+
+import '../data/datasource/remote/dio/dio_client.dart';
+import '../utill/app_constants.dart';
 
 class PushNotificationService {
   final FirebaseMessaging _fcm;
@@ -59,11 +60,11 @@ class PushNotificationService {
   }
 
   updateDeviceToken() async {
-    String token = await _fcm.getToken();
+    String? token = await _fcm.getToken();
     print("FirebaseMessaging token: $token");
 
     if (token != null) {
-      DioClient dioClient;
+      DioClient? dioClient;
       final sl = GetIt.instance;
       dioClient = sl();
       var map = {"cm-firebase-token": "$token"};

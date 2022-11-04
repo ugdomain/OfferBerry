@@ -1,12 +1,12 @@
 class ShopModel {
-  int id;
-  int sellerId;
-  String name;
-  String address;
-  String contact;
-  String image;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  int? sellerId;
+  String? name;
+  String? address;
+  String? contact;
+  String? image;
+  String? createdAt;
+  String? updatedAt;
 
   ShopModel(
       {this.id,
@@ -20,7 +20,7 @@ class ShopModel {
 
   ShopModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    sellerId = json['seller_id'];
+    sellerId = int.parse(json['seller_id']);
     name = json['name'];
     address = json['address'];
     contact = json['contact'];

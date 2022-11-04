@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/business_provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/base/custom_app_bar.dart';
-import 'package:hundredminute_seller/view/base/no_data_screen.dart';
-import 'package:hundredminute_seller/view/screens/settings/business_setting_details.dart';
+
+import '../../../localization/language_constrants.dart';
+import '../../../provider/business_provider.dart';
+import '../../../provider/theme_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/styles.dart';
+import '../../base/custom_app_bar.dart';
+import '../../base/no_data_screen.dart';
+import 'business_setting_details.dart';
 
 class BusinessScreen extends StatelessWidget {
   @override
@@ -22,19 +23,19 @@ class BusinessScreen extends StatelessWidget {
           builder: (context, businessProv, child) => Column(
             children: [
 
-              businessProv.businessList !=null ? businessProv.businessList.length > 0 ? Expanded(
+              businessProv.businessList !=null ? businessProv.businessList.isNotEmpty ? Expanded(
                   child: ListView.builder(
                     itemCount: businessProv.businessList.length,
                     itemBuilder: (context, index) => InkWell(
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ShippingMethodScreen())),
                       child: Container(
                         width: double.infinity,
-                        padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL, horizontal: Dimensions.PADDING_SIZE_SMALL),
-                        margin: EdgeInsets.all( Dimensions.PADDING_SIZE_DEFAULT),
+                        padding: const EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL, horizontal: Dimensions.PADDING_SIZE_SMALL),
+                        margin: const EdgeInsets.all( Dimensions.PADDING_SIZE_DEFAULT),
                         decoration: BoxDecoration(
                           color: ColorResources.getBottomSheetColor(context),
                           borderRadius: BorderRadius.circular(12),
-                          boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200], spreadRadius: 0.5, blurRadius: 0.3)],
+                          boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!, spreadRadius: 0.5, blurRadius: 0.3)],
                         ),
                         child: Column(
                           children: [

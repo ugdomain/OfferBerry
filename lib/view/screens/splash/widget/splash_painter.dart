@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
+
+import '../../../../utill/color_resources.dart';
 
 class SplashPainter extends CustomPainter {
   @override

@@ -1,20 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hundredminute_seller/data/datasource/remote/dio/dio_client.dart';
-import 'package:hundredminute_seller/data/model/response/order_model.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/notification_provider.dart';
-import 'package:hundredminute_seller/provider/order_provider.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/base/custom_app_bar.dart';
-import 'package:hundredminute_seller/view/screens/order/order_details_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../../data/datasource/remote/dio/dio_client.dart';
+import '../../../data/model/response/order_model.dart';
+import '../../../localization/language_constrants.dart';
+import '../../../provider/notification_provider.dart';
+import '../../../provider/order_provider.dart';
+import '../../../utill/app_constants.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/styles.dart';
+import '../../base/custom_app_bar.dart';
+import '../order/order_details_screen.dart';
 
 class NotificationScreen extends StatelessWidget {
   final bool isBacButtonExist;
@@ -34,7 +35,7 @@ class NotificationScreen extends StatelessWidget {
           child: Consumer<NotificationProvider>(
             builder: (context, notification, child) {
               return notification.notificationList != null
-                  ? notification.notificationList.length != 0
+                  ? notification.notificationList!.isNotEmpty
                       ? RefreshIndicator(
                           backgroundColor: Theme.of(context).primaryColor,
                           onRefresh: () async {
@@ -45,29 +46,29 @@ class NotificationScreen extends StatelessWidget {
                           child: ListView.builder(
                             itemCount:
                                 Provider.of<NotificationProvider>(context)
-                                    .notificationList
+                                    .notificationList!
                                     .length,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: Dimensions.PADDING_SIZE_SMALL),
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
                                   String nid =
-                                      notification.notificationList[index].id;
+                                      notification.notificationList![index].id!;
                                   String oid = notification
-                                      .notificationList[index].data.data.orderId
+                                      .notificationList![index].data!.data!.orderId
                                       .toString();
 
-                                  print("mssgg ok next screen");
+                                  debugPrint("msg ok next screen");
 
-                                  print("oid: " + oid);
+                                  print("oid: $oid");
                                   getOrderModel(oid, nid, context);
                                   Provider.of<OrderProvider>(context,
                                           listen: false)
                                       .setIndex(index);
                                 },
                                 child: Container(
-                                  margin: EdgeInsets.only(
+                                  margin: const EdgeInsets.only(
                                       bottom: Dimensions.PADDING_SIZE_SMALL),
                                   color: ColorResources.getGrey(context),
                                   child: ListTile(
@@ -85,19 +86,19 @@ class NotificationScreen extends StatelessWidget {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                            notification.notificationList[index]
-                                                .data.data.message
+                                            notification.notificationList![index]
+                                                .data!.data!.message
                                                 .toString(),
                                             style: titilliumRegular.copyWith(
                                               fontSize:
                                                   Dimensions.FONT_SIZE_SMALL,
                                             )),
-                                        RaisedButton(
+                                        ElevatedButton(
                                           onPressed: () => callapi(notification
-                                              .notificationList[index]
-                                              .data
-                                              .data
-                                              .confirmationLink),
+                                              .notificationList![index]
+                                              .data!
+                                              .data!
+                                              .confirmationLink!),
                                           child: Text("Accept"),
                                         ),
                                       ],
@@ -109,20 +110,20 @@ class NotificationScreen extends StatelessWidget {
                                         Text(
                                           DateFormat('hh:mm  dd/MM/yyyy')
                                               .format(notification
-                                                  .notificationList[index]
-                                                  .createdAt),
+                                                  .notificationList![index]
+                                                  .createdAt!),
                                           style: titilliumRegular.copyWith(
                                               fontSize: Dimensions
                                                   .FONT_SIZE_EXTRA_SMALL,
                                               color: ColorResources.getHint(
                                                   context)),
                                         ),
-                                        RaisedButton(
+                                        ElevatedButton(
                                           onPressed: () => callapi(notification
-                                              .notificationList[index]
-                                              .data
-                                              .data
-                                              .rejectionLink)
+                                              .notificationList![index]
+                                              .data!
+                                              .data!
+                                              .rejectionLink!)
                                           // Navigator.push(
                                           // context,
                                           //     MaterialPageRoute(
@@ -134,7 +135,7 @@ class NotificationScreen extends StatelessWidget {
                                           //                 .data
                                           //                 .rejectionLink)));
                                           ,
-                                          child: Text("Reject"),
+                                          child: const Text("Reject"),
                                         ),
                                       ],
                                     ),
@@ -200,21 +201,21 @@ class NotificationShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: 10,
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       itemBuilder: (context, index) {
         return Container(
           height: 80,
-          margin: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
+          margin: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
           color: ColorResources.getGrey(context),
           alignment: Alignment.center,
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             enabled:
                 Provider.of<NotificationProvider>(context).notificationList ==
                     null,
             child: ListTile(
-              leading: CircleAvatar(child: Icon(Icons.notifications)),
+              leading: const CircleAvatar(child: Icon(Icons.notifications)),
               title: Container(height: 20, color: ColorResources.WHITE),
               subtitle:
                   Container(height: 10, width: 50, color: ColorResources.WHITE),

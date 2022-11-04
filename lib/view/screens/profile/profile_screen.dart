@@ -3,22 +3,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/data/model/body/seller_body.dart';
-import 'package:hundredminute_seller/data/model/response/seller_info.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/auth_provider.dart';
-import 'package:hundredminute_seller/provider/bank_info_provider.dart';
-import 'package:hundredminute_seller/provider/profile_provider.dart';
-import 'package:hundredminute_seller/provider/splash_provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/images.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/base/custom_button.dart';
-import 'package:hundredminute_seller/view/base/textfeild/custom_text_feild.dart';
+import '../../../data/model/body/seller_body.dart';
+import '../../../data/model/response/seller_info.dart';
+import '../../../localization/language_constrants.dart';
+import '../../../provider/auth_provider.dart';
+import '../../../provider/bank_info_provider.dart';
+import '../../../provider/profile_provider.dart';
+import '../../../provider/splash_provider.dart';
+import '../../../provider/theme_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/images.dart';
+import '../../../utill/styles.dart';
+import '../../base/custom_button.dart';
+import '../../base/textfeild/custom_text_feild.dart';
 
 class ProfileScreen extends StatefulWidget {
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -32,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
-  File file;
+  File? file;
   final picker = ImagePicker();
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey =
       GlobalKey<ScaffoldMessengerState>();
@@ -58,19 +59,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String _phoneNumber = _phoneController.text.trim();
 
     if (Provider.of<ProfileProvider>(context, listen: false)
-                .userInfoModel
+                .userInfoModel!
                 .fName ==
             _firstNameController.text &&
         Provider.of<ProfileProvider>(context, listen: false)
-                .userInfoModel
+                .userInfoModel!
                 .lName ==
             _lastNameController.text &&
         Provider.of<ProfileProvider>(context, listen: false)
-                .userInfoModel
+                .userInfoModel!
                 .phone ==
             _phoneController.text &&
         file == null) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Change something to update'),
           backgroundColor: ColorResources.RED));
     } else if (_firstName.isEmpty) {
@@ -87,7 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: ColorResources.RED));
     } else {
       SellerModel updateUserInfoModel =
-          Provider.of<ProfileProvider>(context, listen: false).userInfoModel;
+          Provider.of<ProfileProvider>(context, listen: false).userInfoModel!;
       updateUserInfoModel.fName = _firstNameController.text ?? "";
       updateUserInfoModel.lName = _lastNameController.text ?? "";
       updateUserInfoModel.phone = _phoneController.text ?? '';
@@ -109,14 +110,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           .updateUserInfo(
         updateUserInfoModel,
         _sellerBody,
-        file,
+        file!,
         Provider.of<AuthProvider>(context, listen: false).getUserToken(),
       )
           .then((response) {
         if (response.isSuccess) {
           Provider.of<ProfileProvider>(context, listen: false)
               .getSellerInfo(context);
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Updated Successfully'),
               backgroundColor: Colors.green));
           setState(() {});
@@ -139,9 +140,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       key: _scaffoldKey,
       body: Consumer<ProfileProvider>(
         builder: (context, profile, child) {
-          _firstNameController.text = profile.userInfoModel.fName;
-          _lastNameController.text = profile.userInfoModel.lName;
-          _phoneController.text = profile.userInfoModel.phone;
+          _firstNameController.text = profile.userInfoModel!.fName!;
+          _lastNameController.text = profile.userInfoModel!.lName!;
+          _phoneController.text = profile.userInfoModel!.phone!;
 
           return Stack(
             clipBehavior: Clip.none,
@@ -155,13 +156,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     : null,
               ),
               Container(
-                padding: EdgeInsets.only(top: 35, left: 15),
+                padding: const EdgeInsets.only(top: 35, left: 15),
                 child: Row(children: [
                   CupertinoNavigationBarBackButton(
                     onPressed: () => Navigator.of(context).pop(),
                     color: ColorResources.getBottomSheetColor(context),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text(getTranslated('my_profile', context),
                       style: titilliumRegular.copyWith(
                           fontSize: 20, color: Colors.white),
@@ -170,17 +171,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ]),
               ),
               Container(
-                padding: EdgeInsets.only(top: 55),
+                padding: const EdgeInsets.only(top: 55),
                 child: Column(
                   children: [
                     Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                               top: Dimensions.PADDING_SIZE_EXTRA_LARGE),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).accentColor,
+                            color: Theme.of(context).colorScheme.secondary,
                             border: Border.all(color: Colors.white, width: 3),
                             shape: BoxShape.circle,
                           ),
@@ -196,9 +197,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         height: 100,
                                         fit: BoxFit.cover,
                                         image:
-                                            '${Provider.of<SplashProvider>(context, listen: false).baseUrls.sellerImageUrl}/${profile.userInfoModel.image}',
+                                            '${Provider.of<SplashProvider>(context, listen: false).baseUrls.sellerImageUrl}/${profile.userInfoModel!.image}',
                                       )
-                                    : Image.file(file,
+                                    : Image.file(file!,
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.fill),
@@ -222,28 +223,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Text(
-                          '${profile.userInfoModel.fName} ${profile.userInfoModel.lName}',
+                          '${profile.userInfoModel!.fName} ${profile.userInfoModel!.lName}',
                           style: titilliumSemiBold.copyWith(
                               color: ColorResources.WHITE, fontSize: 20.0),
                         )
                       ],
                     ),
-                    SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
+                    const SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
                             color: ColorResources.getIconBg(context),
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(
                                   Dimensions.PADDING_SIZE_DEFAULT),
                               topRight: Radius.circular(
                                   Dimensions.PADDING_SIZE_DEFAULT),
                             )),
                         child: ListView(
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           children: [
                             Container(
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                   top: Dimensions.PADDING_SIZE_DEFAULT,
                                   left: Dimensions.PADDING_SIZE_DEFAULT,
                                   right: Dimensions.PADDING_SIZE_DEFAULT),
@@ -255,43 +256,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           color: ColorResources.getLightSkyBlue(
                                               context),
                                           size: 20),
-                                      SizedBox(
+                                      const SizedBox(
                                           width: Dimensions
                                               .PADDING_SIZE_EXTRA_SMALL),
                                       Text(getTranslated('first_name', context),
                                           style: titilliumRegular)
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                       height: Dimensions.PADDING_SIZE_SMALL),
                                   CustomTextField(
                                     textInputType: TextInputType.name,
                                     focusNode: _fNameFocus,
                                     nextNode: _lNameFocus,
-                                    hintText: profile.userInfoModel.fName ?? '',
+                                    hintText: profile.userInfoModel!.fName ?? '',
                                     controller: _firstNameController,
                                   ),
-                                  SizedBox(height: 15),
+                                  const SizedBox(height: 15),
                                   Row(
                                     children: [
                                       Icon(Icons.person,
                                           color: ColorResources.getLightSkyBlue(
                                               context),
                                           size: 20),
-                                      SizedBox(
+                                      const SizedBox(
                                           width: Dimensions
                                               .PADDING_SIZE_EXTRA_SMALL),
                                       Text(getTranslated('last_name', context),
                                           style: titilliumRegular)
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                       height: Dimensions.PADDING_SIZE_SMALL),
                                   CustomTextField(
                                     textInputType: TextInputType.name,
                                     focusNode: _lNameFocus,
                                     nextNode: _phoneFocus,
-                                    hintText: profile.userInfoModel.lName,
+                                    hintText: profile.userInfoModel!.lName,
                                     controller: _lastNameController,
                                   ),
                                 ],
@@ -300,7 +301,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                             // for Phone No
                             Container(
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                   top: Dimensions.PADDING_SIZE_DEFAULT,
                                   left: Dimensions.PADDING_SIZE_DEFAULT,
                                   right: Dimensions.PADDING_SIZE_DEFAULT),
@@ -312,19 +313,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           color: ColorResources.getLightSkyBlue(
                                               context),
                                           size: 20),
-                                      SizedBox(
+                                      const SizedBox(
                                           width: Dimensions
                                               .PADDING_SIZE_EXTRA_SMALL),
                                       Text(getTranslated('phone_no', context),
                                           style: titilliumRegular)
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                       height: Dimensions.PADDING_SIZE_SMALL),
                                   CustomTextField(
                                     textInputType: TextInputType.number,
                                     focusNode: _phoneFocus,
-                                    hintText: profile.userInfoModel.phone ?? "",
+                                    hintText: profile.userInfoModel!.phone ?? "",
                                     controller: _phoneController,
                                     isPhoneNumber: true,
                                   ),
@@ -336,7 +337,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                           horizontal: Dimensions.PADDING_SIZE_LARGE,
                           vertical: Dimensions.PADDING_SIZE_SMALL),
                       child: !Provider.of<ProfileProvider>(context).isLoading

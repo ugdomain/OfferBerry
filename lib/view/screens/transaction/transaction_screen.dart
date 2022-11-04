@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/provider/transaction_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/base/custom_app_bar.dart';
-import 'package:hundredminute_seller/view/base/no_data_screen.dart';
 import 'package:hundredminute_seller/view/screens/transaction/widget/transaction_widget.dart';
+import 'package:provider/provider.dart';
+import '../../../localization/language_constrants.dart';
+import '../../../provider/theme_provider.dart';
+import '../../../provider/transaction_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/styles.dart';
+import '../../base/custom_app_bar.dart';
+import '../../base/no_data_screen.dart';
 
 class TransactionScreen extends StatelessWidget {
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class TransactionScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: ColorResources.getBottomSheetColor(context),
                     borderRadius: BorderRadius.circular(12),
-                    boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200], spreadRadius: 0.5, blurRadius: 0.3)],
+                    boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!, spreadRadius: 0.5, blurRadius: 0.3)],
                   ),
                   child: DropdownButton<String>(
                     hint: Text('Select Month'),
@@ -41,13 +42,13 @@ class TransactionScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 16),
                     underline: SizedBox(),
                     value: transactionProvider.chooseMonth,
-                    onChanged: (String query) {
-                      transactionProvider.filterProduct(transactionProvider.monthItemList.indexOf(query), context);
+                    onChanged: (String? query) {
+                      transactionProvider.filterProduct(transactionProvider.monthItemList.indexOf(query!), context);
                     },
                     items: transactionProvider.monthItemList.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
-                        child: Text(value, style: titilliumRegular.copyWith(color: Theme.of(context).textTheme.bodyText1.color)),
+                        child: Text(value, style: titilliumRegular.copyWith(color: Theme.of(context).textTheme.bodyText1!.color)),
                       );
                     }).toList(),
                   ),
@@ -55,7 +56,7 @@ class TransactionScreen extends StatelessWidget {
               ),
 
               Expanded(
-                  child: transactionProvider.transactionList !=null ? transactionProvider.transactionList.length > 0 ? ListView.builder(
+                  child: transactionProvider.transactionList !=null ? transactionProvider.transactionList.isNotEmpty ? ListView.builder(
                     itemCount: transactionProvider.transactionList.length,
                     itemBuilder: (context, index) => TransactionWidget(transactionModel: transactionProvider.transactionList[index])
                 ): NoDataScreen()

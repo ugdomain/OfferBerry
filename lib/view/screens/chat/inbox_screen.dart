@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/chat_provider.dart';
-import 'package:hundredminute_seller/provider/splash_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/images.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/base/custom_app_bar.dart';
-import 'package:hundredminute_seller/view/base/no_data_screen.dart';
-import 'package:hundredminute_seller/view/screens/chat/chat_screen.dart';
+
+import '../../../localization/language_constrants.dart';
+import '../../../provider/chat_provider.dart';
+import '../../../provider/splash_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/images.dart';
+import '../../../utill/styles.dart';
+import '../../base/custom_app_bar.dart';
+import '../../base/no_data_screen.dart';
+import 'chat_screen.dart';
 
 // ignore: must_be_immutable
 class InboxScreen extends StatelessWidget {
@@ -39,34 +40,34 @@ class InboxScreen extends StatelessWidget {
               },
               child: Consumer<ChatProvider>(
                 builder: (context, chat, child) {
-                  return chat.customerList != null ? chat.customerList.length != 0 ? ListView.builder(
-                    itemCount: chat.customerList.length,
-                    padding: EdgeInsets.all(0),
+                  return chat.customerList != null ? chat.customerList!.length != 0 ? ListView.builder(
+                    itemCount: chat.customerList!.length,
+                    padding: const EdgeInsets.all(0),
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
                           ListTile(
                             leading: ClipOval(
                               child: Container(
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).colorScheme.secondary,
                                 child: FadeInImage.assetNetwork(
                                   placeholder: Images.placeholder_image,
                                   image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.customerImageUrl}'
-                                      '/${chat.customerList[index].image != null ? chat.customerList[index].image : ''}',
+                                      '/${chat.customerList![index].image ?? ''}',
                                   fit: BoxFit.cover, height: 50, width: 50,
                                 ),
                               ),
                             ),
-                            title: Text(chat.customerList[index].fName+' '+chat.customerList[index].lName, style: titilliumSemiBold),
+                            title: Text('${chat.customerList![index].fName} ${chat.customerList![index].lName}', style: titilliumSemiBold),
                             subtitle: Text(
                               chat.customersMessages[index][chat.customersMessages[index].length-1].message,
                               style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL),
                             ),
                             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) {
-                              return ChatScreen(customer: chat.customerList[index], customerIndex: index, messages: chat.customersMessages[index]);
+                              return ChatScreen(customer: chat.customerList![index], customerIndex: index, messages: chat.customersMessages[index]);
                             })),
                           ),
-                          Divider(height: 2, color: ColorResources.CHAT_ICON_COLOR),
+                          const Divider(height: 2, color: ColorResources.CHAT_ICON_COLOR),
                         ],
                       );
                     },
@@ -88,29 +89,29 @@ class InboxShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: 15,
-      padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+      padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
           enabled: Provider.of<ChatProvider>(context).chatList == null,
           child: Padding(
-            padding: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
+            padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
             child: Row(children: [
-              CircleAvatar(child: Icon(Icons.person), radius: 30),
+              const CircleAvatar(child: Icon(Icons.person), radius: 30),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
+                  padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
                   child: Column(children: [
                     Container(height: 15, color: ColorResources.WHITE),
-                    SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    const SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                     Container(height: 15, color: ColorResources.WHITE),
                   ]),
                 ),
               ),
               Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Container(height: 10, width: 30, color: ColorResources.WHITE),
-                SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                 Container(
                   height: 15,
                   width: 15,

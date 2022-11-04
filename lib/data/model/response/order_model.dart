@@ -28,20 +28,20 @@ class OrderModel {
     this.customer,
   });
 
-  int id;
-  int customerId;
-  String customerType;
-  String paymentStatus;
-  String orderStatus;
+  int? id;
+  int? customerId;
+  String? customerType;
+  String? paymentStatus;
+  String? orderStatus;
   dynamic paymentMethod;
   dynamic transactionRef;
-  int orderAmount;
-  String shippingAddress;
-  String createdAt;
-  String updatedAt;
-  int discountAmount;
+  int? orderAmount;
+  String? shippingAddress;
+  String? createdAt;
+  String? updatedAt;
+  int? discountAmount;
   dynamic discountType;
-  Customer customer;
+  Customer? customer;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         id: json["id"],
@@ -76,7 +76,7 @@ class OrderModel {
         "updated_at": updatedAt,
         "discount_amount": discountAmount,
         "discount_type": discountType,
-        "customer": customer.toJson(),
+        "customer": customer!.toJson(),
       };
 }
 
@@ -103,25 +103,25 @@ class Customer {
     this.lg,
   });
 
-  int id;
+  int? id;
   dynamic name;
-  String fName;
-  String lName;
-  String phone;
-  String image;
-  String email;
+  String? fName;
+  String? lName;
+  String? phone;
+  String? image;
+  String? email;
   dynamic emailVerifiedAt;
-  DateTime createdAt;
-  DateTime updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
   dynamic streetAddress;
   dynamic country;
   dynamic city;
   dynamic zip;
   dynamic houseNo;
   dynamic apartmentNo;
-  String cmFirebaseToken;
-  String lt;
-  String lg;
+  String? cmFirebaseToken;
+  String? lt;
+  String? lg;
 
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
         id: json["id"],
@@ -154,8 +154,8 @@ class Customer {
         "image": image,
         "email": email,
         "email_verified_at": emailVerifiedAt,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt!.toIso8601String(),
+        "updated_at": updatedAt!.toIso8601String(),
         "street_address": streetAddress,
         "country": country,
         "city": city,

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/profile_provider.dart';
-import 'package:hundredminute_seller/provider/splash_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
+
+import '../../localization/language_constrants.dart';
+import '../../provider/profile_provider.dart';
+import '../../provider/splash_provider.dart';
+import '../../utill/color_resources.dart';
+import '../../utill/dimensions.dart';
+import '../../utill/styles.dart';
 
 
 
@@ -97,7 +98,7 @@ class _CustomEditDialogState extends State<CustomEditDialog> {
     if(_balance.isNotEmpty) {
       _bal = double.parse(_balance) / Provider.of<SplashProvider>(context, listen: false).myCurrency.exchangeRate;
     }
-    double _myBalance = Provider.of<ProfileProvider>(context, listen: false).userInfoModel.wallet.balance
+    double _myBalance = Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.wallet!.balance!
         * Provider.of<SplashProvider>(context, listen: false).usdCurrency.exchangeRate;
 
     if (_balance.isEmpty) {

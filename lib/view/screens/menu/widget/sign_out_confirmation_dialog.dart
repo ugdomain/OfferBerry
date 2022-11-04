@@ -2,12 +2,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/auth_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/screens/auth/auth_screen.dart';
+
+import '../../../../localization/language_constrants.dart';
+import '../../../../provider/auth_provider.dart';
+import '../../../../utill/color_resources.dart';
+import '../../../../utill/dimensions.dart';
+import '../../../../utill/styles.dart';
+import '../../auth/auth_screen.dart';
 
 class SignOutConfirmationDialog extends StatelessWidget {
   @override

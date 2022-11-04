@@ -1,15 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hundredminute_seller/data/repository/auth_repo.dart';
-import 'package:hundredminute_seller/data/repository/bank_info_repo.dart';
-import 'package:hundredminute_seller/data/repository/business_repo.dart';
-import 'package:hundredminute_seller/data/repository/chat_repo.dart';
-import 'package:hundredminute_seller/data/repository/order_repo.dart';
-import 'package:hundredminute_seller/data/repository/profile_repo.dart';
-import 'package:hundredminute_seller/data/repository/restaurant_repo.dart';
-import 'package:hundredminute_seller/data/repository/shop_info_repo.dart';
-import 'package:hundredminute_seller/data/repository/splash_repo.dart';
-import 'package:hundredminute_seller/data/repository/transaction_repo.dart';
 import 'package:hundredminute_seller/provider/auth_provider.dart';
 import 'package:hundredminute_seller/provider/bank_info_provider.dart';
 import 'package:hundredminute_seller/provider/business_provider.dart';
@@ -26,10 +16,19 @@ import 'package:hundredminute_seller/provider/theme_provider.dart';
 import 'package:hundredminute_seller/provider/transaction_provider.dart';
 import 'package:hundredminute_seller/utill/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'data/datasource/remote/dio/dio_client.dart';
 import 'data/datasource/remote/dio/logging_interceptor.dart';
+import 'data/repository/auth_repo.dart';
+import 'data/repository/bank_info_repo.dart';
+import 'data/repository/business_repo.dart';
+import 'data/repository/chat_repo.dart';
 import 'data/repository/notification_repo.dart';
+import 'data/repository/order_repo.dart';
+import 'data/repository/profile_repo.dart';
+import 'data/repository/restaurant_repo.dart';
+import 'data/repository/shop_info_repo.dart';
+import 'data/repository/splash_repo.dart';
+import 'data/repository/transaction_repo.dart';
 
 final sl = GetIt.instance;
 
@@ -70,7 +69,7 @@ Future<void> init() async {
   sl.registerFactory(() => BusinessProvider(businessRepo: sl()));
   sl.registerFactory(() => TransactionProvider(transactionRepo: sl()));
   sl.registerFactory(() => RestaurantProvider(restaurantRepo: sl()));
-  sl.registerFactory(() => NotificationProvider(notificationRepo: sl()));
+  sl.registerFactory(() =>  NotificationProvider(notificationRepo: sl()));
 
   // External
   final sharedPreferences = await SharedPreferences.getInstance();

@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
+
+import '../../provider/theme_provider.dart';
+import '../../utill/color_resources.dart';
+import '../../utill/styles.dart';
 
 class CustomButton extends StatelessWidget {
-  final Function onTap;
-  final String btnTxt;
-  final Color backgroundColor;
+  final Function? onTap;
+  final String? btnTxt;
+  final Color? backgroundColor;
   CustomButton({this.onTap, @required this.btnTxt, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onTap,
+      onPressed: onTap! as Function(),
       style: TextButton.styleFrom(padding: EdgeInsets.all(0),
         backgroundColor: onTap == null ? ColorResources.getGrey(context) : backgroundColor == null ? Theme.of(context).primaryColor : backgroundColor,
       ),
@@ -31,10 +32,10 @@ class CustomButton extends StatelessWidget {
               ColorResources.getBlue(context),
             ]),
             borderRadius: BorderRadius.circular(10)),
-        child: Text(btnTxt,
+        child: Text(btnTxt!,
             style: titilliumSemiBold.copyWith(
               fontSize: 16,
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.secondary,
             )),
       ),
     );

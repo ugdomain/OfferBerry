@@ -1,14 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:hundredminute_seller/data/datasource/remote/dio/dio_client.dart';
-import 'package:hundredminute_seller/data/datasource/remote/exception/api_error_handler.dart';
-import 'package:hundredminute_seller/data/model/response/base/api_response.dart';
-import 'package:hundredminute_seller/data/model/response/restaurant_model.dart';
-import 'package:hundredminute_seller/data/model/response/restaurant_view_model.dart';
-import 'package:hundredminute_seller/utill/images.dart';
+
+import '../../utill/images.dart';
+import '../datasource/remote/dio/dio_client.dart';
+import '../datasource/remote/exception/api_error_handler.dart';
+import '../model/response/base/api_response.dart';
+import '../model/response/restaurant_model.dart';
+import '../model/response/restaurant_view_model.dart';
 
 class RestaurantRepo {
-  final DioClient dioClient;
+  final DioClient? dioClient;
   RestaurantRepo({@required this.dioClient});
 
   Future<ApiResponse> getRestaurant() async {

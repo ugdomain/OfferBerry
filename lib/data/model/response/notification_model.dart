@@ -23,14 +23,14 @@ class NotificationModel {
     this.updatedAt,
   });
 
-  String id;
-  String type;
-  String notifiableType;
-  int notifiableId;
-  WelcomeData data;
+  String? id;
+  String? type;
+  String? notifiableType;
+  int? notifiableId;
+  WelcomeData? data;
   dynamic readAt;
-  DateTime createdAt;
-  DateTime updatedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
       NotificationModel(
@@ -49,10 +49,10 @@ class NotificationModel {
         "type": type,
         "notifiable_type": notifiableType,
         "notifiable_id": notifiableId,
-        "data": data.toJson(),
+        "data": data!.toJson(),
         "read_at": readAt,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt!.toIso8601String(),
+        "updated_at": updatedAt!.toIso8601String(),
       };
 }
 
@@ -61,7 +61,7 @@ class WelcomeData {
     this.data,
   });
 
-  DataData data;
+  DataData? data;
 
   factory WelcomeData.NotificationModel(Map<String, dynamic> json) =>
       WelcomeData(
@@ -69,7 +69,7 @@ class WelcomeData {
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data.toJson(),
+        "data": data!.toJson(),
       };
 }
 
@@ -83,12 +83,12 @@ class DataData {
     this.webRejectionLink,
   });
 
-  String message;
-  int orderId;
-  String confirmationLink;
-  String webConfirmationLink;
-  String rejectionLink;
-  String webRejectionLink;
+  String? message;
+  int? orderId;
+  String? confirmationLink;
+  String? webConfirmationLink;
+  String? rejectionLink;
+  String? webRejectionLink;
 
   factory DataData.fromJson(Map<String, dynamic> json) => DataData(
         message: json["message"],

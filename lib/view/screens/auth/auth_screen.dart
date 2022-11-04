@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/auth_provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/images.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/screens/auth/login_screen.dart';
+
+import '../../../localization/language_constrants.dart';
+import '../../../provider/auth_provider.dart';
+import '../../../provider/theme_provider.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/images.dart';
+import '../../../utill/styles.dart';
+import 'login_screen.dart';
 
 class AuthScreen extends StatelessWidget {
   @override

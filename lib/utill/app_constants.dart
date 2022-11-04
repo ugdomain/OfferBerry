@@ -1,12 +1,17 @@
-import 'package:hundredminute_seller/data/model/response/language_model.dart';
-import 'package:hundredminute_seller/utill/images.dart';
+
+import '../data/model/response/language_model.dart';
+import 'images.dart';
 
 class AppConstants {
   static const String APP_NAME = 'Seller OFFER BARRIES';
 
-  static const String BASE_URL = 'https://bionicspharma.com/offer-barry/';
+  static const String BASE_URL = 'https://moneylink.network/offer-barry';
+  static const String CATEGORY = '/api/v2/seller/products/get-raw-categories';
+  static const String SUB_CATEGORY =
+      '/api/v2/seller/products/get-raw-sub-categories';
+  static const String PRODUCT_LIST = '/api/v2/seller/products/get-products';
   static const String LOGIN_URI = '/api/v2/seller/auth/login';
-  static const String CONFIG_URI = 'api/v2/seller/config/1';
+  static const String CONFIG_URI = '/api/v2/seller/config/1';
   static const String SELLER_URI = '/api/v2/seller/seller-info';
   static const String USER_EARNINGS_URI = '/api/v2/seller/monthly-earning';
   static const String SELLER_AND_BANK_UPDATE = '/api/v2/seller/seller-update';
@@ -23,8 +28,8 @@ class AppConstants {
       '/api/v2/seller/close-withdraw-request';
   static const String TRANSACTIONS_URI = '/api/v2/seller/transactions';
 
-  static const String NOTIFICATION_URI = 'api/v2/seller/notifications';
-  static const String TOKEN_URI = 'api/v2/seller/cm-firebase-token';
+  static const String NOTIFICATION_URI = '/api/v2/seller/notifications';
+  static const String TOKEN_URI = '/api/v2/seller/cm-firebase-token';
 
   static const String PENDING = 'pending';
   static const String CONFIRMED = 'confirmed';

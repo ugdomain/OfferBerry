@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/data/model/response/chat_model.dart';
-import 'package:hundredminute_seller/helper/date_converter.dart';
-import 'package:hundredminute_seller/provider/splash_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/images.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
+
+import '../../../../data/model/response/chat_model.dart';
+import '../../../../helper/date_converter.dart';
+import '../../../../provider/splash_provider.dart';
+import '../../../../utill/color_resources.dart';
+import '../../../../utill/dimensions.dart';
+import '../../../../utill/images.dart';
+import '../../../../utill/styles.dart';
 
 class MessageBubble extends StatelessWidget {
-  final MessageModel chat;
-  final String customerImage;
+  final MessageModel? chat;
+  final String? customerImage;
   MessageBubble({@required this.chat, @required this.customerImage});
 
   @override
   Widget build(BuildContext context) {
-    bool isMe = chat.sentByCustomer == 0;
+    bool isMe = chat!.sentByCustomer == 0;
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
@@ -44,12 +45,12 @@ class MessageBubble extends StatelessWidget {
                 color: isMe ? ColorResources.getImageBg(context) : Theme.of(context).accentColor,
               ),
               child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                !isMe ? Text(DateConverter.localDateToIsoStringAMPM(DateConverter.isoStringToLocalDate(chat.createdAt)), style: titilliumRegular.copyWith(
+                !isMe ? Text(DateConverter.localDateToIsoStringAMPM(DateConverter.isoStringToLocalDate(chat!.createdAt)), style: titilliumRegular.copyWith(
                   fontSize: 8,
                   color: ColorResources.getHint(context),
                 )) : SizedBox.shrink(),
 
-                chat.message.isNotEmpty ? Text(chat.message, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)) : SizedBox.shrink(),
+                chat!.message.isNotEmpty ? Text(chat!.message, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)) : SizedBox.shrink(),
               ]),
           ),
         ),

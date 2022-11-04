@@ -37,28 +37,28 @@ class OrderDetailsModel {
     this.shipping,
   });
 
-  int id;
-  int orderId;
-  int productId;
-  int sellerId;
-  ProductDetails productDetails;
-  int qty;
-  int price;
-  int tax;
-  int discount;
-  String deliveryStatus;
-  String paymentStatus;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int shippingMethodId;
+  int? id;
+  int? orderId;
+  int? productId;
+  int? sellerId;
+  ProductDetails? productDetails;
+  int? qty;
+  int? price;
+  int? tax;
+  int? discount;
+  String? deliveryStatus;
+  String? paymentStatus;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? shippingMethodId;
   dynamic variant;
-  String variation;
-  String discountType;
-  String isStockDecreased;
-  String sellerAmount;
-  String commissionOn;
-  String adminCommission;
-  Shipping shipping;
+  String? variation;
+  String? discountType;
+  String? isStockDecreased;
+  String? sellerAmount;
+  String? commissionOn;
+  String? adminCommission;
+  Shipping? shipping;
 
   factory OrderDetailsModel.fromJson(Map<String, dynamic> json) =>
       OrderDetailsModel(
@@ -93,15 +93,15 @@ class OrderDetailsModel {
         "order_id": orderId,
         "product_id": productId,
         "seller_id": sellerId,
-        "product_details": productDetails.toJson(),
+        "product_details": productDetails!.toJson(),
         "qty": qty,
         "price": price,
         "tax": tax,
         "discount": discount,
         "delivery_status": deliveryStatus,
         "payment_status": paymentStatus,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt!.toIso8601String(),
+        "updated_at": updatedAt!.toIso8601String(),
         "shipping_method_id": shippingMethodId,
         "variant": variant,
         "variation": variation,
@@ -110,7 +110,7 @@ class OrderDetailsModel {
         "seller_amount": sellerAmount,
         "commission_on": commissionOn,
         "admin_commission": adminCommission,
-        "shipping": shipping.toJson(),
+        "shipping": shipping!.toJson(),
       };
 }
 
@@ -156,44 +156,44 @@ class ProductDetails {
     this.commission,
   });
 
-  int id;
-  String addedBy;
-  int userId;
-  String name;
-  String slug;
-  List<CategoryId> categoryIds;
-  int category;
-  int brandId;
-  String unit;
-  int minQty;
-  int refundable;
-  List<String> images;
-  String thumbnail;
+  int? id;
+  String? addedBy;
+  int? userId;
+  String? name;
+  String? slug;
+  List<CategoryId>? categoryIds;
+  int? category;
+  int? brandId;
+  String? unit;
+  int? minQty;
+  int? refundable;
+  List<String>? images;
+  String? thumbnail;
   dynamic featured;
   dynamic flashDeal;
   dynamic videoProvider;
   dynamic videoUrl;
-  List<dynamic> colors;
-  String variantProduct;
+  List<dynamic>? colors;
+  String? variantProduct;
   dynamic attributes;
-  List<dynamic> choiceOptions;
-  List<dynamic> variation;
-  int published;
-  int unitPrice;
-  int purchasePrice;
-  int tax;
-  String taxType;
-  int discount;
-  String discountType;
-  int currentStock;
+  List<dynamic>? choiceOptions;
+  List<dynamic>? variation;
+  int? published;
+  int? unitPrice;
+  int? purchasePrice;
+  int? tax;
+  String? taxType;
+  int? discount;
+  String? discountType;
+  int? currentStock;
   dynamic details;
-  int freeShipping;
+  int? freeShipping;
   dynamic attachment;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int status;
-  int featuredStatus;
-  String commission;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? status;
+  int? featuredStatus;
+  String? commission;
 
   factory ProductDetails.fromJson(Map<String, dynamic> json) => ProductDetails(
         id: json["id"],
@@ -243,23 +243,23 @@ class ProductDetails {
         "user_id": userId,
         "name": name,
         "slug": slug,
-        "category_ids": List<dynamic>.from(categoryIds.map((x) => x.toJson())),
+        "category_ids": List<dynamic>.from(categoryIds!.map((x) => x.toJson())),
         "category": category,
         "brand_id": brandId,
         "unit": unit,
         "min_qty": minQty,
         "refundable": refundable,
-        "images": List<dynamic>.from(images.map((x) => x)),
+        "images": List<dynamic>.from(images!.map((x) => x)),
         "thumbnail": thumbnail,
         "featured": featured,
         "flash_deal": flashDeal,
         "video_provider": videoProvider,
         "video_url": videoUrl,
-        "colors": List<dynamic>.from(colors.map((x) => x)),
+        "colors": List<dynamic>.from(colors!.map((x) => x)),
         "variant_product": variantProduct,
         "attributes": attributes,
-        "choice_options": List<dynamic>.from(choiceOptions.map((x) => x)),
-        "variation": List<dynamic>.from(variation.map((x) => x)),
+        "choice_options": List<dynamic>.from(choiceOptions!.map((x) => x)),
+        "variation": List<dynamic>.from(variation!.map((x) => x)),
         "published": published,
         "unit_price": unitPrice,
         "purchase_price": purchasePrice,
@@ -271,8 +271,8 @@ class ProductDetails {
         "details": details,
         "free_shipping": freeShipping,
         "attachment": attachment,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt!.toIso8601String(),
+        "updated_at": updatedAt!.toIso8601String(),
         "status": status,
         "featured_status": featuredStatus,
         "commission": commission,
@@ -285,8 +285,8 @@ class CategoryId {
     this.position,
   });
 
-  String id;
-  int position;
+  String? id;
+  int? position;
 
   factory CategoryId.fromJson(Map<String, dynamic> json) => CategoryId(
         id: json["id"],
@@ -313,16 +313,16 @@ class Shipping {
     this.updatedAt,
   });
 
-  int id;
-  int creatorId;
-  String creatorType;
-  String category;
-  String title;
-  int cost;
-  String duration;
-  int status;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? id;
+  int? creatorId;
+  String? creatorType;
+  String? category;
+  String? title;
+  int? cost;
+  String? duration;
+  int? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory Shipping.fromJson(Map<String, dynamic> json) => Shipping(
         id: json["id"],
@@ -346,7 +346,7 @@ class Shipping {
         "cost": cost,
         "duration": duration,
         "status": status,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt!.toIso8601String(),
+        "updated_at": updatedAt!.toIso8601String(),
       };
 }

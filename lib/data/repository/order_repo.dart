@@ -1,17 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hundredminute_seller/data/datasource/remote/dio/dio_client.dart';
-import 'package:hundredminute_seller/data/datasource/remote/exception/api_error_handler.dart';
-import 'package:hundredminute_seller/data/model/response/base/api_response.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
+
+import '../../utill/app_constants.dart';
+import '../datasource/remote/dio/dio_client.dart';
+import '../datasource/remote/exception/api_error_handler.dart';
+import '../model/response/base/api_response.dart';
 
 class OrderListRepo {
-  final DioClient dioClient;
+  final DioClient? dioClient;
   OrderListRepo({@required this.dioClient});
 
   Future<ApiResponse> getOrderList() async {
     try {
-      final response = await dioClient.get(AppConstants.ORDER_LIST_URI);
+      final response = await dioClient!.get(AppConstants.ORDER_LIST_URI);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -21,7 +22,7 @@ class OrderListRepo {
   Future<ApiResponse> getOrderDetails(String orderID) async {
     try {
       final response =
-          await dioClient.get(AppConstants.ORDER_DETAILS + orderID);
+          await dioClient!.get(AppConstants.ORDER_DETAILS + orderID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -30,7 +31,7 @@ class OrderListRepo {
 
   Future<ApiResponse> orderStatus(int orderID, String status) async {
     try {
-      Response response = await dioClient.post(
+      Response response = await dioClient!.post(
         '${AppConstants.UPDATE_ORDER_STATUS}$orderID',
         data: {'_method': 'put', 'delivery_status': status},
       );

@@ -1,8 +1,9 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/splash_provider.dart';
+
+import '../localization/language_constrants.dart';
+import '../provider/splash_provider.dart';
 
 class NetworkInfo {
   final Connectivity connectivity;

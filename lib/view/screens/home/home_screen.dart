@@ -1,30 +1,47 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hundredminute_seller/provider/splash_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/helper/price_converter.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/bank_info_provider.dart';
-import 'package:hundredminute_seller/provider/order_provider.dart';
-import 'package:hundredminute_seller/provider/profile_provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/images.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/base/custom_edit_dialog.dart';
+import 'package:get/get.dart';
 import 'package:hundredminute_seller/view/screens/home/widget/bar_chart.dart';
-import 'package:hundredminute_seller/view/screens/home/widget/order_type_button.dart';
+import 'package:provider/provider.dart';
+import '../../../controllers/category_controller.dart';
+import '../../../controllers/static_fields_controller.dart';
+import '../../../controllers/sub_category_attr_controller.dart';
+import '../../../controllers/sub_category_controller.dart';
+import '../../../excel_file/excel_page_controller.dart';
+import '../../../helper/price_converter.dart';
+import '../../../localization/language_constrants.dart';
+import '../../../provider/bank_info_provider.dart';
+import '../../../provider/order_provider.dart';
+import '../../../provider/profile_provider.dart';
+import '../../../provider/splash_provider.dart';
+import '../../../provider/theme_provider.dart';
+import '../../../utill/app_constants.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/images.dart';
+import '../../../utill/styles.dart';
+import '../../base/custom_edit_dialog.dart';
+import '../../get_image_widget/get_image_controller.dart';
+import '../order/order_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  final Function callback;
+  final Function? callback;
   HomeScreen({@required this.callback});
+
+  final CategoryController _categoryController = Get.put(CategoryController());
+  final SubCategoryController _subCategoryController = Get.put(
+      SubCategoryController());
+  final SubCategoryAttrController _attrController = Get.put(
+      SubCategoryAttrController());
+  final ExcelController _excelController = Get.put(ExcelController());
+  final StaticFieldsController _fieldsController = Get.put(
+      StaticFieldsController());
+  ChooseImageController imageCon = Get.put(ChooseImageController());
 
   Future<void> _loadData(BuildContext context, bool reload) async {
     await Provider.of<SplashProvider>(context, listen: false)
         .initConfig(context);
-    await Provider.of<SplashProvider>(context, listen: false)
+    Provider.of<SplashProvider>(context, listen: false)
         .initSharedPrefData();
     await Provider.of<BankInfoProvider>(context, listen: false)
         .getUserEarnings(context);
@@ -61,14 +78,14 @@ class HomeScreen extends StatelessWidget {
             SizedBox(width: 10),
             Text(AppConstants.APP_NAME,
                 style: titilliumBold.copyWith(
-                    color: Theme.of(context).textTheme.bodyText1.color)),
+                    color: Theme.of(context).textTheme.bodyText1!.color)),
           ],
         ),
         backgroundColor: ColorResources.getBottomSheetColor(context),
         elevation: 0,
       ),
       body: Consumer<OrderProvider>(
-        builder: (context, order, child) {
+        builder: (context,order, child) {
           return order.orderList != null
               ? SafeArea(
                   child: RefreshIndicator(
@@ -150,7 +167,7 @@ class HomeScreen extends StatelessWidget {
                                               Theme.of(context)
                                                   .primaryColor)))),
 
-                          SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
+                          const SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
 
                           Consumer<ProfileProvider>(
                             builder: (context, seller, child) => seller
@@ -160,7 +177,7 @@ class HomeScreen extends StatelessWidget {
                                     height: 120,
                                     child: ListView(
                                       scrollDirection: Axis.horizontal,
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: Dimensions
                                               .PADDING_SIZE_EXTRA_SMALL),
                                       physics: BouncingScrollPhysics(),
@@ -168,10 +185,10 @@ class HomeScreen extends StatelessWidget {
                                       children: [
                                         Container(
                                           width: 280,
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: Dimensions
                                                   .PADDING_SIZE_DEFAULT),
-                                          margin: EdgeInsets.symmetric(
+                                          margin: const EdgeInsets.symmetric(
                                               horizontal: Dimensions
                                                   .PADDING_SIZE_SMALL),
                                           decoration: BoxDecoration(
@@ -187,7 +204,7 @@ class HomeScreen extends StatelessWidget {
                                                                   listen: false)
                                                               .darkTheme
                                                           ? 800
-                                                          : 200],
+                                                          : 200]!,
                                                   spreadRadius: 0.5,
                                                   blurRadius: 0.3)
                                             ],
@@ -211,15 +228,12 @@ class HomeScreen extends StatelessWidget {
                                               Text(
                                                   PriceConverter.convertPrice(
                                                       context,
-                                                      seller.userInfoModel
+                                                      seller.userInfoModel!
                                                                   .wallet !=
                                                               null
-                                                          ? seller
-                                                                  .userInfoModel
-                                                                  .wallet
-                                                                  .balance ??
-                                                              0
-                                                          : 0),
+                                                          ? double.parse(seller.userInfoModel!.wallet!.balance.toString()) ??
+                                                              0.0
+                                                          : 0.0),
                                                   style: titilliumBold.copyWith(
                                                       color:
                                                           ColorResources.WHITE,
@@ -264,9 +278,9 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                         Container(
                                           width: 280,
-                                          padding: EdgeInsets.all(
+                                          padding: const EdgeInsets.all(
                                               Dimensions.PADDING_SIZE_DEFAULT),
-                                          margin: EdgeInsets.symmetric(
+                                          margin: const EdgeInsets.symmetric(
                                               horizontal: Dimensions
                                                   .PADDING_SIZE_SMALL),
                                           decoration: BoxDecoration(
@@ -281,7 +295,7 @@ class HomeScreen extends StatelessWidget {
                                                                   listen: false)
                                                               .darkTheme
                                                           ? 800
-                                                          : 200],
+                                                          : 200]!,
                                                   spreadRadius: 0.5,
                                                   blurRadius: 0.3)
                                             ],
@@ -304,11 +318,11 @@ class HomeScreen extends StatelessWidget {
                                               Text(
                                                   PriceConverter.convertPrice(
                                                       context,
-                                                      seller.userInfoModel
+                                                      seller.userInfoModel!
                                                                   .wallet !=
                                                               null
-                                                          ? seller.userInfoModel
-                                                              .wallet.withdrawn
+                                                          ? seller.userInfoModel!
+                                                              .wallet!.withdrawn!
                                                               .toDouble()
                                                           : 0),
                                                   style: titilliumBold.copyWith(
@@ -322,9 +336,9 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                         Container(
                                           width: 280,
-                                          padding: EdgeInsets.all(
+                                          padding: const EdgeInsets.all(
                                               Dimensions.PADDING_SIZE_DEFAULT),
-                                          margin: EdgeInsets.symmetric(
+                                          margin: const EdgeInsets.symmetric(
                                               horizontal: Dimensions
                                                   .PADDING_SIZE_SMALL),
                                           decoration: BoxDecoration(
@@ -339,7 +353,7 @@ class HomeScreen extends StatelessWidget {
                                                                   listen: false)
                                                               .darkTheme
                                                           ? 800
-                                                          : 200],
+                                                          : 200]!,
                                                   spreadRadius: 0.5,
                                                   blurRadius: 0.3)
                                             ],
@@ -362,17 +376,17 @@ class HomeScreen extends StatelessWidget {
                                               Text(
                                                   PriceConverter.convertPrice(
                                                       context,
-                                                      seller.userInfoModel
+                                                      seller.userInfoModel!
                                                                   .wallet !=
                                                               null
-                                                          ? seller
-                                                                  .userInfoModel
-                                                                  .wallet
-                                                                  .balance +
+                                                          ? double.parse(seller
+                                                                  .userInfoModel!
+                                                                  .wallet!
+                                                                  .balance!.toString()) +
                                                               seller
-                                                                  .userInfoModel
-                                                                  .wallet
-                                                                  .withdrawn
+                                                                  .userInfoModel!
+                                                                  .wallet!
+                                                                  .withdrawn!
                                                           : 0),
                                                   style: titilliumBold.copyWith(
                                                       color:
@@ -392,7 +406,7 @@ class HomeScreen extends StatelessWidget {
                           ),
 
                           Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Consumer<BankInfoProvider>(
                                 builder: (context, bankInfo, child) {
                               List<double> _earnings = [];

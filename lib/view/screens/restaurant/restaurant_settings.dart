@@ -1,37 +1,38 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:hundredminute_seller/view/screens/restaurant/restaurant_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/auth_provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/images.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/base/custom_button.dart';
-import 'package:hundredminute_seller/view/base/textfeild/custom_text_feild.dart';
-import 'package:hundredminute_seller/view/screens/restaurant/restaurant_screen.dart';
+import '../../../localization/language_constrants.dart';
+import '../../../provider/auth_provider.dart';
+import '../../../provider/theme_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/images.dart';
+import '../../../utill/styles.dart';
+import '../../base/custom_button.dart';
+import '../../base/textfeild/custom_text_feild.dart';
 
 class RestaurantSettingsScreen extends StatefulWidget {
+
   @override
   _RestaurantSettingsScreenState createState() => _RestaurantSettingsScreenState();
 }
 
 class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
 
-   TextEditingController _restaurantNameController ;
-   TextEditingController _addressController ;
-   TextEditingController _phoneController ;
+   TextEditingController? _restaurantNameController ;
+   TextEditingController? _addressController ;
+   TextEditingController? _phoneController ;
 
   final FocusNode _resNameNode = FocusNode();
   final FocusNode _addressNode = FocusNode();
   final FocusNode _phoneNode = FocusNode();
-  GlobalKey<FormState> _formKeyLogin;
+  GlobalKey<FormState>? _formKeyLogin;
 
 
-   File file;
+   File? file;
    final picker = ImagePicker();
    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -54,16 +55,16 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
     _addressController = TextEditingController();
     _phoneController = TextEditingController();
 
-    _restaurantNameController.text = 'Parallax Restaurant';
-    _addressController.text = '3460, Pallet Street, New York';
-    _phoneController.text = '012345678';
+    _restaurantNameController!.text = 'Parallax Restaurant';
+    _addressController!.text = '3460, Pallet Street, New York';
+    _phoneController!.text = '012345678';
   }
 
   @override
   void dispose() {
-    _restaurantNameController.dispose();
-    _addressController.dispose();
-    _phoneController.dispose();
+    _restaurantNameController!.dispose();
+    _addressController!.dispose();
+    _phoneController!.dispose();
     super.dispose();
   }
 
@@ -77,16 +78,16 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
           builder: (context, authProvider, child) => Form(
             key: _formKeyLogin,
             child: ListView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               children: [
 
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [BoxShadow(
-                      color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 300],
+                      color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 300]!,
                       blurRadius: 5, spreadRadius: 1,
                     )],
                   ),
@@ -103,7 +104,7 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
                             width: double.infinity,
                             fit: BoxFit.cover,
                           )
-                              : Image.file(file,
+                              : Image.file(file!,
                               width: double.infinity,
                               height: MediaQuery.of(context).size.height/ 3.5,
                               fit: BoxFit.cover),
@@ -114,12 +115,12 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
                           child: InkWell(onTap: _choose,
                               child: Container(
                                 alignment: Alignment.center,
-                                padding: EdgeInsets.all(5),
+                                padding: const EdgeInsets.all(5),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Theme.of(context).primaryColor,
                                 ),
-                                child: Icon(Icons.camera_alt_outlined, size: 20, color: ColorResources.WHITE,),
+                                child: const Icon(Icons.camera_alt_outlined, size: 20, color: ColorResources.WHITE,),
                           )),
                         ),
                       ],
@@ -128,12 +129,12 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
                 ),
 
 
-                SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                 Text(
                   getTranslated('restaurant_name', context),
                   style: titilliumRegular.copyWith(fontSize: Dimensions.PADDING_SIZE_DEFAULT, color: ColorResources.getHintColor(context),)),
 
-                SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                 CustomTextField(
                   hintText: getTranslated('restaurant_name', context),
                   focusNode: _resNameNode,
@@ -142,12 +143,12 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
                   textInputType: TextInputType.text,
                   textInputAction: TextInputAction.next,
                 ),
-                SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+                const SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
                 Text(
                   getTranslated('address_line_01', context),
                   style: titilliumRegular.copyWith(fontSize: Dimensions.PADDING_SIZE_DEFAULT, color: ColorResources.getHintColor(context),)),
 
-                SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                 CustomTextField(
                   hintText: getTranslated('address_line_02', context),
                   focusNode: _addressNode,
@@ -156,12 +157,12 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
                   textInputAction: TextInputAction.next,
                 ),
 
-                SizedBox(height: 22),
+                const SizedBox(height: 22),
                 Text(
                   getTranslated('phone_no', context),
                   style: titilliumRegular.copyWith(fontSize: Dimensions.PADDING_SIZE_DEFAULT, color: ColorResources.getHintColor(context),)),
 
-                SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                 CustomTextField(
                   hintText: '012345678',
                   controller: _phoneController,
@@ -171,7 +172,7 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
                 ),
 
                 // for login button
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                CustomButton(
                   btnTxt: getTranslated('save', context),
                   backgroundColor: ColorResources.WHITE,

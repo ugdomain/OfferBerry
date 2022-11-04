@@ -1,21 +1,20 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/helper/network_info.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/auth_provider.dart';
-import 'package:hundredminute_seller/provider/splash_provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/images.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/screens/auth/auth_screen.dart';
-import 'package:hundredminute_seller/view/screens/dashboard/dashboard_screen.dart';
 import 'package:hundredminute_seller/view/screens/splash/widget/splash_painter.dart';
+import 'package:provider/provider.dart';
+import '../../../helper/network_info.dart';
+import '../../../localization/language_constrants.dart';
+import '../../../provider/auth_provider.dart';
+import '../../../provider/splash_provider.dart';
+import '../../../provider/theme_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/images.dart';
+import '../../../utill/styles.dart';
+import '../auth/auth_screen.dart';
+import '../dashboard/dashboard_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -32,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
         .initConfig(context)
         .then((bool isSuccess) {
       if (isSuccess) {
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (BuildContext context) => DashboardScreen()));

@@ -4,13 +4,14 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hundredminute_seller/data/datasource/remote/dio/dio_client.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
-import 'package:hundredminute_seller/view/base/custom_app_bar.dart';
 import 'package:hundredminute_seller/view/screens/subscription/save_file_mobile.dart';
 import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../data/datasource/remote/dio/dio_client.dart';
+import '../../../utill/app_constants.dart';
+import '../../base/custom_app_bar.dart';
 
 class Subscription_Screen extends StatefulWidget {
   final bool isBacButtonExist;
@@ -39,7 +40,7 @@ class _Subscription_ScreenState extends State<Subscription_Screen> {
               builder: (context, snapshot) {
                 if (snapshot.data != null) {
                   return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,75 +50,75 @@ class _Subscription_ScreenState extends State<Subscription_Screen> {
                             // mainAxisAlignment: MainAxisAlignment.center,
                             // crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 "Subscription Start Date:\t",
                                 style: TextStyle(fontWeight: FontWeight.w600),
                               ),
-                              Text("${snapshot.data.dataStart}"),
+                              Text("${snapshot.data!.dataStart}"),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Row(
                             // mainAxisAlignment: MainAxisAlignment.center,
                             // crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 "Date end: ",
                                 style: TextStyle(fontWeight: FontWeight.w600),
                               ),
-                              Text("${snapshot.data.dataEnd}"),
+                              Text("${snapshot.data!.dataEnd}"),
                             ],
                           ),
                           // Text("Date end: ${snapshot.data.dataEnd}"),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Row(
                             // mainAxisAlignment: MainAxisAlignment.center,
                             // crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 "Price: ",
                                 style: TextStyle(fontWeight: FontWeight.w600),
                               ),
-                              Text("${snapshot.data.price}"),
+                              Text("${snapshot.data!.price}"),
                             ],
                           ),
                           // Text("Price: ${snapshot.data.price}"),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Row(
                             children: [
-                              Text(
+                              const Text(
                                 "plan duration: ",
                                 style: TextStyle(fontWeight: FontWeight.w600),
                               ),
                               Text(
-                                  "${snapshot.data.planDuration}\t${snapshot.data.planType}"),
+                                  "${snapshot.data!.planDuration}\t${snapshot.data!.planType}"),
                             ],
                           ),
                           // Text("plan duration: ${snapshot.data.planDuration}"),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Row(
                             children: [
-                              Text(
+                              const Text(
                                 "Plan Type: ",
                                 style: TextStyle(fontWeight: FontWeight.w600),
                               ),
-                              Text("${snapshot.data.planType}"),
+                              Text(snapshot.data!.planType!),
                             ],
                           ),
                           // Text("Month: ${snapshot.data.planType}"),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Text(
                                 "Invoice Link: ",
                                 style: TextStyle(fontWeight: FontWeight.w600),
@@ -125,13 +126,13 @@ class _Subscription_ScreenState extends State<Subscription_Screen> {
                               // Text("${snapshot.data.planType}"),
                             ],
                           ),
-                          Text(" ${snapshot.data.invoiceDownloadLink}"),
+                          Text(" ${snapshot.data!.invoiceDownloadLink}"),
                         ],
                       ),
                     ),
                   );
                 } else {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                   // return Container(
                   //   child: Center(child: Text("No Data")),
                   // );
@@ -182,7 +183,7 @@ class _Subscription_ScreenState extends State<Subscription_Screen> {
   //   }
   // }
 
-  Future<String> downloadFile(String url) async {
+  Future<String?> downloadFile(String url) async {
     Directory dir = await getTemporaryDirectory();
     String fullPath = dir.path + "/invoice.pdf'";
     print('full path ${fullPath}');
@@ -190,7 +191,7 @@ class _Subscription_ScreenState extends State<Subscription_Screen> {
     HttpClient httpClient = new HttpClient();
     File file;
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String token = sharedPreferences.getString(AppConstants.TOKEN);
+    String token = sharedPreferences.getString(AppConstants.TOKEN)!;
 
     // String filePath = '';
     // String myUrl = '';
@@ -233,7 +234,7 @@ class _Subscription_ScreenState extends State<Subscription_Screen> {
     print(response.data.toString());
     ReciptData reciptData = ReciptData.fromMap(response.data);
     print(reciptData.invoiceDownloadLink);
-    downloadFile(reciptData.invoiceDownloadLink);
+    downloadFile(reciptData.invoiceDownloadLink!);
     return reciptData;
   }
 }
@@ -257,12 +258,12 @@ class ReciptData {
     @required this.invoiceDownloadLink,
   });
 
-  DateTime dataEnd;
-  DateTime dataStart;
-  String planType;
-  int planDuration;
-  int price;
-  String invoiceDownloadLink;
+  DateTime? dataEnd;
+  DateTime? dataStart;
+  String? planType;
+  int? planDuration;
+  int? price;
+  String? invoiceDownloadLink;
 
   factory ReciptData.fromMap(Map<String, dynamic> json) => ReciptData(
         dataEnd: DateTime.parse(json["data_end"]),
@@ -275,9 +276,9 @@ class ReciptData {
 
   Map<String, dynamic> toMap() => {
         "data_end":
-            "${dataEnd.year.toString().padLeft(4, '0')}-${dataEnd.month.toString().padLeft(2, '0')}-${dataEnd.day.toString().padLeft(2, '0')}",
+            "${dataEnd!.year.toString().padLeft(4, '0')}-${dataEnd!.month.toString().padLeft(2, '0')}-${dataEnd!.day.toString().padLeft(2, '0')}",
         "data_start":
-            "${dataStart.year.toString().padLeft(4, '0')}-${dataStart.month.toString().padLeft(2, '0')}-${dataStart.day.toString().padLeft(2, '0')}",
+            "${dataStart!.year.toString().padLeft(4, '0')}-${dataStart!.month.toString().padLeft(2, '0')}-${dataStart!.day.toString().padLeft(2, '0')}",
         "plan_type": planType,
         "plan_duration": planDuration,
         "price": price,

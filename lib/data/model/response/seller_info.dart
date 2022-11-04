@@ -1,28 +1,28 @@
 class SellerModel {
-  int id;
-  String fName;
-  String lName;
-  String phone;
-  String image;
-  String email;
-  String password;
-  String status;
-  int category;
-  String rememberToken;
-  String createdAt;
-  String updatedAt;
-  String bankName;
-  String branch;
-  String accountNo;
-  String holderName;
-  String authToken;
-  String cmFirebaseToken;
-  int commission;
-  String stripeId;
-  String cardBrand;
-  String cardLastFour;
-  Null trialEndsAt;
-  Wallet wallet;
+  int? id;
+  String? fName;
+  String? lName;
+  String? phone;
+  String? image;
+  String? email;
+  String? password;
+  String? status;
+  int? category;
+  String? rememberToken;
+  String? createdAt;
+  String? updatedAt;
+  String? bankName;
+  String? branch;
+  String? accountNo;
+  String? holderName;
+  String? authToken;
+  String? cmFirebaseToken;
+  int? commission;
+  String? stripeId;
+  String? cardBrand;
+  String? cardLastFour;
+  String? trialEndsAt;
+  Wallet? wallet;
 
   SellerModel(
       {this.id,
@@ -59,7 +59,7 @@ class SellerModel {
     email = json['email'];
     password = json['password'];
     status = json['status'];
-    category = json['category'];
+    category = int.parse(json['category']);
     rememberToken = json['remember_token'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -69,7 +69,7 @@ class SellerModel {
     holderName = json['holder_name'];
     authToken = json['auth_token'];
     cmFirebaseToken = json['cm_firebase_token'];
-    commission = json['commission'];
+    commission = int.parse(json['commission']);
     stripeId = json['stripe_id'];
     cardBrand = json['card_brand'];
     cardLastFour = json['card_last_four'];
@@ -84,7 +84,7 @@ class SellerModel {
     data['f_name'] = this.fName;
     data['l_name'] = this.lName;
     data['phone'] = this.phone;
-    data['image'] = this.image;
+    data['image'] = this.image!;
     data['email'] = this.email;
     data['password'] = this.password;
     data['status'] = this.status;
@@ -104,19 +104,19 @@ class SellerModel {
     data['card_last_four'] = this.cardLastFour;
     data['trial_ends_at'] = this.trialEndsAt;
     if (this.wallet != null) {
-      data['wallet'] = this.wallet.toJson();
+      data['wallet'] = this.wallet!.toJson();
     }
     return data;
   }
 }
 
 class Wallet {
-  int id;
-  int sellerId;
-  double balance;
-  int withdrawn;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  dynamic sellerId;
+  dynamic balance;
+  int? withdrawn;
+  String? createdAt;
+  String? updatedAt;
 
   Wallet(
       {this.id,

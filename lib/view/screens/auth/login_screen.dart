@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/helper/email_checker.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/provider/auth_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/view/base/custom_button.dart';
-import 'package:hundredminute_seller/view/base/custom_snackbar.dart';
-import 'package:hundredminute_seller/view/base/textfeild/custom_pass_textfeild.dart';
-import 'package:hundredminute_seller/view/base/textfeild/custom_text_feild.dart';
-import 'package:hundredminute_seller/view/screens/dashboard/dashboard_screen.dart';
+
+import '../../../helper/email_checker.dart';
+import '../../../localization/language_constrants.dart';
+import '../../../provider/auth_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../base/custom_button.dart';
+import '../../base/custom_snackbar.dart';
+import '../../base/textfeild/custom_pass_textfeild.dart';
+import '../../base/textfeild/custom_text_feild.dart';
+import '../dashboard/dashboard_screen.dart';
 
 class SignInWidget extends StatefulWidget {
   @override
@@ -19,9 +20,9 @@ class SignInWidget extends StatefulWidget {
 class _SignInWidgetState extends State<SignInWidget> {
   FocusNode _emailFocus = FocusNode();
   FocusNode _passwordFocus = FocusNode();
-  TextEditingController _emailController;
-  TextEditingController _passwordController;
-  GlobalKey<FormState> _formKeyLogin;
+  TextEditingController? _emailController;
+  TextEditingController? _passwordController;
+  GlobalKey<FormState>? _formKeyLogin;
 
   @override
   void initState() {
@@ -30,14 +31,14 @@ class _SignInWidgetState extends State<SignInWidget> {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
 
-    _emailController.text = Provider.of<AuthProvider>(context, listen: false).getUserEmail() ?? null;
-    _passwordController.text = Provider.of<AuthProvider>(context, listen: false).getUserPassword() ?? null;
+    _emailController!.text = Provider.of<AuthProvider>(context, listen: false).getUserEmail() ?? null!;
+    _passwordController!.text = Provider.of<AuthProvider>(context, listen: false).getUserPassword() ?? null!;
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _emailController!.dispose();
+    _passwordController!.dispose();
     super.dispose();
   }
 
@@ -101,7 +102,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                         Text(
                           getTranslated('remember_me', context),
                           style: Theme.of(context)
-                              .textTheme.headline2.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL, color: ColorResources.getHintColor(context)),
+                              .textTheme.headline2!.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL, color: ColorResources.getHintColor(context)),
                         )
                       ],
                     ),
@@ -122,7 +123,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     Expanded(
                       child: Text(
                         authProvider.loginErrorMessage ?? "",
-                        style: Theme.of(context).textTheme.headline2.copyWith(
+                        style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: Dimensions.FONT_SIZE_SMALL,
                           color: Theme.of(context).primaryColor,
                         ),
@@ -141,8 +142,8 @@ class _SignInWidgetState extends State<SignInWidget> {
                   backgroundColor: ColorResources.WHITE,
                   btnTxt: getTranslated('login', context),
                   onTap: () async {
-                    String _email = _emailController.text.trim();
-                    String _password = _passwordController.text.trim();
+                    String _email = _emailController!.text.trim();
+                    String _password = _passwordController!.text.trim();
                     if (_email.isEmpty) {
                       showCustomSnackBar(getTranslated('enter_email_address', context), context);
                     }else if (EmailChecker.isNotValid(_email)) {

@@ -1,13 +1,14 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hundredminute_seller/data/model/response/base/api_response.dart';
-import 'package:hundredminute_seller/data/model/response/base/error_response.dart';
-import 'package:hundredminute_seller/data/model/response/response_model.dart';
-import 'package:hundredminute_seller/data/repository/auth_repo.dart';
-import 'package:hundredminute_seller/notification/PushNotifications.dart';
+
+import '../data/model/response/base/api_response.dart';
+import '../data/model/response/base/error_response.dart';
+import '../data/model/response/response_model.dart';
+import '../data/repository/auth_repo.dart';
+import '../notification/PushNotifications.dart';
 
 class AuthProvider with ChangeNotifier {
-  final AuthRepo authRepo;
+  final AuthRepo? authRepo;
 
   AuthProvider({@required this.authRepo});
 
@@ -20,23 +21,23 @@ class AuthProvider with ChangeNotifier {
 
   String get loginErrorMessage => _loginErrorMessage;
 
-  Future<ResponseModel> login({String emailAddress, String password}) async {
+  Future<ResponseModel> login({String? emailAddress, String? password}) async {
     _isLoading = true;
     _loginErrorMessage = '';
     notifyListeners();
     ApiResponse apiResponse =
-        await authRepo.login(emailAddress: emailAddress, password: password);
+        await authRepo!.login(emailAddress: emailAddress, password: password);
     _isLoading = false;
     notifyListeners();
     ResponseModel responseModel;
     if (apiResponse.response != null &&
-        apiResponse.response.statusCode == 200) {
+        apiResponse.response!.statusCode == 200) {
       FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
       PushNotificationService(firebaseMessaging).updateDeviceToken();
 
-      Map map = apiResponse.response.data;
+      Map map = apiResponse.response!.data;
       String token = map["token"];
-      authRepo.saveUserToken(token);
+      authRepo!.saveUserToken(token);
       responseModel = ResponseModel(true, '');
     } else {
       String errorMessage;
@@ -66,30 +67,30 @@ class AuthProvider with ChangeNotifier {
   }
 
   bool isLoggedIn() {
-    return authRepo.isLoggedIn();
+    return authRepo!.isLoggedIn();
   }
 
   Future<bool> clearSharedData() async {
-    return await authRepo.clearSharedData();
+    return await authRepo!.clearSharedData();
   }
 
   void saveUserNumberAndPassword(String number, String password) {
-    authRepo.saveUserNumberAndPassword(number, password);
+    authRepo!.saveUserNumberAndPassword(number, password);
   }
 
   String getUserEmail() {
-    return authRepo.getUserEmail() ?? "";
+    return authRepo!.getUserEmail() ?? "";
   }
 
   String getUserPassword() {
-    return authRepo.getUserPassword() ?? "";
+    return authRepo!.getUserPassword() ?? "";
   }
 
   Future<bool> clearUserEmailAndPassword() async {
-    return authRepo.clearUserNumberAndPassword();
+    return authRepo!.clearUserNumberAndPassword();
   }
 
   String getUserToken() {
-    return authRepo.getUserToken();
+    return authRepo!.getUserToken();
   }
 }

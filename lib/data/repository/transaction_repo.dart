@@ -1,17 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hundredminute_seller/data/datasource/remote/dio/dio_client.dart';
-import 'package:hundredminute_seller/data/datasource/remote/exception/api_error_handler.dart';
-import 'package:hundredminute_seller/data/model/response/base/api_response.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
+
+import '../../utill/app_constants.dart';
+import '../datasource/remote/dio/dio_client.dart';
+import '../datasource/remote/exception/api_error_handler.dart';
+import '../model/response/base/api_response.dart';
 
 class TransactionRepo {
-  final DioClient dioClient;
+  final DioClient? dioClient;
   TransactionRepo({@required this.dioClient});
 
   Future<ApiResponse> getTransactionList() async {
     try {
-      final Response response = await dioClient.get(AppConstants.TRANSACTIONS_URI);
+      final Response response = await dioClient!.get(AppConstants.TRANSACTIONS_URI);
       return ApiResponse.withSuccess(response);
     } catch (e){
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

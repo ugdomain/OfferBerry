@@ -14,7 +14,7 @@ class FileSaveHelper {
   ///To save the Excel file in the device
   static Future<void> saveAndLaunchFile(
       List<int> bytes, String fileName) async {
-    String path;
+    String? path;
     if (Platform.isAndroid ||
         Platform.isIOS ||
         Platform.isLinux ||
@@ -24,18 +24,18 @@ class FileSaveHelper {
     } else {
       path = await PathProviderPlatform.instance.getApplicationSupportPath();
     }
-    final File file =
+    final File? file =
         File(Platform.isWindows ? '$path\\$fileName' : '$path/$fileName');
-    await file.writeAsBytes(bytes, flush: true);
+    await file!.writeAsBytes(bytes, flush: true);
     if (Platform.isAndroid || Platform.isIOS) {
       final Map<String, String> argument = <String, String>{
         'file_path': '$path/$fileName'
       };
 
-      await file.writeAsBytesSync(bytes);
+      file.writeAsBytesSync(bytes);
       try {
         //ignore: unused_local_variable
-        final Future<Map<String, String>> result =
+        final Future result =
             _platformCall.invokeMethod('viewExcel', argument);
       } catch (e) {
         throw Exception(e);

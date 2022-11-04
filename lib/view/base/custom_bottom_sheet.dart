@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:hundredminute_seller/provider/theme_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
+
+import '../../provider/theme_provider.dart';
+import '../../utill/color_resources.dart';
 
 class CustomBottomSheet extends StatelessWidget {
-  final IconData image;
-  final String title;
-  final Widget widget;
+  final IconData? image;
+  final String? title;
+  final Widget? widget;
   CustomBottomSheet({
     @required this.image,
     @required this.title,
@@ -18,7 +19,7 @@ class CustomBottomSheet extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.pop(context);
-        Navigator.push(context, MaterialPageRoute(builder: (_) => widget));
+        Navigator.push(context, MaterialPageRoute(builder: (_) => widget!));
       },
       child: Container(
         height: 120,
@@ -30,7 +31,7 @@ class CustomBottomSheet extends StatelessWidget {
           boxShadow: [
             BoxShadow(
                 color: Colors.grey[
-                    Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200],
+                    Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]as Color,
                 spreadRadius: 0.5,
                 blurRadius: 0.3)
           ],
@@ -46,7 +47,7 @@ class CustomBottomSheet extends StatelessWidget {
                   color: ColorResources.getHint(context)),*/
           Center(
             child: Text(
-              title,
+              title!,
               textAlign: TextAlign.center,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

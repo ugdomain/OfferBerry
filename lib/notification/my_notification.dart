@@ -4,11 +4,11 @@ import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:hundredminute_seller/utill/app_constants.dart';
-import 'package:hundredminute_seller/view/screens/order/order_details_screen.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../main.dart';
+import '../utill/app_constants.dart';
+import '../view/screens/order/order_details_screen.dart';
 
 class MyNotification {
   static Future<void> initialize(
@@ -16,12 +16,12 @@ class MyNotification {
     Future _showNotificationWithDefaultSound(
         String title, String message) async {
       var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-          'channel_id', 'channel_name', 'channel_description',
+          'channel_id', 'channel_name','channel_description',
           importance: Importance.max, priority: Priority.high);
-      var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+      // var iOSPlatformChannelSpecifics = IOSNotificationDetails();
       var platformChannelSpecifics = NotificationDetails(
-          android: androidPlatformChannelSpecifics,
-          iOS: iOSPlatformChannelSpecifics);
+          android: androidPlatformChannelSpecifics);
+          // iOS: iOSPlatformChannelSpecifics);
       await flutterLocalNotificationsPlugin.show(
         0,
         '$title',
@@ -33,21 +33,24 @@ class MyNotification {
 
     var androidInitialize =
         new AndroidInitializationSettings('notification_icon');
-    var iOSInitialize = new IOSInitializationSettings();
+    // var iOSInitialize = new IOSInitializationSettings();
     var initializationsSettings = new InitializationSettings(
-        android: androidInitialize, iOS: iOSInitialize);
+        android: androidInitialize
+        // , iOS: iOSInitialize
+    );
     flutterLocalNotificationsPlugin.initialize(initializationsSettings,
-        onSelectNotification: (String payload) async {
-      try {
-        if (payload != null && payload.isNotEmpty) {
-          MyApp.navigatorKey.currentState.push(MaterialPageRoute(
-              builder: (context) => OrderDetailsScreen(
-                  orderModel: null, orderId: int.parse(payload))));
-        }
-      } catch (e) {}
-
-      return;
-    });
+    //     onSelectNotification: (String payload) async {
+    //   try {
+    //     if (payload != null && payload.isNotEmpty) {
+    //       MyApp.navigatorKey.currentState!.push(MaterialPageRoute(
+    //           builder: (context) => OrderDetailsScreen(
+    //               orderModel: null, orderId: int.parse(payload))));
+    //     }
+    //   } catch (e) {}
+    //
+    //   return;
+    // }
+    );
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print("onMessage: ${message.data}");
@@ -58,22 +61,23 @@ class MyNotification {
       print("onMessageApp: ${message.data}");
     });
     FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
-    FirebaseMessaging.instance.getInitialMessage().then((message) => message
-            .messageId.isNotEmpty
+    FirebaseMessaging.instance.getInitialMessage().then((message){
+    if(message != null)message.messageId != null
         ? print('we can now navigate to specific screen')
         : print(
-            'there is no new notification so default screen will be shown when application start from terminated state'));
+            'there is no new notification so default screen will be shown when application start from terminated state');});
   }
 
-  displayNotification({String title, String body}) async {
+  displayNotification({String? title, String? body}) async {
     print('doing test');
-    var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
-        'your channel id', 'your channel name', 'your channel description',
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'your channel id', 'your channel name','your channel description',
         importance: Importance.max, priority: Priority.high);
-    var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
+    // var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+        // iOS: iOSPlatformChannelSpecifics
+    );
     await flutterLocalNotificationsPlugin.show(
       0,
       title,
@@ -101,7 +105,7 @@ class MyNotification {
     String _title = message['title'];
     String _body = message['body'];
     String _orderID = message['order_id'];
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
       'your channel id',
       'your channel name',
@@ -110,7 +114,7 @@ class MyNotification {
       importance: Importance.max,
       priority: Priority.high,
     );
-    const NotificationDetails platformChannelSpecifics =
+    NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
     await fln.show(0, _title, _body, platformChannelSpecifics,
         payload: _orderID);
@@ -197,9 +201,11 @@ Future<dynamic> myBackgroundMessageHandler(RemoteMessage message) async {
   print('background: ${message.data}');
   var androidInitialize =
       new AndroidInitializationSettings('notification_icon');
-  var iOSInitialize = new IOSInitializationSettings();
+  // var iOSInitialize = new IOSInitializationSettings();
   var initializationsSettings = new InitializationSettings(
-      android: androidInitialize, iOS: iOSInitialize);
+      android: androidInitialize,
+      // iOS: iOSInitialize
+  );
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   flutterLocalNotificationsPlugin.initialize(initializationsSettings);

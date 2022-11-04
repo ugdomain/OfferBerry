@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:hundredminute_seller/localization/app_localization.dart';
 import 'package:hundredminute_seller/provider/auth_provider.dart';
 import 'package:hundredminute_seller/provider/bank_info_provider.dart';
@@ -34,7 +35,7 @@ import 'notification/PushNotifications.dart';
 import 'notification/my_notification.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,12 +45,12 @@ Future<void> main() async {
   PushNotificationService(firebaseMessaging).initialise();
 
   await di.init();
-  final NotificationAppLaunchDetails notificationAppLaunchDetails =
-      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
-  int _orderID;
+  final NotificationAppLaunchDetails? notificationAppLaunchDetails =
+  await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+  int? _orderID;
   if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-    _orderID = notificationAppLaunchDetails.payload != null
-        ? int.parse(notificationAppLaunchDetails.payload)
+    _orderID = notificationAppLaunchDetails!.payload! != null
+        ? int.parse(notificationAppLaunchDetails.payload!)
         : null;
   }
 
@@ -87,10 +88,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Locale> _locals = [];
     AppConstants.languages.forEach((language) {
-      _locals.add(Locale(language.languageCode, language.countryCode));
+      _locals.add(Locale(language.languageCode!, language.countryCode));
     });
-    return MaterialApp(
-      title: '100 MINS Seller',
+    return GetMaterialApp(
+      title: 'OFFER BERRIES Seller',
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       theme: Provider.of<ThemeProvider>(context).darkTheme ? dark : light,
@@ -103,6 +104,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: _locals,
       home: SplashScreen(),
+      // home: DashboardScreen(),
     );
   }
 }

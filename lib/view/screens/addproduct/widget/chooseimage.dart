@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class chose_image extends StatefulWidget {
-  const chose_image({Key key}) : super(key: key);
+  const chose_image({Key? key}) : super(key: key);
 
   @override
   State<chose_image> createState() => _chose_imageState();
@@ -13,11 +13,11 @@ class chose_image extends StatefulWidget {
 
 class _chose_imageState extends State<chose_image> {
   List _images = [];
-  File imagefile;
+  File? imagefile;
   final picker = ImagePicker();
 
   ChooseImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
         _images.add(File(pickedFile.path));
@@ -29,10 +29,10 @@ class _chose_imageState extends State<chose_image> {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(maxHeight: 300, maxWidth: 300),
-      child: StaggeredGridView.countBuilder(
+      child: MasonryGridView.count(
         physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 3,
-        itemCount: _images.length + 1,
+        itemCount: _images.length >= 4 ? 4 : _images.length + 1,
         itemBuilder: (BuildContext context, index) {
           return index == _images.length
               ? GestureDetector(
@@ -64,12 +64,8 @@ class _chose_imageState extends State<chose_image> {
                   ),
                 );
         },
-        staggeredTileBuilder: (int index) => new StaggeredTile.count(
-          index == 1 ? 1 : 1,
-          index == 1 ? 1 : 1,
-        ),
-        mainAxisSpacing: 2,
-        crossAxisSpacing: 2,
+        mainAxisSpacing: 3,
+        crossAxisSpacing: 3,
       ),
     );
   }

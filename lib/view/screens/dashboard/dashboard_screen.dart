@@ -1,20 +1,22 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:hundredminute_seller/helper/network_info.dart';
-import 'package:hundredminute_seller/localization/language_constrants.dart';
-import 'package:hundredminute_seller/notification/PushNotifications.dart';
-import 'package:hundredminute_seller/provider/notification_provider.dart';
-import 'package:hundredminute_seller/utill/color_resources.dart';
-import 'package:hundredminute_seller/utill/dimensions.dart';
-import 'package:hundredminute_seller/utill/styles.dart';
-import 'package:hundredminute_seller/view/screens/addproduct/addproduct_screen.dart';
-import 'package:hundredminute_seller/view/screens/home/home_screen.dart';
-import 'package:hundredminute_seller/view/screens/menu/menu_screen.dart';
-import 'package:hundredminute_seller/view/screens/notification/notification_screen.dart';
-import 'package:hundredminute_seller/view/screens/order/order_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../../helper/network_info.dart';
+import '../../../localization/language_constrants.dart';
+import '../../../notification/PushNotifications.dart';
+import '../../../provider/notification_provider.dart';
+import '../../../utill/color_resources.dart';
+import '../../../utill/dimensions.dart';
+import '../../../utill/styles.dart';
+import '../addproduct/addproduct_screen.dart';
+import '../home/home_screen.dart';
+import '../menu/menu_screen.dart';
+import '../notification/notification_screen.dart';
+import '../order/order_screen.dart';
+
 class DashboardScreen extends StatefulWidget {
+
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
@@ -22,8 +24,8 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   final PageController _pageController = PageController();
   int _pageIndex = 0;
-  List<Widget> _screens;
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+  List<Widget>? _screens;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   void initState() {
@@ -91,10 +93,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         body: PageView.builder(
           controller: _pageController,
-          itemCount: _screens.length,
+          itemCount: _screens!.length,
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-            return _screens[index];
+            return _screens![index];
           },
         ),
       ),
@@ -128,7 +130,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         },
                       )),
                 )
-              : Text("")
+              : const Text("")
         ],
       ),
       label: label,
