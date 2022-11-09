@@ -33,6 +33,12 @@ class CategoryController extends GetxController{
      debugPrint(uiList.toString());
    }
 
+   editDataInUiList(int index,RxMap<dynamic, dynamic> value){
+     uiList[index] = Map.from(value);
+     submit.clear();
+     print("uiList after submit clear $uiList");
+   }
+
    bool validate(value){
      return isValidated.value = value;
    }

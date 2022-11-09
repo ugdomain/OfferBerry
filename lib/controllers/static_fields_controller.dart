@@ -36,9 +36,15 @@ class StaticFieldsController extends GetxController{
     setDataToJsonFormat();
   }
 
+  editDataInList(Map value,int index){
+    list[index] = value;
+    jsonMap.clear();
+    setDataToJsonFormat();
+  }
+
   setDataToMap(Map<String, dynamic> map){
     if(staticFieldMap.containsKey(map.keys)){
-    staticFieldMap["map.keys"] = map.keys;
+    staticFieldMap["${map.keys}"] = map.keys;
     }else{
       staticFieldMap.addAll(Map.from(map));
     }
@@ -80,9 +86,7 @@ class StaticFieldsController extends GetxController{
       index++;
       list1.add(Map.from(map));
     }
-    for(var item in list1) {
-      debugPrint("list1 =>>>" + item.toString());
-    }
     uploadJsonFinalList = list1;
+    debugPrint("Final map = $uploadJsonFinalList");
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:get/get.dart';
@@ -57,6 +58,14 @@ class ChooseImageController extends GetxController{
     listOfJsonImages.add(List.from(jsonImages));
     jsonImages.clear();
     images.clear();
+  }
+  editImagesInListOfImages(int index){
+    if(images.isNotEmpty) {
+      listOfImages[index] = List.from(images);
+      listOfJsonImages[index] = List.from(jsonImages);
+      images.clear();
+      jsonImages.clear();
+    }
   }
 
   addImagesToListOfJsonImages(){

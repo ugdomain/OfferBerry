@@ -7,9 +7,8 @@ import 'get_image_controller.dart';
 import 'selection_drawer.dart';
 
 class ChooseImage extends StatelessWidget {
-  ChooseImage({Key? key,required this.Radiokey}) : super(key: key);
+  ChooseImage({Key? key}) : super(key: key);
 
-  final ValueKey Radiokey;
   ChooseImageController imageController = Get.put(ChooseImageController());
 
   @override
@@ -18,7 +17,6 @@ class ChooseImage extends StatelessWidget {
       ()=> ConstrainedBox(
         constraints: const BoxConstraints(minWidth: 300,minHeight: 100,maxHeight: 300, maxWidth: 300),
         child: MasonryGridView.count(
-          key: Radiokey,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           crossAxisCount: 3,

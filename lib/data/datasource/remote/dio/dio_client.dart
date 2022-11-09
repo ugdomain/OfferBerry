@@ -28,11 +28,11 @@ class DioClient {
 
     dio = dioC;
     dio!
-      ..options!.baseUrl = baseUrl!
-      ..options!.connectTimeout = 30000
-      ..options!.receiveTimeout = 30000
+      ..options.baseUrl = baseUrl!
+      ..options.connectTimeout = 30000
+      ..options.receiveTimeout = 30000
       ..httpClientAdapter
-      ..options!.headers = {
+      ..options.headers = {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token'
       };
