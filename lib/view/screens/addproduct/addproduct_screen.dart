@@ -5,6 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:hundredminute_seller/services/configuration.dart';
+import 'package:hundredminute_seller/view/screens/addproduct/edit_product/edit_product_controller.dart';
 import 'package:hundredminute_seller/view/screens/addproduct/widget/add_image_to_listview.dart';
 import 'package:hundredminute_seller/view/screens/addproduct/widget/custom_radio_button.dart';
 import 'package:hundredminute_seller/view/screens/addproduct/widget/post_product.dart';
@@ -24,6 +25,7 @@ import '../../get_image_widget/listview_image_operation_drawer.dart';
 import '../../get_image_widget/listview_selection_drawer.dart';
 import '../../get_image_widget/selection_drawer.dart';
 import '../../get_image_widget/show_list_of_images.dart';
+import 'edit_product/edit_product_view.dart';
 
 class add_product extends StatelessWidget {
   add_product({Key? key})
@@ -40,6 +42,8 @@ class add_product extends StatelessWidget {
   final StaticFieldsController _fieldsController = Get.find();
 
   ChooseImageController imageCon = Get.find();
+
+  EditProductController _editProduct = Get.put(EditProductController());
 
   AddImageToListViewController _updateListViewImageController = Get.put(AddImageToListViewController());
 
@@ -94,7 +98,6 @@ class add_product extends StatelessWidget {
                             ),
                             child:DropdownButtonHideUnderline(
                                 child: DropdownButtonFormField(
-                                  key: ValueKey("categoryKey"),
                                   hint: Text(_categoryController.categoryValue
                                       .toString()),
                                   items: _categoryController.categoryList.map((
@@ -217,12 +220,12 @@ class add_product extends StatelessWidget {
                       "Product Name",
                       style: titilliumRegular,
                     ),
-                    HomePageFields().buildStaticInputFields(Theme.of(context).colorScheme.secondary,"${Variables.name[0]}", "${Variables.name[1]}", TextInputType.text,1,ValueKey("ProductName")),
+                    HomePageFields().buildStaticInputFields(Theme.of(context).colorScheme.secondary,"${Variables.name[0]}", "${Variables.name[1]}", TextInputType.text,1,ValueKey("ProductName"),''),
                     Text(
                       "${Variables.unitPrice[0]}",
                       style: titilliumRegular,
                     ),
-                    HomePageFields().buildStaticInputFields(Theme.of(context).colorScheme.secondary,"${Variables.unitPrice[0]}", "${Variables.unitPrice[1]}", TextInputType.number,1,ValueKey("unitPrice")),
+                    HomePageFields().buildStaticInputFields(Theme.of(context).colorScheme.secondary,"${Variables.unitPrice[0]}", "${Variables.unitPrice[1]}", TextInputType.number,1,ValueKey("unitPrice"),""),
                     SizedBox(
                       height: 5,
                     ),
@@ -351,7 +354,7 @@ class add_product extends StatelessWidget {
                                       bottom: 8.0,
                                     ),
                                     child:
-                                    buildInputFields(index,key: ValueKey("${_attrController.attrList[0].attrs![index].controlName}"),),
+                                    buildInputFields(index,key: ValueKey("${_attrController.attrList[0].attrs![index].controlName}",), value: '',),
                                   )],
                               ):
                                   _attrController.attrList[0].attrs![index].control ==
@@ -379,7 +382,9 @@ class add_product extends StatelessWidget {
                     Divider(
                       thickness: 1,
                     ),
-                    HomePageFields().buildDescriptionField(Theme.of(context).colorScheme.secondary,"${Variables.description[0]}", "${Variables.description[1]}", TextInputType.text,5,ValueKey("${Variables.description[1]}")),
+                    HomePageFields().buildDescriptionField(Theme.of(context).colorScheme.secondary,
+                        "${Variables.description[0]}", "${Variables.description[1]}",
+                        TextInputType.text,5,ValueKey("${Variables.description[1]}"),""),
 
                     SizedBox(
                       height: 20,
@@ -394,7 +399,7 @@ class add_product extends StatelessWidget {
                     SizedBox(
                       height: 5,
                     ),
-                    ChooseImage(Radiokey: ValueKey(Variables.images[1]),),
+                    ChooseImage(),
                     Divider(),
 
 //================================ Buttons =====================================>
@@ -476,6 +481,28 @@ class add_product extends StatelessWidget {
                                         Row(
                                           mainAxisAlignment:MainAxisAlignment.end,
                                           children: [
+                                            IconButton(onPressed: (){
+                                              var attrs = {};
+                                              _categoryController.uiList[i].forEach((key,value){
+                                                if(key != Variables.categoryName[0] && key != Variables.subCategoryName[0] && key != Variables.images[0]
+                                                && key != Variables.name[0] && key != Variables.unitPrice[0] && key != Variables.description[0]){
+                                                  attrs.addAll({key:value});
+                                                }
+                                              });
+                                              _editProduct.changeCategory(_categoryController.uiList[i][Variables.categoryName[0]].toString());
+                                              _editProduct.changesubCategory(_categoryController.uiList[i][Variables.subCategoryName[0]].toString());
+                                              imageCon.images.clear();
+                                              imageCon.images.addAll(_categoryController.uiList[i][Variables.images[0]][i]);
+                                              Get.to(()=>
+                                                  EditProductPage(index: i,
+                                                    category: _categoryController.uiList[i][Variables.categoryName].toString(),
+                                                    subCategory: _categoryController.uiList[i][Variables.subCategoryName].toString(),
+                                                    productName: _categoryController.uiList[i][Variables.name[0]].toString(),
+                                                    unitPrice: _categoryController.uiList[i][Variables.unitPrice[0]].toString(),
+                                                    description: _categoryController.uiList[i][Variables.description[0]].toString(),
+                                                    attr: attrs,
+                                                    images: _categoryController.uiList[i][Variables.images[0]],));
+                                            }, icon: Icon(Icons.edit,color: Colors.grey,)),
                                             IconButton(onPressed: (){
                                               _categoryController.uiList.removeAt(i);
                                               _fieldsController.list.removeAt(i);

@@ -5,7 +5,7 @@ import 'images.dart';
 class AppConstants {
   static const String APP_NAME = 'Seller OFFER BARRIES';
 
-  static const String BASE_URL = 'https://moneylink.network/offer-barry';
+  static const String BASE_URL = 'https://offerbaries.com/';
   static const String CATEGORY = '/api/v2/seller/products/get-raw-categories';
   static const String SUB_CATEGORY =
       '/api/v2/seller/products/get-raw-sub-categories';

@@ -58,6 +58,14 @@ class ChooseImageController extends GetxController{
     jsonImages.clear();
     images.clear();
   }
+  editImagesInListOfImages(int index){
+    if(images.isNotEmpty) {
+      listOfImages[index] = List.from(images);
+      listOfJsonImages[index] = List.from(jsonImages);
+      images.clear();
+      jsonImages.clear();
+    }
+  }
 
   addImagesToListOfJsonImages(){
     listOfJsonImages.add(List.from(jsonImages));
