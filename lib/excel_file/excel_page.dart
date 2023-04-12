@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
-
 import '../controllers/category_controller.dart';
 import '../controllers/sub_category_attr_controller.dart';
 import '../controllers/sub_category_controller.dart';
@@ -11,15 +9,20 @@ class CreateExcelPage extends StatelessWidget {
   CreateExcelPage({super.key});
 
   final CategoryController _categoryController = Get.put(CategoryController());
-  final SubCategoryController _subCategoryController = Get.put(SubCategoryController());
-  final SubCategoryAttrController _attrController = Get.put(SubCategoryAttrController());
+  final SubCategoryController _subCategoryController =
+      Get.put(SubCategoryController());
+  final SubCategoryAttrController _attrController =
+      Get.put(SubCategoryAttrController());
   final ExcelController _excelController = Get.put(ExcelController());
   String? data;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Excel Page"),centerTitle: true,),
+      appBar: AppBar(
+        title: const Text("Excel Page"),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -29,72 +32,87 @@ class CreateExcelPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Obx(() {
-                  return
-                    _categoryController.isLoading.value?
-                    const CircularProgressIndicator():
-                    Container(
-                        width: MediaQuery.of(context).size.width.toDouble(),
-                        // height: 100,
-                        margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                  return _categoryController.isLoading.value
+                      ? const CircularProgressIndicator()
+                      : Container(
+                          width: MediaQuery.of(context).size.width.toDouble(),
+                          // height: 100,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButtonFormField(
+                              hint: Text(
+                                  _categoryController.categoryValue.toString()),
+                              items: _categoryController.categoryList
+                                  .map((element) => DropdownMenuItem(
+                                        value: element.name,
+                                        child: Text(element.name.toString()),
+                                        onTap: () {
+                                          _categoryController
+                                              .setSelected(element.name);
+                                          _categoryController
+                                              .setSelectedCategory(
+                                                  element.id.toString());
+                                        },
+                                      ))
+                                  .toList(),
+                              onChanged: (Object? value) {
+                                _categoryController
+                                    .setSelected(value!.toString());
+                              },
+                            ),
+                          ));
+                }),
+                SizedBox(
+                  height: 20,
+                ),
+
+                Obx(() {
+                  if (_categoryController.isLoading.value &&
+                      !_subCategoryController.isLoading.value) {
+                    return Container();
+                  } else if (_subCategoryController.isLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    return Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButtonFormField(
-                            hint: Text(_categoryController.categoryValue.toString()),
-                            items: _categoryController.categoryList.map((element) =>
-                                DropdownMenuItem(
-                                  value: element.name,
-                                  child: Text(element.name.toString()),
-                                  onTap: (){
-                                    _categoryController.setSelected(element.name);
-                                    _categoryController.setSelectedCategory(element.id.toString());
-                                  },
-                                )
-                            ).toList(),
+                            hint: Text(
+                                _subCategoryController.subCategoryValue.value),
+                            items: _subCategoryController.subCategoryList
+                                .map((element) => DropdownMenuItem(
+                                      value: element.name.toString(),
+                                      child: Text(element.name.toString()),
+                                      onTap: () {
+                                        _subCategoryController.setSubCategoryId(
+                                            element.id.toString(),
+                                            _categoryController.categoryId
+                                                .toString());
+                                        _subCategoryController.setSelectedValue(
+                                            element.name.toString());
+                                      },
+                                    ))
+                                .toList(),
                             onChanged: (Object? value) {
-                              _categoryController.setSelected(value!.toString());
+                              _subCategoryController
+                                  .setSelectedValue(value!.toString());
+                              _categoryController.submit.clear();
+                              _attrController.controllValues.clear();
                             },
                           ),
-                        )
-                    );
+                        ));
+                  }
                 }),
-                SizedBox(height: 20,),
-
-                Obx((){if(_categoryController.isLoading.value && !_subCategoryController.isLoading.value){
-                  return Container();
-                }
-                else if(_subCategoryController.isLoading.value) {
-                  return const Center(child: CircularProgressIndicator());
-                }else{
-                  return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButtonFormField(
-                          hint: Text(_subCategoryController.subCategoryValue.value),
-                          items: _subCategoryController.subCategoryList.map((element) =>
-                              DropdownMenuItem(
-                                value: element.name.toString(),
-                                child: Text(element.name.toString()),
-                                onTap: (){
-                                  _subCategoryController.setSubCategoryId(element.id.toString(), _categoryController.categoryId.toString());
-                                  _subCategoryController.setSelectedValue(element.name.toString());
-                                },
-                              )
-                          ).toList(),
-                          onChanged: (Object? value) {
-                            _subCategoryController.setSelectedValue(value!.toString());
-                            _categoryController.submit.clear();
-                            _attrController.controllValues.clear();
-                          },
-                        ),
-                      )
-                  );
-
-                }
-                }),
-                SizedBox(height: 25,),
+                SizedBox(
+                  height: 25,
+                ),
 // ==== Attribute Data
 //                 Obx((){
 //                   return _attrController.isLoading.value?
@@ -201,14 +219,17 @@ class CreateExcelPage extends StatelessWidget {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: TextButton(
                     onPressed: () {
                       _excelController.createExcel();
                     },
                     child: const Text(
-                      'Create Excel Sheet', style: TextStyle(fontSize: 20,color: Colors.white),),
+                      'Create Excel Sheet',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
                   ),
                 ),
                 Container(
@@ -217,12 +238,15 @@ class CreateExcelPage extends StatelessWidget {
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  margin: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: TextButton(
                     onPressed: () {},
                     child: const Text(
-                      'Save Excel Sheet', style: TextStyle(fontSize: 20,color: Colors.white),),
+                      'Save Excel Sheet',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    ),
                   ),
                 ),
               ],
@@ -235,16 +259,18 @@ class CreateExcelPage extends StatelessWidget {
 
   void saveData(int index, String? value) {
     _attrController.setInputValue(
-        _attrController.attrList.first.attrs![index]
-            .controlName, value);
-    bool isValid= _attrController.key.currentState!.validate();
-    if(isValid && _attrController.validate.value){
+        _attrController.attrList.first.attrs![index].controlName, value);
+    bool isValid = _attrController.key.currentState!.validate();
+    if (isValid && _attrController.validate.value) {
       _categoryController.submit({
-        _attrController.ToString("Category"): _attrController.ToString(_categoryController.categoryValue.value),
-        _attrController.ToString("SubCategory") : _attrController.ToString(_subCategoryController.subCategoryValue.value),
-        _attrController.ToString("attrs") :
-        [_attrController.editTextCon.toString(),
-          _attrController.controllValues.toString()]
+        _attrController.ToString("Category"):
+            _attrController.ToString(_categoryController.categoryValue.value),
+        _attrController.ToString("SubCategory"): _attrController.ToString(
+            _subCategoryController.subCategoryValue.value),
+        _attrController.ToString("attrs"): [
+          _attrController.editTextCon.toString(),
+          _attrController.controllValues.toString()
+        ]
       });
       // print(submit.toString());
     }

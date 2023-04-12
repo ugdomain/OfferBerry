@@ -215,7 +215,7 @@ class ProductDetails {
         videoProvider: json["video_provider"],
         videoUrl: json["video_url"],
         colors: List<dynamic>.from(json["colors"].map((x) => x)),
-        variantProduct: json["variant_product"],
+        variantProduct: json["variant_product"].toString(),
         attributes: json["attributes"],
         choiceOptions: List<dynamic>.from(json["choice_options"].map((x) => x)),
         variation: List<dynamic>.from(json["variation"].map((x) => x)),
@@ -234,7 +234,7 @@ class ProductDetails {
         updatedAt: DateTime.parse(json["updated_at"]),
         status: json["status"],
         featuredStatus: json["featured_status"],
-        commission: json["commission"],
+        commission: json["commission"].toString(),
       );
 
   Map<String, dynamic> toJson() => {

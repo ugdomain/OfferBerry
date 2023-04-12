@@ -14,7 +14,6 @@ import '../auth/auth_screen.dart';
 import '../dashboard/dashboard_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -24,8 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     NetworkInfo.checkConnectivity(context);
-
-    // Provider.of<SplashProvider>(context, listen: false).initSharedPrefData();
+    Provider.of<SplashProvider>(context, listen: false).initSharedPrefData();
     // Provider.of<CartProvider>(context, listen: false).getCartData();
     Provider.of<SplashProvider>(context, listen: false)
         .initConfig(context)
@@ -77,6 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
               SizedBox(height: 10),
               Text(
                 getTranslated('vendor', context),
+                textAlign: TextAlign.center,
                 style: titilliumBold.copyWith(
                     color: Provider.of<ThemeProvider>(context).darkTheme
                         ? Colors.white

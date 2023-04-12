@@ -26,16 +26,14 @@ import 'package:hundredminute_seller/provider/transaction_provider.dart';
 import 'package:hundredminute_seller/theme/dark_theme.dart';
 import 'package:hundredminute_seller/theme/light_theme.dart';
 import 'package:hundredminute_seller/utill/app_constants.dart';
-import 'package:hundredminute_seller/view/screens/dashboard/dashboard_screen.dart';
 import 'package:hundredminute_seller/view/screens/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
-
 import 'di_container.dart' as di;
 import 'notification/PushNotifications.dart';
 import 'notification/my_notification.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +44,7 @@ Future<void> main() async {
 
   await di.init();
   final NotificationAppLaunchDetails? notificationAppLaunchDetails =
-  await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+      await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
   int? _orderID;
   if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
     _orderID = notificationAppLaunchDetails!.payload! != null

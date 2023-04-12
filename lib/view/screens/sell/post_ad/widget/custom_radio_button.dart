@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hundredminute_seller/excel_file/excel_page_controller.dart';
 
-import '../../../../controllers/sub_category_attr_controller.dart';
+import '../../../../../controllers/sub_category_attr_controller.dart';
 
 class CustomRadioButton extends StatefulWidget {
   CustomRadioButton({Key? key, this.index, required this.radiokey})
@@ -36,8 +36,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
               .map((e) {
             itemIndex++;
             if (_attrController.radioButtonMap.isEmpty ||
-                _attrController.radioButtonMap.length <
-                    getlength()) {
+                _attrController.radioButtonMap.length < getlength()) {
               _attrController.radioButtonMap.addAll(Map.from({
                 _attrController
                         .attrList.first.attrs![widget.index!].controlName:
@@ -81,9 +80,10 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
       );
     });
   }
-  int getlength(){
+
+  int getlength() {
     var count = 0;
-    if(_attrController.attrList[0].attrs![widget.index!].control == 'radio'){
+    if (_attrController.attrList[0].attrs![widget.index!].control == 'radio') {
       count++;
     }
     return count;

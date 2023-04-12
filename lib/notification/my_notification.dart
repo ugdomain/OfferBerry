@@ -16,12 +16,12 @@ class MyNotification {
     Future _showNotificationWithDefaultSound(
         String title, String message) async {
       var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-          'channel_id', 'channel_name','channel_description',
+          'channel_id', 'channel_name', 'channel_description',
           importance: Importance.max, priority: Priority.high);
       // var iOSPlatformChannelSpecifics = IOSNotificationDetails();
-      var platformChannelSpecifics = NotificationDetails(
-          android: androidPlatformChannelSpecifics);
-          // iOS: iOSPlatformChannelSpecifics);
+      var platformChannelSpecifics =
+          NotificationDetails(android: androidPlatformChannelSpecifics);
+      // iOS: iOSPlatformChannelSpecifics);
       await flutterLocalNotificationsPlugin.show(
         0,
         '$title',
@@ -31,25 +31,28 @@ class MyNotification {
       );
     }
 
+    // var androidInitialize =
+    //     new AndroidInitializationSettings('notification_icon');
     var androidInitialize =
-        new AndroidInitializationSettings('notification_icon');
+        new AndroidInitializationSettings('@mipmap/ic_launcher');
     // var iOSInitialize = new IOSInitializationSettings();
-    var initializationsSettings = new InitializationSettings(
-        android: androidInitialize
-        // , iOS: iOSInitialize
-    );
-    flutterLocalNotificationsPlugin.initialize(initializationsSettings,
-    //     onSelectNotification: (String payload) async {
-    //   try {
-    //     if (payload != null && payload.isNotEmpty) {
-    //       MyApp.navigatorKey.currentState!.push(MaterialPageRoute(
-    //           builder: (context) => OrderDetailsScreen(
-    //               orderModel: null, orderId: int.parse(payload))));
-    //     }
-    //   } catch (e) {}
-    //
-    //   return;
-    // }
+    var initializationsSettings =
+        new InitializationSettings(android: androidInitialize
+            // , iOS: iOSInitialize
+            );
+    flutterLocalNotificationsPlugin.initialize(
+      initializationsSettings,
+      //     onSelectNotification: (String payload) async {
+      //   try {
+      //     if (payload != null && payload.isNotEmpty) {
+      //       MyApp.navigatorKey.currentState!.push(MaterialPageRoute(
+      //           builder: (context) => OrderDetailsScreen(
+      //               orderModel: null, orderId: int.parse(payload))));
+      //     }
+      //   } catch (e) {}
+      //
+      //   return;
+      // }
     );
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -61,22 +64,24 @@ class MyNotification {
       print("onMessageApp: ${message.data}");
     });
     FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
-    FirebaseMessaging.instance.getInitialMessage().then((message){
-    if(message != null)message.messageId != null
-        ? print('we can now navigate to specific screen')
-        : print(
-            'there is no new notification so default screen will be shown when application start from terminated state');});
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if (message != null)
+        message.messageId != null
+            ? print('we can now navigate to specific screen')
+            : print(
+                'there is no new notification so default screen will be shown when application start from terminated state');
+    });
   }
 
   displayNotification({String? title, String? body}) async {
     print('doing test');
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'your channel id', 'your channel name','your channel description',
+        'your channel id', 'your channel name', 'your channel description',
         importance: Importance.max, priority: Priority.high);
     // var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        // iOS: iOSPlatformChannelSpecifics
+      android: androidPlatformChannelSpecifics,
+      // iOS: iOSPlatformChannelSpecifics
     );
     await flutterLocalNotificationsPlugin.show(
       0,
@@ -199,12 +204,14 @@ class MyNotification {
 
 Future<dynamic> myBackgroundMessageHandler(RemoteMessage message) async {
   print('background: ${message.data}');
+  // var androidInitialize =
+  //     new AndroidInitializationSettings('notification_icon');
   var androidInitialize =
-      new AndroidInitializationSettings('notification_icon');
+      new AndroidInitializationSettings('@mipmap/ic_launcher');
   // var iOSInitialize = new IOSInitializationSettings();
   var initializationsSettings = new InitializationSettings(
-      android: androidInitialize,
-      // iOS: iOSInitialize
+    android: androidInitialize,
+    // iOS: iOSInitialize
   );
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();

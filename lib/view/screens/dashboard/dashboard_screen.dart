@@ -9,14 +9,13 @@ import '../../../provider/notification_provider.dart';
 import '../../../utill/color_resources.dart';
 import '../../../utill/dimensions.dart';
 import '../../../utill/styles.dart';
-import '../addproduct/addproduct_screen.dart';
+import '../sell/choose_selling_method_screen.dart';
 import '../home/home_screen.dart';
 import '../menu/menu_screen.dart';
 import '../notification/notification_screen.dart';
 import '../order/order_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
-
   @override
   _DashboardScreenState createState() => _DashboardScreenState();
 }
@@ -42,7 +41,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         });
       }),
       OrderScreen(),
-      add_product(),
+      // add_product(),
+      ChooseSellingMethodScreen(),
       NotificationScreen(),
     ];
 
@@ -71,8 +71,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           items: [
             _barItem(Icons.home, getTranslated('home', context), 0),
             _barItem(Icons.shopping_bag, getTranslated('my_order', context), 1),
-            _barItem(
-                Icons.add_box_sharp, getTranslated('add_product', context), 2),
+            _barItem(Icons.sell, getTranslated('sell', context), 2),
             _barItem(Icons.menu, getTranslated('menu', context), 3),
             _barItem(Icons.notification_important,
                 getTranslated('notification', context), 4),

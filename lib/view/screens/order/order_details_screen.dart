@@ -48,8 +48,10 @@ class OrderDetailsScreen extends StatelessWidget {
         double _shipping = 0;
         if (order.orderDetails != null) {
           order.orderDetails!.forEach((orderDetails) {
-            _itemsPrice = _itemsPrice + (orderDetails.price! * orderDetails.qty!);
-            _discount = _discount + (orderDetails.discount! * orderDetails.qty!);
+            _itemsPrice =
+                _itemsPrice + (orderDetails.price! * orderDetails.qty!);
+            _discount =
+                _discount + (orderDetails.discount! * orderDetails.qty!);
             _tax = _tax + (orderDetails.tax! * orderDetails.qty!);
             _shipping = orderDetails.shipping != null
                 ? _shipping + (orderDetails.shipping!.cost!)
@@ -63,13 +65,15 @@ class OrderDetailsScreen extends StatelessWidget {
             ? order.orderDetails!.isNotEmpty
                 ? ListView(
                     physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                    padding:
+                        const EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                     children: [
                       // for details
                       Container(
-                        margin: const EdgeInsets.only(left: 5, right: 5, bottom: 15),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                        margin: const EdgeInsets.only(
+                            left: 5, right: 5, bottom: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
                         decoration: BoxDecoration(
                           color: ColorResources.getBottomSheetColor(context),
                           borderRadius: BorderRadius.circular(12),
@@ -127,7 +131,8 @@ class OrderDetailsScreen extends StatelessWidget {
                                   const SizedBox(width: 5),
                                   Text(
                                     (orderModel!.paymentMethod != null &&
-                                            orderModel!.paymentMethod.length > 0)
+                                            orderModel!.paymentMethod.length >
+                                                0)
                                         ? '${orderModel!.paymentMethod[0].toUpperCase()}${orderModel!.paymentMethod.substring(1).replaceAll('_', ' ')}'
                                         : 'Digital Payment',
                                     style: titilliumSemiBold.copyWith(
@@ -137,7 +142,8 @@ class OrderDetailsScreen extends StatelessWidget {
                                   const Expanded(child: SizedBox()),
                                   Text(
                                       DateConverter.localDateToIsoString(
-                                          DateTime.parse(orderModel!.createdAt!)),
+                                          DateTime.parse(
+                                              orderModel!.createdAt!)),
                                       style: titilliumBold.copyWith(
                                           color: ColorResources.getTextColor(
                                               context),
@@ -166,10 +172,10 @@ class OrderDetailsScreen extends StatelessWidget {
                                   ),
                                   Text(orderModel!.paymentStatus!.toUpperCase(),
                                       style: titilliumBold.copyWith(
-                                          color:
-                                              orderModel!.paymentStatus == 'paid'
-                                                  ? ColorResources.GREEN
-                                                  : ColorResources.RED,
+                                          color: orderModel!.paymentStatus ==
+                                                  'paid'
+                                              ? ColorResources.GREEN
+                                              : ColorResources.RED,
                                           fontSize: 14)),
                                 ],
                               )
@@ -178,9 +184,10 @@ class OrderDetailsScreen extends StatelessWidget {
 
                       // for product view
                       Container(
-                        margin: const EdgeInsets.only(left: 5, right: 5, bottom: 15),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                        margin: const EdgeInsets.only(
+                            left: 5, right: 5, bottom: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
                         decoration: BoxDecoration(
                           color: ColorResources.getBottomSheetColor(context),
                           borderRadius: BorderRadius.circular(12),
@@ -286,7 +293,6 @@ class OrderDetailsScreen extends StatelessWidget {
                                                     context,
                                                     order
                                                         .orderDetails![index]
-
                                                         .productDetails!
                                                         .unitPrice!
                                                         .toDouble()),
@@ -399,7 +405,8 @@ class OrderDetailsScreen extends StatelessWidget {
                                   );
                                 },
                               ),
-                              const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                              const SizedBox(
+                                  height: Dimensions.PADDING_SIZE_SMALL),
                               Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -425,9 +432,10 @@ class OrderDetailsScreen extends StatelessWidget {
 
                       // for address
                       Container(
-                        margin: const EdgeInsets.only(left: 5, right: 5, bottom: 15),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                        margin: const EdgeInsets.only(
+                            left: 5, right: 5, bottom: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
                         decoration: BoxDecoration(
                           color: ColorResources.getBottomSheetColor(context),
                           borderRadius: BorderRadius.circular(12),
@@ -465,9 +473,10 @@ class OrderDetailsScreen extends StatelessWidget {
 
                       // for Customer Details
                       Container(
-                        margin: const EdgeInsets.only(left: 5, right: 5, bottom: 15),
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                        margin: const EdgeInsets.only(
+                            left: 5, right: 5, bottom: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 15),
                         decoration: BoxDecoration(
                           color: ColorResources.getBottomSheetColor(context),
                           borderRadius: BorderRadius.circular(12),
@@ -491,7 +500,8 @@ class OrderDetailsScreen extends StatelessWidget {
                                   style: titilliumSemiBold.copyWith(
                                       color: ColorResources.getTextColor(
                                           context))),
-                              const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                              const SizedBox(
+                                  height: Dimensions.PADDING_SIZE_SMALL),
                               Row(
                                 children: const [
                                   // ClipRRect(
@@ -543,7 +553,8 @@ class OrderDetailsScreen extends StatelessWidget {
                       (order.addOrderStatusErrorText != null &&
                               order.addOrderStatusErrorText.isNotEmpty)
                           ? Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Text(
                                 order.addOrderStatusErrorText,
                                 style: titilliumRegular.copyWith(
@@ -577,7 +588,9 @@ class OrderDetailsScreen extends StatelessWidget {
                                               Dimensions.PADDING_SIZE_DEFAULT,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: Theme.of(context).colorScheme.secondary,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
                                           boxShadow: [
                                             BoxShadow(
                                               color:
@@ -605,20 +618,26 @@ class OrderDetailsScreen extends StatelessWidget {
                                           style: titilliumRegular,
                                           //underline: SizedBox(),
 
-                                          onChanged: order.updateStatus as Function(String?),
+                                          onChanged: (value) {
+                                            if (value != null) {
+                                              order.updateStatus(value);
+                                            }
+                                          },
                                           items: order.orderStatusList
                                               .map<DropdownMenuItem<String>>(
                                                   (String value) {
                                             return DropdownMenuItem<String>(
                                               value: value,
-                                              child: Text(value,
-                                                  style:
-                                                      titilliumRegular.copyWith(
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyText1!
-                                                                  .color)),
+                                              child: Text(
+                                                value,
+                                                style:
+                                                    titilliumRegular.copyWith(
+                                                  color: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyLarge!
+                                                      .color,
+                                                ),
+                                              ),
                                             );
                                           }).toList(),
                                         ),
@@ -668,11 +687,12 @@ class OrderDetailsScreen extends StatelessWidget {
                                             }
                                           },
                                           child: Container(
-                                              margin: const EdgeInsets.symmetric(
-                                                  horizontal: Dimensions
-                                                      .PADDING_SIZE_SMALL,
-                                                  vertical: Dimensions
-                                                      .PADDING_SIZE_SMALL),
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: Dimensions
+                                                          .PADDING_SIZE_SMALL,
+                                                      vertical: Dimensions
+                                                          .PADDING_SIZE_SMALL),
                                               padding: const EdgeInsets.all(12),
                                               decoration: BoxDecoration(
                                                   color: ColorResources

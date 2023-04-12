@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hundredminute_seller/controllers/selling_method_controller.dart';
 import 'package:hundredminute_seller/view/screens/home/widget/bar_chart.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../controllers/category_controller.dart';
 import '../../../controllers/static_fields_controller.dart';
 import '../../../controllers/sub_category_attr_controller.dart';
@@ -29,20 +31,21 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({@required this.callback});
 
   final CategoryController _categoryController = Get.put(CategoryController());
-  final SubCategoryController _subCategoryController = Get.put(
-      SubCategoryController());
-  final SubCategoryAttrController _attrController = Get.put(
-      SubCategoryAttrController());
+  static final SellingMethodController sellingMethodController =
+      Get.put(SellingMethodController());
+  final SubCategoryController _subCategoryController =
+      Get.put(SubCategoryController());
+  final SubCategoryAttrController _attrController =
+      Get.put(SubCategoryAttrController());
   final ExcelController _excelController = Get.put(ExcelController());
-  final StaticFieldsController _fieldsController = Get.put(
-      StaticFieldsController());
-  ChooseImageController imageCon = Get.put(ChooseImageController());
+  final StaticFieldsController _fieldsController =
+      Get.put(StaticFieldsController());
+  final ChooseImageController imageCon = Get.put(ChooseImageController());
 
   Future<void> _loadData(BuildContext context, bool reload) async {
     await Provider.of<SplashProvider>(context, listen: false)
         .initConfig(context);
-    Provider.of<SplashProvider>(context, listen: false)
-        .initSharedPrefData();
+    Provider.of<SplashProvider>(context, listen: false).initSharedPrefData();
     await Provider.of<BankInfoProvider>(context, listen: false)
         .getUserEarnings(context);
     await Provider.of<ProfileProvider>(context, listen: false)
@@ -85,7 +88,7 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: Consumer<OrderProvider>(
-        builder: (context,order, child) {
+        builder: (context, order, child) {
           return order.orderList != null
               ? SafeArea(
                   child: RefreshIndicator(
@@ -97,6 +100,49 @@ class HomeScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           // for restaurant view
+
+                          SfCartesianChart(
+                            primaryXAxis: CategoryAxis(),
+                            // Chart title
+                            title:
+                                ChartTitle(text: 'Half yearly sales analysis'),
+                            // Enable legend
+                            legend: Legend(isVisible: true),
+                            // Enable tooltip
+                            tooltipBehavior: TooltipBehavior(enable: true),
+
+                            series: <SplineAreaSeries<SalesData, String>>[
+                              SplineAreaSeries<SalesData, String>(
+                                gradient: const LinearGradient(
+                                  colors: <Color>[
+                                    Color.fromARGB(80, 9, 59, 167),
+                                    Color(0xFF012168),
+                                  ],
+                                  stops: <double>[0.2, 0.7],
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                ),
+                                dataSource: <SalesData>[
+                                  SalesData('Jan', 35),
+                                  SalesData('Feb', 28),
+                                  SalesData('Mar', 34),
+                                  SalesData('Apr', 32),
+                                  SalesData('May', 40)
+                                ],
+                                xValueMapper: (SalesData sales, _) =>
+                                    sales.year,
+                                yValueMapper: (SalesData sales, _) =>
+                                    sales.sales,
+                                // Enable data label
+                                dataLabelSettings:
+                                    DataLabelSettings(isVisible: true),
+                                markerSettings: const MarkerSettings(
+                                  isVisible: false,
+                                  color: Colors.red,
+                                ),
+                              )
+                            ],
+                          ),
 
                           order.pendingList != null
                               ? Consumer<OrderProvider>(
@@ -167,7 +213,8 @@ class HomeScreen extends StatelessWidget {
                                               Theme.of(context)
                                                   .primaryColor)))),
 
-                          const SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
+                          const SizedBox(
+                              height: Dimensions.PADDING_SIZE_DEFAULT),
 
                           Consumer<ProfileProvider>(
                             builder: (context, seller, child) => seller
@@ -231,7 +278,11 @@ class HomeScreen extends StatelessWidget {
                                                       seller.userInfoModel!
                                                                   .wallet !=
                                                               null
-                                                          ? double.parse(seller.userInfoModel!.wallet!.balance.toString()) ??
+                                                          ? double.parse(seller
+                                                                  .userInfoModel!
+                                                                  .wallet!
+                                                                  .balance
+                                                                  .toString()) ??
                                                               0.0
                                                           : 0.0),
                                                   style: titilliumBold.copyWith(
@@ -321,8 +372,10 @@ class HomeScreen extends StatelessWidget {
                                                       seller.userInfoModel!
                                                                   .wallet !=
                                                               null
-                                                          ? seller.userInfoModel!
-                                                              .wallet!.withdrawn!
+                                                          ? seller
+                                                              .userInfoModel!
+                                                              .wallet!
+                                                              .withdrawn!
                                                               .toDouble()
                                                           : 0),
                                                   style: titilliumBold.copyWith(
@@ -382,7 +435,8 @@ class HomeScreen extends StatelessWidget {
                                                           ? double.parse(seller
                                                                   .userInfoModel!
                                                                   .wallet!
-                                                                  .balance!.toString()) +
+                                                                  .balance!
+                                                                  .toString()) +
                                                               seller
                                                                   .userInfoModel!
                                                                   .wallet!
@@ -408,19 +462,20 @@ class HomeScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: Consumer<BankInfoProvider>(
-                                builder: (context, bankInfo, child) {
-                              List<double> _earnings = [];
-                              for (double earn in bankInfo.userEarnings) {
-                                _earnings.add(PriceConverter.convertAmount(
-                                    earn, context));
-                              }
-                              List<double> _counts = [];
-                              _counts.addAll(_earnings);
-                              _counts.sort();
-                              double _max = _counts[_counts.length - 1];
-                              return EarningChart(
-                                  earnings: _earnings, max: _max);
-                            }),
+                              builder: (context, bankInfo, child) {
+                                List<double> _earnings = [];
+                                for (double earn in bankInfo.userEarnings) {
+                                  _earnings.add(PriceConverter.convertAmount(
+                                      earn, context));
+                                }
+                                List<double> _counts = [];
+                                _counts.addAll(_earnings);
+                                _counts.sort();
+                                double _max = _counts[_counts.length - 1];
+                                return EarningChart(
+                                    earnings: _earnings, max: _max);
+                              },
+                            ),
                           ),
 
 /*
@@ -486,4 +541,10 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class SalesData {
+  SalesData(this.year, this.sales);
+  final String year;
+  final double sales;
 }

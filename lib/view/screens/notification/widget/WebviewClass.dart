@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -13,7 +11,8 @@ class WebviewClass extends StatefulWidget {
 class WebViewExampleState extends State<WebviewClass> {
   String url;
   bool isLoading = true;
-  final _key = UniqueKey();
+  // final _key = UniqueKey();
+  late final WebViewController controller;
 
   WebViewExampleState(this.url);
 
@@ -21,7 +20,31 @@ class WebViewExampleState extends State<WebviewClass> {
   void initState() {
     super.initState();
     // Enable virtual display.
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
+    // if (Platform.isAndroid) WebView.platform = AndroidWebView();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(const Color(0x00000000))
+      // ..setNavigationDelegate(
+      //   NavigationDelegate(
+      //     onProgress: (int progress) {
+      //       // Update loading bar.
+      //     },
+      //     onPageStarted: (String url) {},
+      //     onPageFinished: (String url) {},
+      //     onWebResourceError: (WebResourceError error) {},
+      //     onNavigationRequest: (NavigationRequest request) {
+      //       if (request.url.startsWith('https://www.youtube.com/')) {
+      //         return NavigationDecision.prevent;
+      //       }
+      //       return NavigationDecision.navigate;
+      //     },
+      //   ),
+      // )
+      ..loadRequest(Uri.parse(this.url)).then((value) {
+        setState(() {
+          isLoading = false;
+        });
+      });
   }
 
   @override
@@ -32,16 +55,19 @@ class WebViewExampleState extends State<WebviewClass> {
       // ),
       body: Stack(
         children: <Widget>[
-          WebView(
-            key: _key,
-            initialUrl: this.url,
-            javascriptMode: JavascriptMode.unrestricted,
-            onPageFinished: (finish) {
-              setState(() {
-                isLoading = false;
-              });
-            },
+          WebViewWidget(
+            controller: controller,
           ),
+          // WebView(
+          //   key: _key,
+          //   initialUrl: this.url,
+          //   javascriptMode: JavascriptMode.unrestricted,
+          //   onPageFinished: (finish) {
+          //     setState(() {
+          //       isLoading = false;
+          //     });
+          //   },
+          // ),
           isLoading
               ? Center(
                   child: CircularProgressIndicator(),

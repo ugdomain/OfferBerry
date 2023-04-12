@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 class getRawCatgory {
   int? id;
   String? name;
@@ -14,15 +12,15 @@ class getRawCatgory {
 
   getRawCatgory(
       {this.id,
-        this.name,
-        this.slug,
-        this.icon,
-        this.parentId,
-        this.category,
-        this.position,
-        this.commission,
-        this.createdAt,
-        this.updatedAt});
+      this.name,
+      this.slug,
+      this.icon,
+      this.parentId,
+      this.category,
+      this.position,
+      this.commission,
+      this.createdAt,
+      this.updatedAt});
 
   getRawCatgory.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -32,7 +30,7 @@ class getRawCatgory {
     parentId = json['parent_id'];
     category = json['category'];
     position = json['position'];
-    commission = json['commission'];
+    commission = int.tryParse(json['commission']);
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }

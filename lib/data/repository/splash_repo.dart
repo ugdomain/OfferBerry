@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utill/app_constants.dart';
@@ -12,7 +13,10 @@ class SplashRepo {
 
   Future<ApiResponse> getConfig() async {
     try {
-      final response = await dioClient!.get(AppConstants.CONFIG_URI);
+      final response = await dioClient!.get(
+        AppConstants.CONFIG_URI,
+        options: Options(validateStatus: (_) => true),
+      );
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -26,7 +30,7 @@ class SplashRepo {
     if (!sharedPreferences!.containsKey(AppConstants.SEARCH_ADDRESS)) {
       sharedPreferences!.setStringList(AppConstants.SEARCH_ADDRESS, []);
     }
-    if(!sharedPreferences!.containsKey(AppConstants.CURRENCY)) {
+    if (!sharedPreferences!.containsKey(AppConstants.CURRENCY)) {
       sharedPreferences!.setString(AppConstants.CURRENCY, '');
     }
   }
@@ -38,5 +42,4 @@ class SplashRepo {
   void setCurrency(String currencyCode) {
     sharedPreferences!.setString(AppConstants.CURRENCY, currencyCode);
   }
-
 }

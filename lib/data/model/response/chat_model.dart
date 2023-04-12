@@ -1,4 +1,3 @@
-
 class MessageModel {
   int? _id;
   int? _userId;
@@ -18,20 +17,20 @@ class MessageModel {
 
   MessageModel(
       {int? id,
-        int? userId,
-        int? sellerId,
-        String? message,
-        int? sentByCustomer,
-        int? sentBySeller,
-        int? seenByCustomer,
-        int? seenBySeller,
-        int? status,
-        String? createdAt,
-        String? updatedAt,
-        int? shopId,
-        SellerInfo? sellerInfo,
-        Customer? customer,
-        Shop? shop}) {
+      int? userId,
+      int? sellerId,
+      String? message,
+      int? sentByCustomer,
+      int? sentBySeller,
+      int? seenByCustomer,
+      int? seenBySeller,
+      int? status,
+      String? createdAt,
+      String? updatedAt,
+      int? shopId,
+      SellerInfo? sellerInfo,
+      Customer? customer,
+      Shop? shop}) {
     this._id = id;
     this._userId = userId;
     this._sellerId = sellerId;
@@ -134,21 +133,21 @@ class SellerInfo {
 
   SellerInfo(
       {int? id,
-        String? fName,
-        String? lName,
-        String? phone,
-        String? image,
-        String? email,
-        String? password,
-        String? status,
-        String? rememberToken,
-        String? createdAt,
-        String? updatedAt,
-        String? bankName,
-        String? branch,
-        String? accountNo,
-        String? holderName,
-        String? authToken}) {
+      String? fName,
+      String? lName,
+      String? phone,
+      String? image,
+      String? email,
+      String? password,
+      String? status,
+      String? rememberToken,
+      String? createdAt,
+      String? updatedAt,
+      String? bankName,
+      String? branch,
+      String? accountNo,
+      String? holderName,
+      String? authToken}) {
     this._id = id;
     this._fName = fName;
     this._lName = lName;
@@ -246,22 +245,22 @@ class Customer {
 
   Customer(
       {int? id,
-        Null? name,
-        String? fName,
-        String? lName,
-        String? phone,
-        String? image,
-        String? email,
-        Null? emailVerifiedAt,
-        String? createdAt,
-        String? updatedAt,
-        Null? streetAddress,
-        Null? country,
-        Null? city,
-        Null? zip,
-        Null? houseNo,
-        Null? apartmentNo,
-        String? cmFirebaseToken}) {
+      Null? name,
+      String? fName,
+      String? lName,
+      String? phone,
+      String? image,
+      String? email,
+      Null? emailVerifiedAt,
+      String? createdAt,
+      String? updatedAt,
+      Null? streetAddress,
+      Null? country,
+      Null? city,
+      Null? zip,
+      Null? houseNo,
+      Null? apartmentNo,
+      String? cmFirebaseToken}) {
     this._id = id;
     this._name = name;
     this._fName = fName;
@@ -354,13 +353,13 @@ class Shop {
 
   Shop(
       {int? id,
-        int? sellerId,
-        String? name,
-        String? address,
-        String? contact,
-        String? image,
-        String? createdAt,
-        String? updatedAt}) {
+      int? sellerId,
+      String? name,
+      String? address,
+      String? contact,
+      String? image,
+      String? createdAt,
+      String? updatedAt}) {
     this._id = id;
     this._sellerId = sellerId;
     this._name = name;
@@ -382,7 +381,7 @@ class Shop {
 
   Shop.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
-    _sellerId = json['seller_id'];
+    _sellerId = int.tryParse(json['seller_id']);
     _name = json['name'];
     _address = json['address'];
     _contact = json['contact'];

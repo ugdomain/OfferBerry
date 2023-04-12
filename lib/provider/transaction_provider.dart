@@ -13,20 +13,18 @@ class TransactionProvider extends ChangeNotifier {
 
   List<TransactionModel>? _transactionList;
   List<TransactionModel>? _allTransactionList;
-  List<TransactionModel> get transactionList => _transactionList!;
-
+  List<TransactionModel>? get transactionList => _transactionList;
 
   String _chooseMonth = '';
-  List<String>  _monthItemList = [];
+  List<String> _monthItemList = [];
 
   String get chooseMonth => _chooseMonth;
   List<String> get monthItemList => _monthItemList;
 
-
-
   Future<void> getTransactionList(BuildContext context) async {
     ApiResponse apiResponse = await transactionRepo!.getTransactionList();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _transactionList = [];
       _allTransactionList = [];
       apiResponse.response!.data.forEach((transaction) {
@@ -46,7 +44,7 @@ class TransactionProvider extends ChangeNotifier {
     } else {
       _transactionList = [];
       _allTransactionList!.forEach((transaction) {
-        if(DateConverter.getMonthIndex(transaction.createdAt) == month) {
+        if (DateConverter.getMonthIndex(transaction.createdAt) == month) {
           _transactionList!.add(transaction);
         }
       });
@@ -55,10 +53,10 @@ class TransactionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   void initMonthTypeList() async {
     ApiResponse apiResponse = await transactionRepo!.getMonthTypeList();
-    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    if (apiResponse.response != null &&
+        apiResponse.response!.statusCode == 200) {
       _monthItemList = [];
       _monthItemList.addAll(apiResponse.response!.data);
       _chooseMonth = apiResponse.response!.data[0];

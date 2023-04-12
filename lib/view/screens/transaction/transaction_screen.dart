@@ -10,13 +10,12 @@ import '../../base/custom_app_bar.dart';
 import '../../base/no_data_screen.dart';
 
 class TransactionScreen extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
-    Provider.of<TransactionProvider>(context, listen: false).getTransactionList(context);
-    Provider.of<TransactionProvider>(context, listen: false).initMonthTypeList();
-
+    Provider.of<TransactionProvider>(context, listen: false)
+        .getTransactionList(context);
+    Provider.of<TransactionProvider>(context, listen: false)
+        .initMonthTypeList();
 
     return Scaffold(
       appBar: CustomAppBar(title: getTranslated('transaction_screen', context)),
@@ -32,35 +31,69 @@ class TransactionScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: ColorResources.getBottomSheetColor(context),
                     borderRadius: BorderRadius.circular(12),
-                    boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 800 : 200]!, spreadRadius: 0.5, blurRadius: 0.3)],
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey[
+                              Provider.of<ThemeProvider>(context).darkTheme
+                                  ? 800
+                                  : 200]!,
+                          spreadRadius: 0.5,
+                          blurRadius: 0.3)
+                    ],
                   ),
                   child: DropdownButton<String>(
                     hint: Text('Select Month'),
                     dropdownColor: ColorResources.getHomeBg(context),
-                    icon: Icon(Icons.arrow_drop_down,color: ColorResources.getTextColor(context), size: 30,),
+                    icon: Icon(
+                      Icons.arrow_drop_down,
+                      color: ColorResources.getTextColor(context),
+                      size: 30,
+                    ),
                     isExpanded: true,
-                    style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold, fontSize: 16),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
                     underline: SizedBox(),
                     value: transactionProvider.chooseMonth,
                     onChanged: (String? query) {
-                      transactionProvider.filterProduct(transactionProvider.monthItemList.indexOf(query!), context);
+                      transactionProvider.filterProduct(
+                          transactionProvider.monthItemList.indexOf(query!),
+                          context);
                     },
-                    items: transactionProvider.monthItemList.map<DropdownMenuItem<String>>((String value) {
+                    items: transactionProvider.monthItemList
+                        .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
-                        child: Text(value, style: titilliumRegular.copyWith(color: Theme.of(context).textTheme.bodyText1!.color)),
+                        child: Text(value,
+                            style: titilliumRegular.copyWith(
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .color)),
                       );
                     }).toList(),
                   ),
                 ),
               ),
-
               Expanded(
-                  child: transactionProvider.transactionList !=null ? transactionProvider.transactionList.isNotEmpty ? ListView.builder(
-                    itemCount: transactionProvider.transactionList.length,
-                    itemBuilder: (context, index) => TransactionWidget(transactionModel: transactionProvider.transactionList[index])
-                ): NoDataScreen()
-                      : Center(child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor))),
+                child: transactionProvider.transactionList != null
+                    ? transactionProvider.transactionList!.isNotEmpty
+                        ? ListView.builder(
+                            itemCount:
+                                transactionProvider.transactionList?.length,
+                            itemBuilder: (context, index) => TransactionWidget(
+                              transactionModel:
+                                  transactionProvider.transactionList?[index],
+                            ),
+                          )
+                        : NoDataScreen()
+                    : Center(
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              Theme.of(context).primaryColor),
+                        ),
+                      ),
               ),
             ],
           ),

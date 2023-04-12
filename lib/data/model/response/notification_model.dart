@@ -37,7 +37,7 @@ class NotificationModel {
         id: json["id"],
         type: json["type"],
         notifiableType: json["notifiable_type"],
-        notifiableId: json["notifiable_id"],
+        notifiableId: int.tryParse(json["notifiable_id"]),
         data: WelcomeData.NotificationModel(json["data"]),
         readAt: json["read_at"],
         createdAt: DateTime.parse(json["created_at"]),

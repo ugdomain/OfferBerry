@@ -19,14 +19,13 @@ extension EmailValidator on String {
 }
 
 class CustomTextField extends StatelessWidget {
-
   final CategoryController _categoryController = Get.put(CategoryController());
   final SubCategoryController _subCategoryController = Get.find();
   final SubCategoryAttrController _attrController = Get.find();
   final ExcelController _excelController = Get.put(ExcelController());
-  final StaticFieldsController _fieldsController = Get.put(StaticFieldsController());
+  final StaticFieldsController _fieldsController =
+      Get.put(StaticFieldsController());
   ChooseImageController imageCon = Get.put(ChooseImageController());
-
 
   final String? name;
   final TextEditingController? controller;
@@ -83,40 +82,40 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
-          onChanged: onChanged,
-          controller: controller,
-          maxLines: maxLine ?? 1,
-          textCapitalization: capitalization!,
-          maxLength: isPhoneNumber! ? 15 : null,
-          focusNode: focusNode,
-          keyboardType: textInputType ?? TextInputType.text,
-          //keyboardType: TextInputType.number,
-          initialValue: null,
-          textInputAction: textInputAction ?? TextInputAction.next,
-          onFieldSubmitted: (v) {
-            FocusScope.of(context).requestFocus(nextNode);
-          },
-          //autovalidate: true,
-          inputFormatters: [
-            isPhoneNumber!
-                ? FilteringTextInputFormatter.digitsOnly
-                : FilteringTextInputFormatter.singleLineFormatter
-          ],
-          decoration: InputDecoration(
-            hintText: hintText ?? '',
-            filled: fillColor != null,
-            fillColor: fillColor,
-            contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
-            isDense: true,
-            counterText: '',
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-            hintStyle:
-                titilliumRegular.copyWith(color: Theme.of(context).hintColor),
-            errorStyle: TextStyle(height: 1.5),
-            border: InputBorder.none,
-          ),
+        onChanged: onChanged,
+        controller: controller,
+        maxLines: maxLine ?? 1,
+        textCapitalization: capitalization!,
+        maxLength: isPhoneNumber! ? 15 : null,
+        focusNode: focusNode,
+        keyboardType: textInputType ?? TextInputType.text,
+        //keyboardType: TextInputType.number,
+        initialValue: null,
+        textInputAction: textInputAction ?? TextInputAction.next,
+        onFieldSubmitted: (v) {
+          FocusScope.of(context).requestFocus(nextNode);
+        },
+        //autovalidate: true,
+        inputFormatters: [
+          isPhoneNumber!
+              ? FilteringTextInputFormatter.digitsOnly
+              : FilteringTextInputFormatter.singleLineFormatter
+        ],
+        decoration: InputDecoration(
+          hintText: hintText ?? '',
+          filled: fillColor != null,
+          fillColor: fillColor,
+          contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
+          isDense: true,
+          counterText: '',
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+          hintStyle:
+              titilliumRegular.copyWith(color: Theme.of(context).hintColor),
+          errorStyle: TextStyle(height: 1.5),
+          border: InputBorder.none,
         ),
+      ),
     );
   }
 }

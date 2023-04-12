@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 class TransactionModel {
   int? _id;
   int? _sellerId;
@@ -10,13 +13,13 @@ class TransactionModel {
 
   TransactionModel(
       {int? id,
-        int? sellerId,
-        int? adminId,
-        double? amount,
-        String? transactionNote,
-        int? approved,
-        String? createdAt,
-        String? updatedAt}) {
+      int? sellerId,
+      int? adminId,
+      double? amount,
+      String? transactionNote,
+      int? approved,
+      String? createdAt,
+      String? updatedAt}) {
     this._id = id;
     this._sellerId = sellerId;
     this._adminId = adminId;
@@ -38,7 +41,7 @@ class TransactionModel {
 
   TransactionModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
-    _sellerId = json['seller_id'];
+    _sellerId = int.tryParse(json['seller_id']);
     _adminId = json['admin_id'];
     _amount = json['amount'].toDouble();
     _transactionNote = json['transaction_note'];

@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
 import '../models/sub_category_attr_model.dart';
 import '../services/api_services.dart';
 
-class SubCategoryAttrController extends GetxController{
+class SubCategoryAttrController extends GetxController {
   var attrList = <SubCategoryAttr>[].obs;
-  int get itemCount => attrList.isNotEmpty ? attrList.first.attrs!.length:0;
+  int get itemCount => attrList.isNotEmpty ? attrList.first.attrs!.length : 0;
   var controllName = "".obs;
   var editTextCon = <String, dynamic>{}.obs;
   var controllValues = <String, dynamic>{}.obs;
@@ -24,34 +23,34 @@ class SubCategoryAttrController extends GetxController{
     validate(false);
   }
 
-  setControllNameValue(String newValue){
+  setControllNameValue(String newValue) {
     controllName.value = newValue;
   }
 
-  setRadioButtonValues(Map value){
+  setRadioButtonValues(Map value) {
     radioButtonMap.addAll(value);
   }
 
-  setInputValue(String? value,controller){
-    if(editTextCon.keys.contains(controller)){
+  setInputValue(String? value, controller) {
+    if (editTextCon.keys.contains(controller)) {
       editTextCon[controller] = value!;
-    }else{
-    editTextCon.addAll({value!:controller});
+    } else {
+      editTextCon.addAll({value!: controller});
     }
   }
 
-  Map expandAttrList(){
-    Map<String,dynamic> map = {};
-    Set<Map<String,dynamic>> set = {
-      ...attrList[0].attrs!.map((e){
-        if(e.control == "select" || e.control == "radio"){
-        return {e.controlName : e.controlOptions};
-        }else{
-          return {e.controlName : ""};
+  Map expandAttrList() {
+    Map<String, dynamic> map = {};
+    Set<Map<String, dynamic>> set = {
+      ...attrList[0].attrs!.map((e) {
+        if (e.control == "select" || e.control == "radio") {
+          return {e.controlName: e.controlOptions};
+        } else {
+          return {e.controlName: ""};
         }
-      }
-      ).toList()};
-    for(var i in set){
+      }).toList()
+    };
+    for (var i in set) {
       i.forEach((key, value) {
         map.addAll({key: value});
       });
@@ -61,23 +60,23 @@ class SubCategoryAttrController extends GetxController{
 
   // setting map for mapping excel data
 
-  Map getControlValues(){
+  Map getControlValues() {
     Map map = {};
-    Set<Map<String,dynamic>> set = {
-      ...attrList[0].attrs!.map((e){
-        if(e.control == "select" || e.control == "radio"){
-          return {e.controlName : e.controlOptions};
-        }else{
-          return {e.controlName : ""};
+    Set<Map<String, dynamic>> set = {
+      ...attrList[0].attrs!.map((e) {
+        if (e.control == "select" || e.control == "radio") {
+          return {e.controlName: e.controlOptions};
+        } else {
+          return {e.controlName: ""};
         }
-      }
-      ).toList()};
-    for(var i in set){
+      }).toList()
+    };
+    for (var i in set) {
       i.forEach((key, value) {
-        if(value is List) {
-          if(map.containsKey(key)) {
+        if (value is List) {
+          if (map.containsKey(key)) {
             map[key] = value;
-          }else{
+          } else {
             map.addAll({key: value});
           }
         }
@@ -87,18 +86,19 @@ class SubCategoryAttrController extends GetxController{
   }
 
   // setting json values map for mapping excel data
-  Map getJsonControlValues(){
+  Map getJsonControlValues() {
     Map map = {};
-    Set<Map<String,dynamic>> set = {
-      ...attrList[0].attrs!.map((e){
-          return {e.controlName : ""};
-      }).toList()};
-    for(var i in set){
+    Set<Map<String, dynamic>> set = {
+      ...attrList[0].attrs!.map((e) {
+        return {e.controlName: ""};
+      }).toList()
+    };
+    for (var i in set) {
       i.forEach((key, value) {
-        if(value is List) {
-          if(map.containsKey(key)) {
+        if (value is List) {
+          if (map.containsKey(key)) {
             map[key] = value;
-          }else{
+          } else {
             map.addAll({key: value});
           }
         }
@@ -107,15 +107,15 @@ class SubCategoryAttrController extends GetxController{
     return map;
   }
 
-
-  String ToString(String value){
+  String ToString(String value) {
     return '"$value"';
   }
-  setSelectValue(Map<String, dynamic> value){
+
+  setSelectValue(Map<String, dynamic> value) {
     controllValues.addAll(value);
   }
 
-  fetchAttrData(String? catId,String? parentId)async{
+  fetchAttrData(String? catId, String? parentId) async {
     isLoading(true);
     try {
       var attr = await ProductServices().subCategoryAttr(catId!, parentId!);
@@ -124,7 +124,7 @@ class SubCategoryAttrController extends GetxController{
         attrList.value = attr;
         isLoading(false);
       }
-    }finally{
+    } finally {
       isLoading(false);
     }
   }

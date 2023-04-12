@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-class getRawSubCategory {
+class SubCategoryModel {
   int? id;
   String? name;
   String? slug;
@@ -12,19 +10,19 @@ class getRawSubCategory {
   String? createdAt;
   String? updatedAt;
 
-  getRawSubCategory(
+  SubCategoryModel(
       {this.id,
-        this.name,
-        this.slug,
-        this.icon,
-        this.parentId,
-        this.category,
-        this.position,
-        this.commission,
-        this.createdAt,
-        this.updatedAt});
+      this.name,
+      this.slug,
+      this.icon,
+      this.parentId,
+      this.category,
+      this.position,
+      this.commission,
+      this.createdAt,
+      this.updatedAt});
 
-  getRawSubCategory.fromJson(Map<String, dynamic> json) {
+  SubCategoryModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     slug = json['slug'];
@@ -32,7 +30,7 @@ class getRawSubCategory {
     parentId = json['parent_id'];
     category = json['category'];
     position = json['position'];
-    commission = json['commission'];
+    commission = int.tryParse(json['commission']);
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }

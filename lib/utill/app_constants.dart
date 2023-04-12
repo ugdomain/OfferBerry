@@ -1,11 +1,10 @@
-
 import '../data/model/response/language_model.dart';
 import 'images.dart';
 
 class AppConstants {
   static const String APP_NAME = 'Seller OFFER BARRIES';
 
-  static const String BASE_URL = 'https://moneylink.network/offer-barry';
+  static const String BASE_URL = 'https://offerbaries.com';
   static const String CATEGORY = '/api/v2/seller/products/get-raw-categories';
   static const String SUB_CATEGORY =
       '/api/v2/seller/products/get-raw-sub-categories';
@@ -23,6 +22,7 @@ class AppConstants {
   static const String ORDER_DETAILS = '/api/v2/seller/orders/';
   static const String UPDATE_ORDER_STATUS =
       '/api/v2/seller/orders/order-detail-status/';
+  static const String ICON_URL = "/storage/app/public/category/store/";
   static const String BALANCE_WITHDRAW = '/api/v2/seller/balance-withdraw';
   static const String CANCEL_BALANCE_REQUEST =
       '/api/v2/seller/close-withdraw-request';

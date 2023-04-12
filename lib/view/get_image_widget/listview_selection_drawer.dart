@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../screens/addproduct/widget/add_image_to_listview.dart';
+import '../screens/sell/post_ad/widget/add_image_to_listview.dart';
 import 'get_image_controller.dart';
-
 
 class ListViewSelectionDrawer extends StatelessWidget {
   ListViewSelectionDrawer({
@@ -16,7 +15,8 @@ class ListViewSelectionDrawer extends StatelessWidget {
 
   final int index;
 
-  AddImageToListViewController imageCon = Get.put(AddImageToListViewController());
+  AddImageToListViewController imageCon =
+      Get.put(AddImageToListViewController());
 
   @override
   Widget build(BuildContext context) {
@@ -28,32 +28,45 @@ class ListViewSelectionDrawer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           GestureDetector(
-            onTap: (){
+            onTap: () {
               imageCon.pickImageFromCamera(index);
               Get.back();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("CAMERA",style: TextStyle(fontSize: 15),),
-                Icon(Icons.camera_alt,size: 30,),
+                Text(
+                  "CAMERA",
+                  style: TextStyle(fontSize: 15),
+                ),
+                Icon(
+                  Icons.camera_alt,
+                  size: 30,
+                ),
               ],
             ),
           ),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               imageCon.chooseImage(index);
               Get.back();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text("GALLERY",style: TextStyle(fontSize: 15),),
-                Icon(Icons.folder_copy,size: 30,),
+                Text(
+                  "GALLERY",
+                  style: TextStyle(fontSize: 15),
+                ),
+                Icon(
+                  Icons.folder_copy,
+                  size: 30,
+                ),
               ],
             ),
           ),
-        ],),
+        ],
+      ),
     );
   }
 }
