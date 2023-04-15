@@ -24,12 +24,13 @@ class AuthRepo {
     }
   }
 
-
-
   // for  user token
   Future<void> saveUserToken(String token) async {
     dioClient!.token = token;
-    dioClient!.dio!.options!.headers = {'Content-Type': 'application/json; charset=UTF-8', 'Authorization': 'Bearer $token'};
+    dioClient!.dio!.options.headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token'
+    };
 
     try {
       await sharedPreferences!.setString(AppConstants.TOKEN, token);

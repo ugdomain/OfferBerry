@@ -8,9 +8,10 @@ import '../../../controllers/sub_category_attr_controller.dart';
 import '../../../utill/app_constants.dart';
 
 class CategoryScreen extends StatelessWidget {
-  CategoryScreen({super.key, required this.isWholeSale});
+  CategoryScreen({
+    super.key,
+  });
 
-  final bool isWholeSale;
   final CategoryController _categoryController = Get.find();
   final SubCategoryController _subCategoryController = Get.find();
   final SubCategoryAttrController _attrController = Get.find();
@@ -44,9 +45,7 @@ class CategoryScreen extends StatelessWidget {
                 _categoryController.setSelectedCategory(category.id.toString());
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) {
-                    return SubCategoryScreen(
-                      isWholeSale: isWholeSale,
-                    );
+                    return SubCategoryScreen();
                   },
                 ));
               },

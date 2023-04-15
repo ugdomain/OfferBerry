@@ -73,7 +73,7 @@ class PushNotificationService {
       );
       print(response.data.toString());
 
-      if (response != null && response.statusCode == 200) {
+      if (response.statusCode == 200) {
         print(response.data.toString());
         print("Fcm Token saved");
       } else {

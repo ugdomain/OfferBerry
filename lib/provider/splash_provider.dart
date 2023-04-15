@@ -41,7 +41,7 @@ class SplashProvider extends ChangeNotifier {
       String _currencyCode = splashRepo!.getCurrency();
       for (CurrencyList currencyList in _configModel!.currencyList) {
         if (currencyList.id == _configModel!.systemDefaultCurrency) {
-          if (_currencyCode == null || _currencyCode.isEmpty) {
+          if (_currencyCode.isEmpty) {
             _currencyCode = currencyList.code;
           }
           _defaultCurrency = currencyList;

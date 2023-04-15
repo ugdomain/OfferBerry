@@ -19,8 +19,11 @@ class ApiServices {
     debugPrint("Token : $token");
     Get.snackbar("Information", "Uploading data...");
     var url = HomeScreen.sellingMethodController.isWholeSale
-        ? Uri.parse(
-            '${AppConstants.BASE_URL}/api/v2/seller/products/whole-sale-add-new')
+        ? (HomeScreen.sellingMethodController.isNewProduct
+            ? Uri.parse(
+                '${AppConstants.BASE_URL}/api/v2/seller/products/whole-sale-add-new')
+            : Uri.parse(
+                "${AppConstants.BASE_URL}/api/v2/seller/products/whole-sale-add-old"))
         : Uri.parse('${AppConstants.BASE_URL}/api/v2/seller/products/add-new');
     debugPrint(
         "test : ${param.toString().substring(0, (param.toString().length / 2).floor())}");

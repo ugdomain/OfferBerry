@@ -79,11 +79,11 @@ class AuthProvider with ChangeNotifier {
   }
 
   String getUserEmail() {
-    return authRepo!.getUserEmail() ?? "";
+    return authRepo!.getUserEmail();
   }
 
   String getUserPassword() {
-    return authRepo!.getUserPassword() ?? "";
+    return authRepo!.getUserPassword();
   }
 
   Future<bool> clearUserEmailAndPassword() async {

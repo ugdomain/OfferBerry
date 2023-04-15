@@ -21,7 +21,7 @@ class LanguageProvider with ChangeNotifier {
   void searchLanguage(String query, BuildContext context) {
     if (query.isEmpty) {
       _languages.clear();
-      _languages = AppConstants.languages as List<LanguageModel>;
+      _languages = AppConstants.languages;
       notifyListeners();
     } else {
       _selectIndex = -1;
@@ -38,7 +38,7 @@ class LanguageProvider with ChangeNotifier {
   void initializeAllLanguages(BuildContext context) {
     if (_languages.length == 0) {
       _languages.clear();
-      _languages = AppConstants.languages as List<LanguageModel>;
+      _languages = AppConstants.languages;
     }
   }
 }

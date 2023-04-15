@@ -1,14 +1,10 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:path_provider/path_provider.dart';
-
 import '../main.dart';
 import '../utill/app_constants.dart';
-import '../view/screens/order/order_details_screen.dart';
 
 class MyNotification {
   static Future<void> initialize(

@@ -279,11 +279,10 @@ class HomeScreen extends StatelessWidget {
                                                                   .wallet !=
                                                               null
                                                           ? double.parse(seller
-                                                                  .userInfoModel!
-                                                                  .wallet!
-                                                                  .balance
-                                                                  .toString()) ??
-                                                              0.0
+                                                              .userInfoModel!
+                                                              .wallet!
+                                                              .balance
+                                                              .toString())
                                                           : 0.0),
                                                   style: titilliumBold.copyWith(
                                                       color:

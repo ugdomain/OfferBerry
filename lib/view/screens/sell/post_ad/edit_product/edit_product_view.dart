@@ -291,7 +291,7 @@ class EditProductPage extends StatelessWidget {
                                 : ListView.builder(
                                     physics: NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
-                                    itemCount: _attrController.itemCount ?? 0,
+                                    itemCount: _attrController.itemCount,
                                     itemBuilder: (context, index) {
                                       _attrController.setControllNameValue(
                                           _attrController.attrList.first

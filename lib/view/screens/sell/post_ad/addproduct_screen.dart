@@ -22,9 +22,9 @@ import '../../../get_image_widget/show_list_of_images.dart';
 import 'edit_product/edit_product_view.dart';
 
 class AddProduct extends StatelessWidget {
-  AddProduct({Key? key, required this.isWholeSale}) : super(key: key);
-
-  final bool isWholeSale;
+  AddProduct({
+    Key? key,
+  }) : super(key: key);
 
   final CategoryController _categoryController = Get.find();
 
@@ -46,7 +46,6 @@ class AddProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print(isWholeSale);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -986,7 +985,10 @@ class AddProduct extends StatelessWidget {
                     onTap: () => _excelController.uploadExcel())
                 : SpeedDialChild(),
           ],
-          child: const Text("Excel"),
+          child: const Text(
+            "Excel",
+            style: TextStyle(color: Colors.black),
+          ),
         ),
       ),
     );

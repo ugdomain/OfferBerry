@@ -226,40 +226,40 @@ class SellerInfo {
 
 class Customer {
   int? _id;
-  Null? _name;
+  String? _name;
   String? _fName;
   String? _lName;
   String? _phone;
   String? _image;
   String? _email;
-  Null? _emailVerifiedAt;
+  String? _emailVerifiedAt;
   String? _createdAt;
   String? _updatedAt;
-  Null? _streetAddress;
-  Null? _country;
-  Null? _city;
-  Null? _zip;
-  Null? _houseNo;
-  Null? _apartmentNo;
+  String? _streetAddress;
+  String? _country;
+  String? _city;
+  String? _zip;
+  String? _houseNo;
+  String? _apartmentNo;
   String? _cmFirebaseToken;
 
   Customer(
       {int? id,
-      Null? name,
+      String? name,
       String? fName,
       String? lName,
       String? phone,
       String? image,
       String? email,
-      Null? emailVerifiedAt,
+      String? emailVerifiedAt,
       String? createdAt,
       String? updatedAt,
-      Null? streetAddress,
-      Null? country,
-      Null? city,
-      Null? zip,
-      Null? houseNo,
-      Null? apartmentNo,
+      String? streetAddress,
+      String? country,
+      String? city,
+      String? zip,
+      String? houseNo,
+      String? apartmentNo,
       String? cmFirebaseToken}) {
     this._id = id;
     this._name = name;
@@ -281,21 +281,21 @@ class Customer {
   }
 
   int get id => _id!;
-  Null get name => _name;
+  String get name => _name!;
   String get fName => _fName!;
   String get lName => _lName!;
   String get phone => _phone!;
   String get image => _image!;
   String get email => _email!;
-  Null get emailVerifiedAt => _emailVerifiedAt;
+  String get emailVerifiedAt => _emailVerifiedAt!;
   String get createdAt => _createdAt!;
   String get updatedAt => _updatedAt!;
-  Null get streetAddress => _streetAddress;
-  Null get country => _country;
-  Null get city => _city;
-  Null get zip => _zip;
-  Null get houseNo => _houseNo;
-  Null get apartmentNo => _apartmentNo;
+  String get streetAddress => _streetAddress!;
+  String get country => _country!;
+  String get city => _city!;
+  String get zip => _zip!;
+  String get houseNo => _houseNo!;
+  String get apartmentNo => _apartmentNo!;
   String get cmFirebaseToken => _cmFirebaseToken!;
 
   Customer.fromJson(Map<String, dynamic> json) {

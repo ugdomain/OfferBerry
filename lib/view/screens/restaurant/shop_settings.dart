@@ -249,11 +249,11 @@ class _ShopSettingsScreenState extends State<ShopSettingsScreen> {
                             ShopModel updateUserInfoModel =
                                 shopProvider.shopModel!;
                             updateUserInfoModel.name =
-                                _restaurantNameController!.text ?? "";
+                                _restaurantNameController!.text;
                             updateUserInfoModel.address =
-                                _addressController!.text ?? "";
+                                _addressController!.text;
                             updateUserInfoModel.contact =
-                                _phoneController!.text ?? '';
+                                _phoneController!.text;
 
                             ResponseModel _responseModel =
                                 await shopProvider.updateBankInfo(

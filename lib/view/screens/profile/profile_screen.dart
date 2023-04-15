@@ -19,7 +19,6 @@ import '../../base/custom_button.dart';
 import '../../base/textfeild/custom_text_feild.dart';
 
 class ProfileScreen extends StatefulWidget {
-
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -89,16 +88,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     } else {
       SellerModel updateUserInfoModel =
           Provider.of<ProfileProvider>(context, listen: false).userInfoModel!;
-      updateUserInfoModel.fName = _firstNameController.text ?? "";
-      updateUserInfoModel.lName = _lastNameController.text ?? "";
-      updateUserInfoModel.phone = _phoneController.text ?? '';
+      updateUserInfoModel.fName = _firstNameController.text;
+      updateUserInfoModel.lName = _lastNameController.text;
+      updateUserInfoModel.phone = _phoneController.text;
 
       SellerModel _bank =
           Provider.of<BankInfoProvider>(context, listen: false).bankInfo;
       SellerBody _sellerBody = SellerBody(
         sMethod: '_put',
-        fName: _firstNameController.text ?? "",
-        lName: _lastNameController.text ?? "",
+        fName: _firstNameController.text,
+        lName: _lastNameController.text,
         image: updateUserInfoModel.image,
         bankName: _bank.bankName,
         branch: _bank.branch,
@@ -269,7 +268,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     textInputType: TextInputType.name,
                                     focusNode: _fNameFocus,
                                     nextNode: _lNameFocus,
-                                    hintText: profile.userInfoModel!.fName ?? '',
+                                    hintText:
+                                        profile.userInfoModel!.fName ?? '',
                                     controller: _firstNameController,
                                   ),
                                   const SizedBox(height: 15),
@@ -325,7 +325,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   CustomTextField(
                                     textInputType: TextInputType.number,
                                     focusNode: _phoneFocus,
-                                    hintText: profile.userInfoModel!.phone ?? "",
+                                    hintText:
+                                        profile.userInfoModel!.phone ?? "",
                                     controller: _phoneController,
                                     isPhoneNumber: true,
                                   ),

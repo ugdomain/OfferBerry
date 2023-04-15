@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -16,7 +15,6 @@ class ShopRepo {
   final SharedPreferences? sharedPreferences;
   ShopRepo({@required this.dioClient, @required this.sharedPreferences});
 
-
   Future<ApiResponse> getShop() async {
     try {
       final response = await dioClient!.get(AppConstants.SHOP_URI);
@@ -26,17 +24,22 @@ class ShopRepo {
     }
   }
 
-
-
-  Future<http.StreamedResponse> updateShop(ShopModel userInfoModel,  File file, String token) async {
-    http.MultipartRequest request = http.MultipartRequest('POST', Uri.parse('${AppConstants.BASE_URL}${AppConstants.SHOP_UPDATE}'));
-    request.headers.addAll(<String,String>{'Authorization': 'Bearer $token'});
-    if(file != null) {
-      request.files.add(http.MultipartFile('image', file.readAsBytes().asStream(), file.lengthSync(), filename: file.path.split('/').last));
+  Future<http.StreamedResponse> updateShop(
+      ShopModel userInfoModel, File? file, String token) async {
+    http.MultipartRequest request = http.MultipartRequest('POST',
+        Uri.parse('${AppConstants.BASE_URL}${AppConstants.SHOP_UPDATE}'));
+    request.headers.addAll(<String, String>{'Authorization': 'Bearer $token'});
+    if (file != null) {
+      request.files.add(http.MultipartFile(
+          'image', file.readAsBytes().asStream(), file.lengthSync(),
+          filename: file.path.split('/').last));
     }
     Map<String, String> _fields = Map();
     _fields.addAll(<String, String>{
-      '_method': 'put', 'name': userInfoModel.name!, 'address': userInfoModel.address!, 'contact': userInfoModel.contact!
+      '_method': 'put',
+      'name': userInfoModel.name!,
+      'address': userInfoModel.address!,
+      'contact': userInfoModel.contact!
     });
     request.fields.addAll(_fields);
     http.StreamedResponse response = await request.send();

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hundredminute_seller/controllers/sub_category_controller.dart';
+import 'package:hundredminute_seller/view/screens/home/home_screen.dart';
 import 'package:hundredminute_seller/view/screens/sell/post_ad/addproduct_screen.dart';
 import '../../../controllers/category_controller.dart';
+import '../../../controllers/selling_method_controller.dart';
 import '../../../controllers/sub_category_attr_controller.dart';
 
 class SubCategoryScreen extends StatelessWidget {
   SubCategoryScreen({
     super.key,
-    required this.isWholeSale,
   });
 
-  final bool isWholeSale;
   final SubCategoryController _subCategoryController = Get.find();
   final CategoryController _categoryController = Get.find();
   final SubCategoryAttrController _attrController = Get.find();
+  final SellingMethodController _sellingMethodController =
+      Get.find<SellingMethodController>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,36 @@ class SubCategoryScreen extends StatelessWidget {
                       final category =
                           _subCategoryController.subCategoryList[index];
                       return GestureDetector(
-                        onTap: () {
+                        onTap: () async {
+                          if (HomeScreen.sellingMethodController.isWholeSale) {
+                            await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Product Type"),
+                                  content: Text("Select Product Type"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        _sellingMethodController
+                                            .isProductNew(true);
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("New"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        _sellingMethodController
+                                            .isProductNew(false);
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("Existing"),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
                           _subCategoryController
                               .setSelectedValue(category.name?.toString());
                           _attrController.attrList.clear();
@@ -54,11 +85,13 @@ class SubCategoryScreen extends StatelessWidget {
                               _categoryController.categoryId.toString());
                           _subCategoryController
                               .setSelectedValue(category.name.toString());
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) {
-                              return AddProduct(isWholeSale: isWholeSale);
-                            },
-                          ));
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return AddProduct();
+                              },
+                            ),
+                          );
                         },
                         child: Card(
                           elevation: 5,

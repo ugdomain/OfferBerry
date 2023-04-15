@@ -149,7 +149,7 @@ class ExcelController extends GetxController {
           }
         }
       }
-      Directory(result!.paths!.first.toString()).delete(recursive: true);
+      Directory(result.paths.first.toString()).delete(recursive: true);
     } on Exception catch (e) {
       print("Error = ${e.toString()}");
     }

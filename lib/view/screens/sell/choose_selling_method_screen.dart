@@ -44,9 +44,7 @@ class ChooseSellingMethodScreen extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return CategoryScreen(
-                        isWholeSale: false,
-                      );
+                      return CategoryScreen();
                     },
                   ),
                 );
@@ -108,9 +106,7 @@ class ChooseSellingMethodScreen extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) {
-                      return CategoryScreen(
-                        isWholeSale: true,
-                      );
+                      return CategoryScreen();
                     },
                   ),
                 );

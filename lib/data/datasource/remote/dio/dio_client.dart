@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../controllers/static_fields_controller.dart';
 import '../../../../utill/app_constants.dart';
 import 'logging_interceptor.dart';
-import "package:http/http.dart" as https;
+// import "package:http/http.dart" as https;
 
 class DioClient {
   final String? baseUrl;

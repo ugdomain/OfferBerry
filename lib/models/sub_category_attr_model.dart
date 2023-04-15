@@ -50,17 +50,33 @@ class SubCategoryAttr {
                         controlValidation: "REQUIRED",
                         type: TextInputType.number,
                       ),
-                      Attr(
-                        control: "input",
-                        controlName: "Defects",
-                        jsonName: "defects",
-                        controlValidation: "REQUIRED",
-                        type: TextInputType.text,
-                      ),
+                      if (!HomeScreen.sellingMethodController.isNewProduct)
+                        {
+                          Attr(
+                            control: "input",
+                            controlName: "Defects",
+                            jsonName: "defects",
+                            controlValidation: "REQUIRED",
+                            type: TextInputType.text,
+                          ),
+                        },
+                      if (HomeScreen.sellingMethodController.isNewProduct)
+                        {
+                          Attr(
+                            control: "input",
+                            controlName: "Minimum Quantity",
+                            jsonName: "min_qty",
+                            controlValidation: "REQUIRED",
+                            type: TextInputType.number,
+                          )
+                        },
                     ],
               )
             : List<Attr>.from(
-                json["attrs"].map((x) => Attr.fromJson(x)).toList()),
+                json["attrs"] != null
+                    ? json["attrs"].map((x) => Attr.fromJson(x)).toList()
+                    : [],
+              ),
       );
 
   Map<String, dynamic> toJson() => {
