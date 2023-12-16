@@ -16,14 +16,14 @@ dependencies:
   get_it: ^7.2.0
   provider: ^6.0.5
   connectivity: ^3.0.3
-  dio: ^4.0.6
+  dio: ^5.4.0
   shared_preferences: ^2.0.5
-  shimmer: ^2.0.0-nullsafety.0
+  shimmer: ^3.0.0
   flutter_switch: ^0.3.0
-  fl_chart: ^0.60.0
+  fl_chart: ^0.65.0
   path_provider: ^2.0.0
-  syncfusion_flutter_pdf: ^20.3.52
-  flutter_local_notifications: ^8.2.0
+  syncfusion_flutter_pdf: ^23.2.7
+  flutter_local_notifications: ^16.2.0
   firebase_core: ^2.1.1
   firebase_messaging: ^14.0.4
   file_utils: ^1.0.1
@@ -32,16 +32,16 @@ dependencies:
   cached_network_image: ^3.2.2
 
   open_file: ^3.2.1
-  flutter_speed_dial: ^6.2.0
+  flutter_speed_dial: ^7.0.0
   flutter_filereader: ^3.0.0
-  syncfusion_flutter_xlsio: ^20.3.52-beta
+  syncfusion_flutter_xlsio: ^23.2.7
   path: ^1.8.2
-  excel: ^2.0.0-null-safety-3
-  image_picker: ^0.8.6
-  flutter_staggered_grid_view: ^0.6.2
+  excel: ^4.0.0
+  image_picker: ^1.0.5
+  flutter_staggered_grid_view: ^0.7.0
   dotted_border: ^2.0.0+3
-  file_picker: ^4.2.2
-  syncfusion_flutter_charts: ^20.4.48
+  file_picker: ^6.1.1
+  syncfusion_flutter_charts: ^23.2.7
   intl: ^0.18.1
 
 # dependency_overrides:

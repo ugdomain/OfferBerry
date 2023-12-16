@@ -95,7 +95,7 @@ class ExcelController extends GetxController {
     try {
       for (var table in excel.tables.keys) {
         print(table); //sheet Name
-        print(excel.tables[table]!.maxCols);
+        print(excel.tables[table]!.maxColumns);
         print(excel.tables[table]!.maxRows);
         for (var row in excel.tables[table]!.rows) {
           List list = [];

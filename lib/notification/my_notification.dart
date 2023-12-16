@@ -12,8 +12,10 @@ class MyNotification {
     Future _showNotificationWithDefaultSound(
         String title, String message) async {
       var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-          'channel_id', 'channel_name', 'channel_description',
-          importance: Importance.max, priority: Priority.high);
+          'channel_id', 'channel_name',
+          channelDescription: 'channel_description',
+          importance: Importance.max,
+          priority: Priority.high);
       // var iOSPlatformChannelSpecifics = IOSNotificationDetails();
       var platformChannelSpecifics =
           NotificationDetails(android: androidPlatformChannelSpecifics);
@@ -72,8 +74,10 @@ class MyNotification {
   displayNotification({String? title, String? body}) async {
     print('doing test');
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'your channel id', 'your channel name', 'your channel description',
-        importance: Importance.max, priority: Priority.high);
+        'your channel id', 'your channel name',
+        channelDescription: 'your channel description',
+        importance: Importance.max,
+        priority: Priority.high);
     // var iOSPlatformChannelSpecifics = const IOSNotificationDetails();
     var platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
@@ -110,7 +114,7 @@ class MyNotification {
         AndroidNotificationDetails(
       'your channel id',
       'your channel name',
-      'your channel description',
+      channelDescription: 'your channel description',
       sound: RawResourceAndroidNotificationSound('notification'),
       importance: Importance.max,
       priority: Priority.high,
@@ -136,7 +140,7 @@ class MyNotification {
         AndroidNotificationDetails(
       'big text channel id',
       'big text channel name',
-      'big text channel description',
+      channelDescription: 'big text channel description',
       importance: Importance.max,
       styleInformation: bigTextStyleInformation,
       priority: Priority.high,
@@ -173,7 +177,7 @@ class MyNotification {
         AndroidNotificationDetails(
       'big text channel id',
       'big text channel name',
-      'big text channel description',
+      channelDescription: 'big text channel description',
       largeIcon: FilePathAndroidBitmap(largeIconPath),
       priority: Priority.high,
       sound: RawResourceAndroidNotificationSound('notification'),

@@ -7,23 +7,23 @@ class ApiErrorHandler {
     dynamic errorDescription = "";
     if (error is Exception) {
       try {
-        if (error is DioError) {
+        if (error is DioException) {
           switch (error.type) {
-            case DioErrorType.cancel:
+            case DioExceptionType.cancel:
               errorDescription = "Request to API server was cancelled";
               break;
-            case DioErrorType.connectTimeout:
+            case DioExceptionType.connectionTimeout:
               errorDescription = "Connection timeout with API server";
               break;
-            case DioErrorType.other:
+            case DioExceptionType.unknown:
               errorDescription =
                   "Connection to API server failed due to internet connection";
               break;
-            case DioErrorType.receiveTimeout:
+            case DioExceptionType.receiveTimeout:
               errorDescription =
                   "Receive timeout in connection with API server";
               break;
-            case DioErrorType.response:
+            case DioExceptionType.badResponse:
               switch (error.response!.statusCode) {
                 case 404:
                 case 500:
@@ -40,8 +40,14 @@ class ApiErrorHandler {
                         "Failed to load data - status code: ${error.response!.statusCode}";
               }
               break;
-            case DioErrorType.sendTimeout:
+            case DioExceptionType.sendTimeout:
               errorDescription = "Send timeout with server";
+              break;
+            case DioExceptionType.badCertificate:
+              errorDescription = "Invalid certificate";
+              break;
+            case DioExceptionType.connectionError:
+              errorDescription = "Connection to API server failed";
               break;
           }
         } else {

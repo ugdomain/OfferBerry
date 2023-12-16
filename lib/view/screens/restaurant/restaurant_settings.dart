@@ -15,37 +15,39 @@ import '../../base/custom_button.dart';
 import '../../base/textfeild/custom_text_feild.dart';
 
 class RestaurantSettingsScreen extends StatefulWidget {
-
   @override
-  _RestaurantSettingsScreenState createState() => _RestaurantSettingsScreenState();
+  _RestaurantSettingsScreenState createState() =>
+      _RestaurantSettingsScreenState();
 }
 
 class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
-
-   TextEditingController? _restaurantNameController ;
-   TextEditingController? _addressController ;
-   TextEditingController? _phoneController ;
+  TextEditingController? _restaurantNameController;
+  TextEditingController? _addressController;
+  TextEditingController? _phoneController;
 
   final FocusNode _resNameNode = FocusNode();
   final FocusNode _addressNode = FocusNode();
   final FocusNode _phoneNode = FocusNode();
   GlobalKey<FormState>? _formKeyLogin;
 
+  File? file;
+  final picker = ImagePicker();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-   File? file;
-   final picker = ImagePicker();
-   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-   void _choose() async {
-     final pickedFile = await picker.getImage(source: ImageSource.gallery, imageQuality: 50, maxHeight: 500, maxWidth: 500);
-     setState(() {
-       if (pickedFile != null) {
-         file = File(pickedFile.path);
-       } else {
-         print('No image selected.');
-       }
-     });
-   }
+  void _choose() async {
+    final pickedFile = await picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 50,
+        maxHeight: 500,
+        maxWidth: 500);
+    setState(() {
+      if (pickedFile != null) {
+        file = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -80,16 +82,21 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
             child: ListView(
               physics: const BouncingScrollPhysics(),
               children: [
-
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.secondary,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: [BoxShadow(
-                      color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 300]!,
-                      blurRadius: 5, spreadRadius: 1,
-                    )],
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey[
+                            Provider.of<ThemeProvider>(context).darkTheme
+                                ? 700
+                                : 300]!,
+                        blurRadius: 5,
+                        spreadRadius: 1,
+                      )
+                    ],
                   ),
                   child: InkWell(
                     onTap: _choose,
@@ -100,19 +107,21 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
                           borderRadius: BorderRadius.circular(12),
                           child: file == null
                               ? Image.asset(
-                            Images.restaurant_image,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          )
+                                  Images.restaurant_image,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                )
                               : Image.file(file!,
-                              width: double.infinity,
-                              height: MediaQuery.of(context).size.height/ 3.5,
-                              fit: BoxFit.cover),
+                                  width: double.infinity,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3.5,
+                                  fit: BoxFit.cover),
                         ),
                         Positioned(
                           bottom: -5,
                           right: 0,
-                          child: InkWell(onTap: _choose,
+                          child: InkWell(
+                              onTap: _choose,
                               child: Container(
                                 alignment: Alignment.center,
                                 padding: const EdgeInsets.all(5),
@@ -120,19 +129,24 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
                                   shape: BoxShape.circle,
                                   color: Theme.of(context).primaryColor,
                                 ),
-                                child: const Icon(Icons.camera_alt_outlined, size: 20, color: ColorResources.WHITE,),
-                          )),
+                                child: const Icon(
+                                  Icons.camera_alt_outlined,
+                                  size: 20,
+                                  color: ColorResources.WHITE,
+                                ),
+                              )),
                         ),
                       ],
                     ),
                   ),
                 ),
 
-
                 const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                Text(
-                  getTranslated('restaurant_name', context),
-                  style: titilliumRegular.copyWith(fontSize: Dimensions.PADDING_SIZE_DEFAULT, color: ColorResources.getHintColor(context),)),
+                Text(getTranslated('restaurant_name', context),
+                    style: titilliumRegular.copyWith(
+                      fontSize: Dimensions.PADDING_SIZE_DEFAULT,
+                      color: ColorResources.getHintColor(context),
+                    )),
 
                 const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                 CustomTextField(
@@ -144,9 +158,11 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
                   textInputAction: TextInputAction.next,
                 ),
                 const SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-                Text(
-                  getTranslated('address_line_01', context),
-                  style: titilliumRegular.copyWith(fontSize: Dimensions.PADDING_SIZE_DEFAULT, color: ColorResources.getHintColor(context),)),
+                Text(getTranslated('address_line_01', context),
+                    style: titilliumRegular.copyWith(
+                      fontSize: Dimensions.PADDING_SIZE_DEFAULT,
+                      color: ColorResources.getHintColor(context),
+                    )),
 
                 const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                 CustomTextField(
@@ -158,9 +174,11 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
                 ),
 
                 const SizedBox(height: 22),
-                Text(
-                  getTranslated('phone_no', context),
-                  style: titilliumRegular.copyWith(fontSize: Dimensions.PADDING_SIZE_DEFAULT, color: ColorResources.getHintColor(context),)),
+                Text(getTranslated('phone_no', context),
+                    style: titilliumRegular.copyWith(
+                      fontSize: Dimensions.PADDING_SIZE_DEFAULT,
+                      color: ColorResources.getHintColor(context),
+                    )),
 
                 const SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                 CustomTextField(
@@ -173,15 +191,15 @@ class _RestaurantSettingsScreenState extends State<RestaurantSettingsScreen> {
 
                 // for login button
                 const SizedBox(height: 50),
-               CustomButton(
+                CustomButton(
                   btnTxt: getTranslated('save', context),
                   backgroundColor: ColorResources.WHITE,
-                  onTap: ()  {
+                  onTap: () {
                     Navigator.pop(context);
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => RestaurantScreen()));
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (_) => RestaurantScreen()));
                   },
                 )
-
               ],
             ),
           ),
