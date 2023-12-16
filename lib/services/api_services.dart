@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../models/category_model.dart';
 import '../models/sub_category_attr_model.dart';
@@ -122,9 +123,11 @@ class ProductServices {
         _catAttrCounter = 0;
         categoryAttrList.clear();
         print("data is ${response.body}");
-        var data = json.decode(response.body.toString());
+        Map<String, dynamic> data = json.decode(response.body.toString());
         print("test is $data");
-        categoryAttrList.add(SubCategoryAttr.fromJson(data));
+        if (data.isNotEmpty) {
+          categoryAttrList.add(SubCategoryAttr.fromJson(data));
+        }
         return categoryAttrList;
       } else {
         return categoryAttrList;

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hundredminute_seller/view/screens/home/home_screen.dart';
 
 SubCategoryAttr subCategoryAttrFromJson(str) => SubCategoryAttr.fromJson(str);
@@ -20,64 +21,87 @@ class SubCategoryAttr {
   String? parentId;
   List<Attr>? attrs;
 
-  factory SubCategoryAttr.fromJson(Map<String, dynamic> json) =>
-      SubCategoryAttr(
-        id: json["id"],
-        catId: json["cat_id"],
-        parentId: json["parent_id"],
-        attrs: HomeScreen.sellingMethodController.isWholeSale
-            ? List<Attr>.from(
-                json["attrs"].map((x) => Attr.fromJson(x)).toList() +
-                    [
-                      Attr(
-                        control: "input",
-                        controlName: "Batch Id",
-                        jsonName: "batch_id",
-                        controlValidation: "REQUIRED",
-                        type: TextInputType.number,
-                      ),
-                      Attr(
-                        control: "input",
-                        controlName: "Quantity",
-                        jsonName: "quantity",
-                        controlValidation: "REQUIRED",
-                        type: TextInputType.number,
-                      ),
-                      Attr(
-                        control: "input",
-                        controlName: "Palate Id",
-                        jsonName: "palate_id",
-                        controlValidation: "REQUIRED",
-                        type: TextInputType.number,
-                      ),
-                      if (!HomeScreen.sellingMethodController.isNewProduct)
-                        {
-                          Attr(
-                            control: "input",
-                            controlName: "Defects",
-                            jsonName: "defects",
-                            controlValidation: "REQUIRED",
-                            type: TextInputType.text,
-                          ),
-                        },
-                      if (HomeScreen.sellingMethodController.isNewProduct)
-                        {
-                          Attr(
-                            control: "input",
-                            controlName: "Minimum Quantity",
-                            jsonName: "min_qty",
-                            controlValidation: "REQUIRED",
-                            type: TextInputType.number,
-                          )
-                        },
-                    ],
-              )
-            : List<Attr>.from(
-                json["attrs"] != null
-                    ? json["attrs"].map((x) => Attr.fromJson(x)).toList()
-                    : [],
-              ),
+  factory SubCategoryAttr.fromJson(Map<String, dynamic> json) {
+    final subCategoryAttr = SubCategoryAttr(
+      id: json["id"],
+      catId: json["cat_id"],
+      parentId: json["parent_id"],
+      attrs: HomeScreen.sellingMethodController.isWholeSale
+          ? List<Attr>.from(
+              json["attrs"].map((x) => Attr.fromJson(x)).toList() +
+                  [
+                    Attr(
+                      control: "input",
+                      controlName: "Batch Id",
+                      jsonName: "batch_id",
+                      controlValidation: "REQUIRED",
+                      type: TextInputType.number,
+                    ),
+                    Attr(
+                      control: "input",
+                      controlName: "Quantity",
+                      jsonName: "quantity",
+                      controlValidation: "REQUIRED",
+                      type: TextInputType.number,
+                    ),
+                    Attr(
+                      control: "input",
+                      controlName: "Palate Id",
+                      jsonName: "palate_id",
+                      controlValidation: "REQUIRED",
+                      type: TextInputType.number,
+                    ),
+                    // if (!HomeScreen.sellingMethodController.isNewProduct)
+                    //   {
+                    //     Attr(
+                    //       control: "input",
+                    //       controlName: "Defects",
+                    //       jsonName: "defects",
+                    //       controlValidation: "REQUIRED",
+                    //       type: TextInputType.text,
+                    //     ),
+                    //   },
+                    // if (HomeScreen.sellingMethodController.isNewProduct)
+                    //   {
+                    //     Attr(
+                    //       control: "input",
+                    //       controlName: "Minimum Quantity",
+                    //       jsonName: "min_qty",
+                    //       controlValidation: "REQUIRED",
+                    //       type: TextInputType.number,
+                    //     )
+                    //   },
+                  ],
+            )
+          : List<Attr>.from(
+              json["attrs"] != null
+                  ? json["attrs"].map((x) => Attr.fromJson(x)).toList()
+                  : [],
+            ),
+    );
+    if (HomeScreen.sellingMethodController.isNewProduct) {
+      subCategoryAttr.attrs!.add(
+        Attr(
+          control: "input",
+          controlName: "Minimum Quantity",
+          jsonName: "min_qty",
+          controlValidation: "REQUIRED",
+          type: TextInputType.number,
+        ),
       );
+    } else {
+      subCategoryAttr.attrs!.add(
+        Attr(
+          control: "input",
+          controlName: "Defects",
+          jsonName: "defects",
+          controlValidation: "REQUIRED",
+          type: TextInputType.text,
+        ),
+      );
+    }
+    return subCategoryAttr;
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,

@@ -8,7 +8,7 @@ class SellingMethodController extends GetxController {
   bool get isNewProduct => _isNewProduct.value;
 
   void isProductNew(bool value) {
-    _isNewProduct(value);
+    _isNewProduct.value = value;
   }
 
   void setWholeSale(bool value) {

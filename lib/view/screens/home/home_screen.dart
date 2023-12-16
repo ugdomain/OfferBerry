@@ -170,6 +170,7 @@ class HomeScreen extends StatelessWidget {
                                                 orderProvider.pendingList,
                                             callback: callback,
                                           ),
+                                          const SizedBox(width: 10),
                                           OrderTypeButton(
                                             text: getTranslated(
                                                 'processing', context),
@@ -177,6 +178,7 @@ class HomeScreen extends StatelessWidget {
                                             orderList: orderProvider.processing,
                                             callback: callback,
                                           ),
+                                          const SizedBox(width: 10),
                                           OrderTypeButton(
                                             text: getTranslated(
                                                 'delivered', context),
@@ -185,6 +187,7 @@ class HomeScreen extends StatelessWidget {
                                                 orderProvider.deliveredList,
                                             callback: callback,
                                           ),
+                                          const SizedBox(width: 10),
                                           OrderTypeButton(
                                             text: getTranslated(
                                                 'return', context),
@@ -192,6 +195,7 @@ class HomeScreen extends StatelessWidget {
                                             orderList: orderProvider.returnList,
                                             callback: callback,
                                           ),
+                                          const SizedBox(width: 10),
                                           OrderTypeButton(
                                             text: getTranslated(
                                                 'failed', context),
