@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -23,41 +22,44 @@ class EarningChartState extends State<EarningChart> {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 1,
-      child: Container(
-        padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_DEFAULT),
-          color: ColorResources.getBottomSheetColor(context),
-        ),
-        child: Column(children: [
-          Text(getTranslated('monthly_earning', context), style: titilliumSemiBold.copyWith(
-              color: ColorResources.getPrimary(context),
-              fontSize: Dimensions.FONT_SIZE_DEFAULT),
+        aspectRatio: 1,
+        child: Container(
+          padding: const EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
+          decoration: BoxDecoration(
+            borderRadius:
+                BorderRadius.circular(Dimensions.PADDING_SIZE_DEFAULT),
+            color: ColorResources.getBottomSheetColor(context),
           ),
-
-          const SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
-          Expanded(
-            child: SizedBox(
-              height: 350,
-              child: BarChart(
-                mainBarData(context),
+          child: Column(
+            children: [
+              Text(
+                getTranslated('monthly_earning', context),
+                style: titilliumSemiBold.copyWith(
+                    color: ColorResources.getPrimary(context),
+                    fontSize: Dimensions.FONT_SIZE_DEFAULT),
               ),
-            ),
+              const SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
+              Expanded(
+                child: SizedBox(
+                  height: 350,
+                  child: BarChart(
+                    mainBarData(context),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],),
-      )
-    );
+        ));
   }
 
   BarChartGroupData makeGroupData(
-      int x,
-      double y, {
-        bool isTouched = false,
-        Color barColor = ColorResources.LIGHT_SKY_BLUE,
-        double width = 22,
-        List<int> showTooltips = const [],
-      }) {
+    int x,
+    double y, {
+    bool isTouched = false,
+    Color barColor = ColorResources.LIGHT_SKY_BLUE,
+    double width = 22,
+    List<int> showTooltips = const [],
+  }) {
     return BarChartGroupData(
       x: x,
       barRods: [
@@ -66,52 +68,66 @@ class EarningChartState extends State<EarningChart> {
           color: isTouched ? ColorResources.getPrimary(context) : barColor,
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
-            show: true,
-            toY: widget.max,
-            color: ColorResources.getGrey(context).withOpacity(0.9)
-          ),
+              show: true,
+              toY: widget.max,
+              color: ColorResources.getGrey(context).withOpacity(0.9)),
         ),
       ],
       showingTooltipIndicators: showTooltips,
     );
   }
 
-  List<BarChartGroupData> showingGroups() => List.generate(12, (i) {
-    switch (i) {
-      case 0:
-        return makeGroupData(0, widget.earnings![0], isTouched: i == touchedIndex);
-      case 1:
-        return makeGroupData(1, widget.earnings![1], isTouched: i == touchedIndex);
-      case 2:
-        return makeGroupData(2, widget.earnings![2], isTouched: i == touchedIndex);
-      case 3:
-        return makeGroupData(3, widget.earnings![3], isTouched: i == touchedIndex);
-      case 4:
-        return makeGroupData(4, widget.earnings![4], isTouched: i == touchedIndex);
-      case 5:
-        return makeGroupData(5, widget.earnings![5], isTouched: i == touchedIndex);
-      case 6:
-        return makeGroupData(6, widget.earnings![6], isTouched: i == touchedIndex);
-      case 7:
-        return makeGroupData(7, widget.earnings![7], isTouched: i == touchedIndex);
-      case 8:
-        return makeGroupData(8, widget.earnings![8], isTouched: i == touchedIndex);
-      case 9:
-        return makeGroupData(9, widget.earnings![9], isTouched: i == touchedIndex);
-      case 10:
-        return makeGroupData(10, widget.earnings![10], isTouched: i == touchedIndex);
-      case 11:
-        return makeGroupData(11, widget.earnings![11], isTouched: i == touchedIndex);
-      default:
-        return null!;
-    }
-  });
+  List<BarChartGroupData> showingGroups() => List.generate(
+        12,
+        (i) {
+          switch (i) {
+            case 0:
+              return makeGroupData(0, widget.earnings![0],
+                  isTouched: i == touchedIndex);
+            case 1:
+              return makeGroupData(1, widget.earnings![1],
+                  isTouched: i == touchedIndex);
+            case 2:
+              return makeGroupData(2, widget.earnings![2],
+                  isTouched: i == touchedIndex);
+            case 3:
+              return makeGroupData(3, widget.earnings![3],
+                  isTouched: i == touchedIndex);
+            case 4:
+              return makeGroupData(4, widget.earnings![4],
+                  isTouched: i == touchedIndex);
+            case 5:
+              return makeGroupData(5, widget.earnings![5],
+                  isTouched: i == touchedIndex);
+            case 6:
+              return makeGroupData(6, widget.earnings![6],
+                  isTouched: i == touchedIndex);
+            case 7:
+              return makeGroupData(7, widget.earnings![7],
+                  isTouched: i == touchedIndex);
+            case 8:
+              return makeGroupData(8, widget.earnings![8],
+                  isTouched: i == touchedIndex);
+            case 9:
+              return makeGroupData(9, widget.earnings![9],
+                  isTouched: i == touchedIndex);
+            case 10:
+              return makeGroupData(10, widget.earnings![10],
+                  isTouched: i == touchedIndex);
+            case 11:
+              return makeGroupData(11, widget.earnings![11],
+                  isTouched: i == touchedIndex);
+            default:
+              return null!;
+          }
+        },
+      );
 
   BarChartData mainBarData(BuildContext context) {
     return BarChartData(
       barTouchData: BarTouchData(
         touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: Theme.of(context).primaryColor,
+            getTooltipColor: (_) => Theme.of(context).primaryColor,
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               String? month;
               switch (group.x.toInt()) {
@@ -154,7 +170,10 @@ class EarningChartState extends State<EarningChart> {
               }
               return BarTooltipItem(
                 '${month!}\n',
-                TextStyle(color: Theme.of(context).colorScheme.secondary, fontWeight: FontWeight.bold, fontSize: 18),
+                TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18),
                 children: [
                   TextSpan(
                     text: (rod.toY - 1).toString(),
@@ -167,9 +186,10 @@ class EarningChartState extends State<EarningChart> {
                 ],
               );
             }),
-        touchCallback: (FlTouchEvent? touchEvent,BarTouchResponse? barTouchResponse) {
+        touchCallback:
+            (FlTouchEvent? touchEvent, BarTouchResponse? barTouchResponse) {
           setState(() {
-                if(barTouchResponse != null){
+            if (barTouchResponse != null) {
               if (barTouchResponse.spot != null &&
                   barTouchResponse.spot is! PointerUpEvent &&
                   barTouchResponse.spot is! PointerExitEvent) {
@@ -184,12 +204,12 @@ class EarningChartState extends State<EarningChart> {
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: AxisTitles(
-            sideTitles:SideTitles(
+            sideTitles: SideTitles(
           showTitles: true,
           reservedSize: 45,
-        //  getTextStyles: (value) => TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold, fontSize: 12.0),
+          //  getTextStyles: (value) => TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold, fontSize: 12.0),
           interval: 10,
-          getTitlesWidget: (double value,t) {
+          getTitlesWidget: (double value, t) {
             switch (value.toInt()) {
               case 0:
                 return const Text('Jan');
@@ -220,7 +240,7 @@ class EarningChartState extends State<EarningChart> {
             }
           },
         )),
-        leftTitles:AxisTitles(sideTitles: SideTitles(showTitles: false)),
+        leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
       ),
       borderData: FlBorderData(show: false),
       barGroups: showingGroups(),
